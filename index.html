@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Youth Volunteers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #667eea;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card ul {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .benefits {
+            background: #f8f9fa;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .how-it-works {
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            position: relative;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .safety {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .safety h2 {
+            color: #e53e3e;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌟 Community Youth Volunteers</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#safety">Safety</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Empowering Teens Through Community Service</h1>
+        <p>Connecting motivated teenagers with families who need help, while building valuable real-world experience</p>
+        <div class="cta-buttons">
+            <a href="#volunteer" class="btn btn-primary">Become a Volunteer</a>
+            <a href="#request" class="btn btn-secondary">Request Help</a>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2>Who We Are</h2>
+        <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; color: #555;">
+            We're a nonprofit volunteer service network that helps teenagers aged 13+ gain meaningful community service experience while supporting busy families with everyday tasks. All work is voluntary and unpaid, with verified hours for school, scholarships, and college applications.
+        </p>
+    </section>
+
+    <section class="benefits">
+        <h2>Why Join Our Program?</h2>
+        <div class="benefit-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">📋</div>
+                <h3>Verified Hours</h3>
+                <p>Official documentation for school requirements, clubs, and college applications</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💪</div>
+                <h3>Build Skills</h3>
+                <p>Gain real-world experience and develop responsibility and confidence</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🤝</div>
+                <h3>Help Community</h3>
+                <p>Make a real difference in your local neighborhood</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <h3>Flexible Schedule</h3>
+                <p>Choose opportunities that fit your availability and interests</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>Safe & Approved Tasks</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>🏡 Yard & Home</h3>
+                <ul>
+                    <li>Yard cleanup and raking</li>
+                    <li>Light organizing</li>
+                    <li>Basic cleaning</li>
+                    <li>Garage organization</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>📚 Educational</h3>
+                <ul>
+                    <li>Tutoring younger children</li>
+                    <li>Homework help</li>
+                    <li>Reading assistance</li>
+                    <li>Study skills support</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>💻 Tech Support</h3>
+                <ul>
+                    <li>Basic computer help</li>
+                    <li>Device setup</li>
+                    <li>Social media guidance</li>
+                    <li>Tech troubleshooting</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🐾 Pet Care</h3>
+                <ul>
+                    <li>Dog walking</li>
+                    <li>Pet sitting</li>
+                    <li>Basic pet care</li>
+                    <li>Playing with pets</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Sign Up</h3>
+                <p>Teens complete an application with parent consent. Families submit service requests.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Get Matched</h3>
+                <p>We review requests for safety and match volunteers based on skills and availability.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Volunteer</h3>
+                <p>Teens complete approved tasks while parents stay informed of their location.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Earn Hours</h3>
+                <p>Hours are verified, logged, and officially documented for your records.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="safety" class="safety">
+        <h2>Safety First</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>✓ Parent Consent Required</h3>
+                <p>All volunteers need guardian approval and emergency contact information on file.</p>
+            </div>
+            <div class="card">
+                <h3>✓ Pre-Approved Tasks Only</h3>
+                <p>We carefully review all service requests to ensure they're safe and age-appropriate.</p>
+            </div>
+            <div class="card">
+                <h3>✓ Right to Decline</h3>
+                <p>Volunteers can decline or stop any task if they feel unsafe or uncomfortable.</p>
+            </div>
+            <div class="card">
+                <h3>✓ Signed Agreements</h3>
+                <p>Liability waivers and program rules are signed by all participants.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="volunteer" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center;">
+        <h2 style="color: white;">Ready to Make a Difference?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join our community of teen volunteers and start earning verified service hours today.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary">Apply as a Volunteer</a>
+            <a href="#" class="btn btn-secondary">Request Service</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Community Youth Volunteers. A nonprofit volunteer service network.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Building responsibility, confidence, and community connections.</p>
+    </footer>
+</body>
+</html>
