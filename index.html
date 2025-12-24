@@ -474,15 +474,7 @@
                     <li>Study skills support</li>
                 </ul>
             </div>
-            <div class="card">
-                <h3>💻 Tech Support</h3>
-                <ul>
-                    <li>Basic computer help</li>
-                    <li>Device setup</li>
-                    <li>Social media guidance</li>
-                    <li>Tech troubleshooting</li>
-                </ul>
-            </div>
+
             <div class="card">
                 <h3>🐾 Pet Care</h3>
                 <ul>
@@ -560,89 +552,87 @@
                 <h2>Volunteer Application</h2>
             </div>
             <div class="modal-body">
-                <form action="https://formspree.io/f/xeoqbjbd" method="POST">
-                    <input type="hidden" name="_subject" value="New Volunteer Application">
-                    
+                <form id="volunteerForm">
                     <h3 style="margin-bottom: 1rem; color: #667eea;">Teen Information</h3>
                     
                     <div class="form-group">
                         <label>Full Name <span class="required">*</span></label>
-                        <input type="text" name="teen_name" required>
+                        <input type="text" id="teen_name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Age <span class="required">*</span></label>
-                        <input type="number" name="age" min="13" max="19" required>
+                        <input type="number" id="age" min="13" max="19" required>
                     </div>
 
                     <div class="form-group">
                         <label>Email <span class="required">*</span></label>
-                        <input type="email" name="teen_email" required>
+                        <input type="email" id="teen_email" required>
                     </div>
 
                     <div class="form-group">
                         <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" name="teen_phone" required>
+                        <input type="tel" id="teen_phone" required>
                     </div>
 
                     <div class="form-group">
                         <label>Address <span class="required">*</span></label>
-                        <input type="text" name="address" required>
+                        <input type="text" id="address" required>
                     </div>
 
                     <div class="form-group">
                         <label>What types of volunteer work interest you? <span class="required">*</span></label>
-                        <textarea name="interests" required placeholder="e.g., tutoring, yard work, pet care, tech help..."></textarea>
+                        <textarea id="interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>What skills or experience do you have?</label>
-                        <textarea name="skills" placeholder="e.g., good with kids, tech-savvy, organized, patient..."></textarea>
+                        <textarea id="skills" placeholder="e.g., good with kids, organized, patient..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Availability <span class="required">*</span></label>
-                        <textarea name="availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
+                        <textarea id="availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Why do you want to volunteer?</label>
-                        <textarea name="motivation" placeholder="Tell us what motivates you to join our program"></textarea>
+                        <textarea id="motivation" placeholder="Tell us what motivates you to join our program"></textarea>
                     </div>
 
                     <h3 style="margin: 2rem 0 1rem; color: #667eea;">Parent/Guardian Information</h3>
 
                     <div class="form-group">
                         <label>Parent/Guardian Name <span class="required">*</span></label>
-                        <input type="text" name="parent_name" required>
+                        <input type="text" id="parent_name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Parent/Guardian Email <span class="required">*</span></label>
-                        <input type="email" name="parent_email" required>
+                        <input type="email" id="parent_email" required>
                     </div>
 
                     <div class="form-group">
                         <label>Parent/Guardian Phone <span class="required">*</span></label>
-                        <input type="tel" name="parent_phone" required>
+                        <input type="tel" id="parent_phone" required>
                     </div>
 
                     <div class="form-group">
                         <label>Emergency Contact Name <span class="required">*</span></label>
-                        <input type="text" name="emergency_name" required>
+                        <input type="text" id="emergency_name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Emergency Contact Phone <span class="required">*</span></label>
-                        <input type="tel" name="emergency_phone" required>
+                        <input type="tel" id="emergency_phone" required>
                     </div>
 
                     <div class="form-group checkbox-group">
-                        <input type="checkbox" name="parent_consent" id="consent" required>
+                        <input type="checkbox" id="consent" required>
                         <label for="consent">I am the parent/guardian and I consent to my child's participation in this volunteer program. I understand the program rules and agree to the liability waiver. <span class="required">*</span></label>
                     </div>
 
-                    <button type="submit" class="submit-btn">Submit Application</button>
+                    <button type="button" onclick="submitVolunteerForm()" class="submit-btn">Submit Application</button>
                 </form>
             </div>
         </div>
@@ -656,36 +646,33 @@
                 <h2>Service Request</h2>
             </div>
             <div class="modal-body">
-                <form action="https://formspree.io/f/xeoqbjbd" method="POST">
-                    <input type="hidden" name="_subject" value="New Service Request">
-                    
+                <form id="requestForm">
                     <div class="form-group">
                         <label>Your Name <span class="required">*</span></label>
-                        <input type="text" name="requester_name" required>
+                        <input type="text" id="requester_name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Email <span class="required">*</span></label>
-                        <input type="email" name="requester_email" required>
+                        <input type="email" id="requester_email" required>
                     </div>
 
                     <div class="form-group">
                         <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" name="requester_phone" required>
+                        <input type="tel" id="requester_phone" required>
                     </div>
 
                     <div class="form-group">
                         <label>Service Location Address <span class="required">*</span></label>
-                        <input type="text" name="service_address" required>
+                        <input type="text" id="service_address" required>
                     </div>
 
                     <div class="form-group">
                         <label>Type of Help Needed <span class="required">*</span></label>
-                        <select name="service_type" required>
+                        <select id="service_type" required>
                             <option value="">Select a category...</option>
                             <option value="Yard & Home">Yard & Home (cleanup, organizing, light cleaning)</option>
                             <option value="Educational">Educational (tutoring, homework help)</option>
-                            <option value="Tech Support">Tech Support (computer help, device setup)</option>
                             <option value="Pet Care">Pet Care (walking, sitting, basic care)</option>
                             <option value="Other">Other (please describe below)</option>
                         </select>
@@ -693,30 +680,30 @@
 
                     <div class="form-group">
                         <label>Task Description <span class="required">*</span></label>
-                        <textarea name="task_description" required placeholder="Please describe the task in detail. Be specific about what needs to be done."></textarea>
+                        <textarea id="task_description" required placeholder="Please describe the task in detail. Be specific about what needs to be done."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Preferred Date(s) <span class="required">*</span></label>
-                        <input type="text" name="preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
+                        <input type="text" id="preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
                     </div>
 
                     <div class="form-group">
                         <label>Estimated Time Needed</label>
-                        <input type="text" name="time_needed" placeholder="e.g., 2 hours, half day">
+                        <input type="text" id="time_needed" placeholder="e.g., 2 hours, half day">
                     </div>
 
                     <div class="form-group">
                         <label>Special Requirements or Notes</label>
-                        <textarea name="special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
+                        <textarea id="special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
                     </div>
 
                     <div class="form-group checkbox-group">
-                        <input type="checkbox" name="agreement" id="agreement" required>
+                        <input type="checkbox" id="agreement" required>
                         <label for="agreement">I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
                     </div>
 
-                    <button type="submit" class="submit-btn">Submit Request</button>
+                    <button type="button" onclick="submitRequestForm()" class="submit-btn">Submit Request</button>
                 </form>
             </div>
         </div>
@@ -742,6 +729,101 @@
 
         function closeRequestModal() {
             document.getElementById('requestModal').style.display = 'none';
+        }
+
+        function submitVolunteerForm() {
+            const form = document.getElementById('volunteerForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const teenName = document.getElementById('teen_name').value;
+            const age = document.getElementById('age').value;
+            const teenEmail = document.getElementById('teen_email').value;
+            const teenPhone = document.getElementById('teen_phone').value;
+            const address = document.getElementById('address').value;
+            const interests = document.getElementById('interests').value;
+            const skills = document.getElementById('skills').value;
+            const availability = document.getElementById('availability').value;
+            const motivation = document.getElementById('motivation').value;
+            const parentName = document.getElementById('parent_name').value;
+            const parentEmail = document.getElementById('parent_email').value;
+            const parentPhone = document.getElementById('parent_phone').value;
+            const emergencyName = document.getElementById('emergency_name').value;
+            const emergencyPhone = document.getElementById('emergency_phone').value;
+
+            const subject = 'New Volunteer Application';
+            const body = `VOLUNTEER APPLICATION
+            
+TEEN INFORMATION:
+Name: ${teenName}
+Age: ${age}
+Email: ${teenEmail}
+Phone: ${teenPhone}
+Address: ${address}
+
+Interests: ${interests}
+Skills: ${skills}
+Availability: ${availability}
+Motivation: ${motivation}
+
+PARENT/GUARDIAN INFORMATION:
+Name: ${parentName}
+Email: ${parentEmail}
+Phone: ${parentPhone}
+
+EMERGENCY CONTACT:
+Name: ${emergencyName}
+Phone: ${emergencyPhone}
+
+Parent Consent: Confirmed`;
+
+            window.location.href = `mailto:29jding20672@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            alert('Your email client will open with the application. Please send the email to complete your submission!');
+            closeVolunteerModal();
+        }
+
+        function submitRequestForm() {
+            const form = document.getElementById('requestForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const requesterName = document.getElementById('requester_name').value;
+            const requesterEmail = document.getElementById('requester_email').value;
+            const requesterPhone = document.getElementById('requester_phone').value;
+            const serviceAddress = document.getElementById('service_address').value;
+            const serviceType = document.getElementById('service_type').value;
+            const taskDescription = document.getElementById('task_description').value;
+            const preferredDates = document.getElementById('preferred_dates').value;
+            const timeNeeded = document.getElementById('time_needed').value;
+            const specialNotes = document.getElementById('special_notes').value;
+
+            const subject = 'New Service Request';
+            const body = `SERVICE REQUEST
+
+REQUESTER INFORMATION:
+Name: ${requesterName}
+Email: ${requesterEmail}
+Phone: ${requesterPhone}
+
+SERVICE DETAILS:
+Location: ${serviceAddress}
+Type: ${serviceType}
+Description: ${taskDescription}
+Preferred Dates: ${preferredDates}
+Time Needed: ${timeNeeded}
+Special Notes: ${specialNotes}
+
+Agreement: Confirmed`;
+
+            window.location.href = `mailto:29jding20672@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            alert('Your email client will open with the service request. Please send the email to complete your submission!');
+            closeRequestModal();
         }
 
         window.onclick = function(event) {
