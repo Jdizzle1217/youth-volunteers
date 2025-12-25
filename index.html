@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -581,6 +581,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>ZIP Code <span class="required">*</span></label>
+                        <input type="text" id="zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                    </div>
+
+                    <div class="form-group">
                         <label>What types of volunteer work interest you? <span class="required">*</span></label>
                         <textarea id="interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
                     </div>
@@ -668,6 +673,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>ZIP Code <span class="required">*</span></label>
+                        <input type="text" id="service_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                    </div>
+
+                    <div class="form-group">
                         <label>Type of Help Needed <span class="required">*</span></label>
                         <select id="service_type" required>
                             <option value="">Select a category...</option>
@@ -710,11 +720,21 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 Community Youth Volunteers. A nonprofit volunteer service network.</p>
+        <p>&copy; 2026 Community Youth Volunteers. A nonprofit volunteer service network.</p>
         <p style="margin-top: 1rem; font-size: 0.9rem;">Building responsibility, confidence, and community connections.</p>
     </footer>
 
     <script>
+        // Ensure page loads at the top
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+        
+        // Force scroll to top on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+        });
+
         function openVolunteerModal() {
             document.getElementById('volunteerModal').style.display = 'block';
         }
@@ -738,51 +758,43 @@
                 return;
             }
 
-            const teenName = document.getElementById('teen_name').value;
-            const age = document.getElementById('age').value;
-            const teenEmail = document.getElementById('teen_email').value;
-            const teenPhone = document.getElementById('teen_phone').value;
-            const address = document.getElementById('address').value;
-            const interests = document.getElementById('interests').value;
-            const skills = document.getElementById('skills').value;
-            const availability = document.getElementById('availability').value;
-            const motivation = document.getElementById('motivation').value;
-            const parentName = document.getElementById('parent_name').value;
-            const parentEmail = document.getElementById('parent_email').value;
-            const parentPhone = document.getElementById('parent_phone').value;
-            const emergencyName = document.getElementById('emergency_name').value;
-            const emergencyPhone = document.getElementById('emergency_phone').value;
+            const formData = {
+                type: 'volunteer',
+                teen_name: document.getElementById('teen_name').value,
+                age: document.getElementById('age').value,
+                teen_email: document.getElementById('teen_email').value,
+                teen_phone: document.getElementById('teen_phone').value,
+                address: document.getElementById('address').value,
+                zip_code: document.getElementById('zip_code').value,
+                interests: document.getElementById('interests').value,
+                skills: document.getElementById('skills').value,
+                availability: document.getElementById('availability').value,
+                motivation: document.getElementById('motivation').value,
+                parent_name: document.getElementById('parent_name').value,
+                parent_email: document.getElementById('parent_email').value,
+                parent_phone: document.getElementById('parent_phone').value,
+                emergency_name: document.getElementById('emergency_name').value,
+                emergency_phone: document.getElementById('emergency_phone').value
+            };
 
-            const subject = 'New Volunteer Application';
-            const body = `VOLUNTEER APPLICATION
-            
-TEEN INFORMATION:
-Name: ${teenName}
-Age: ${age}
-Email: ${teenEmail}
-Phone: ${teenPhone}
-Address: ${address}
-
-Interests: ${interests}
-Skills: ${skills}
-Availability: ${availability}
-Motivation: ${motivation}
-
-PARENT/GUARDIAN INFORMATION:
-Name: ${parentName}
-Email: ${parentEmail}
-Phone: ${parentPhone}
-
-EMERGENCY CONTACT:
-Name: ${emergencyName}
-Phone: ${emergencyPhone}
-
-Parent Consent: Confirmed`;
-
-            window.location.href = `mailto:29jding20672@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            alert('Your email client will open with the application. Please send the email to complete your submission!');
-            closeVolunteerModal();
+            // Submit to Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                alert('Application submitted successfully! We will review your application and contact you soon.');
+                closeVolunteerModal();
+                form.reset();
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Application submitted! If you don\'t hear from us within 48 hours, please contact us directly.');
+                closeVolunteerModal();
+                form.reset();
+            });
         }
 
         function submitRequestForm() {
@@ -792,38 +804,38 @@ Parent Consent: Confirmed`;
                 return;
             }
 
-            const requesterName = document.getElementById('requester_name').value;
-            const requesterEmail = document.getElementById('requester_email').value;
-            const requesterPhone = document.getElementById('requester_phone').value;
-            const serviceAddress = document.getElementById('service_address').value;
-            const serviceType = document.getElementById('service_type').value;
-            const taskDescription = document.getElementById('task_description').value;
-            const preferredDates = document.getElementById('preferred_dates').value;
-            const timeNeeded = document.getElementById('time_needed').value;
-            const specialNotes = document.getElementById('special_notes').value;
+            const formData = {
+                type: 'request',
+                requester_name: document.getElementById('requester_name').value,
+                requester_email: document.getElementById('requester_email').value,
+                requester_phone: document.getElementById('requester_phone').value,
+                service_address: document.getElementById('service_address').value,
+                zip_code: document.getElementById('service_zip_code').value,
+                service_type: document.getElementById('service_type').value,
+                task_description: document.getElementById('task_description').value,
+                preferred_dates: document.getElementById('preferred_dates').value,
+                time_needed: document.getElementById('time_needed').value,
+                special_notes: document.getElementById('special_notes').value
+            };
 
-            const subject = 'New Service Request';
-            const body = `SERVICE REQUEST
-
-REQUESTER INFORMATION:
-Name: ${requesterName}
-Email: ${requesterEmail}
-Phone: ${requesterPhone}
-
-SERVICE DETAILS:
-Location: ${serviceAddress}
-Type: ${serviceType}
-Description: ${taskDescription}
-Preferred Dates: ${preferredDates}
-Time Needed: ${timeNeeded}
-Special Notes: ${specialNotes}
-
-Agreement: Confirmed`;
-
-            window.location.href = `mailto:29jding20672@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            alert('Your email client will open with the service request. Please send the email to complete your submission!');
-            closeRequestModal();
+            // Submit to Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                alert('Service request submitted successfully! We will review your request and match you with a volunteer soon.');
+                closeRequestModal();
+                form.reset();
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Request submitted! If you don\'t hear from us within 48 hours, please contact us directly.');
+                closeRequestModal();
+                form.reset();
+            });
         }
 
         window.onclick = function(event) {
