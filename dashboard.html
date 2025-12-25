@@ -367,7 +367,7 @@
     <script>
         const CORRECT_PASSWORD = 'volunteer2026'; // Change this to your desired password
         const SHEET_ID = '10qi0lmaeCI6Ra0WWu0utqE19W93HGVhFF1v2e9oeSxU';
-        const API_KEY = 'AIzaSyDummyKeyForDemo'; // You'll need to add a real API key
+        const API_KEY = 'AIzaSyD9KZ0QYO-VNVdjyVVYdMWbAM0dZITr-iE';
 
         let volunteers = [];
         let requests = [];
@@ -398,15 +398,78 @@
         }
 
         async function loadData() {
-            // For demo purposes - in production, you'd fetch from Google Sheets API
-            // This is a placeholder structure
-            volunteers = [];
-            requests = [];
-
-            updateStats();
-            renderMatches();
-            renderVolunteers();
-            renderRequests();
+            try {
+                // Fetch volunteers from Google Sheet
+                const volunteersResponse = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Volunteers?key=${API_KEY}`
+                );
+                const volunteersData = await volunteersResponse.json();
+                
+                // Fetch service requests from Google Sheet
+                const requestsResponse = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Service%20Requests?key=${API_KEY}`
+                );
+                const requestsData = await requestsResponse.json();
+                
+                // Parse volunteers data
+                volunteers = [];
+                if (volunteersData.values && volunteersData.values.length > 1) {
+                    for (let i = 1; i < volunteersData.values.length; i++) {
+                        const row = volunteersData.values[i];
+                        volunteers.push({
+                            timestamp: row[0],
+                            name: row[1],
+                            age: row[2],
+                            email: row[3],
+                            phone: row[4],
+                            address: row[5],
+                            zipCode: row[6],
+                            interests: row[7],
+                            skills: row[8],
+                            availability: row[9],
+                            motivation: row[10],
+                            parentName: row[11],
+                            parentEmail: row[12],
+                            parentPhone: row[13],
+                            emergencyName: row[14],
+                            emergencyPhone: row[15],
+                            status: row[16] || 'Pending'
+                        });
+                    }
+                }
+                
+                // Parse requests data
+                requests = [];
+                if (requestsData.values && requestsData.values.length > 1) {
+                    for (let i = 1; i < requestsData.values.length; i++) {
+                        const row = requestsData.values[i];
+                        requests.push({
+                            timestamp: row[0],
+                            name: row[1],
+                            email: row[2],
+                            phone: row[3],
+                            address: row[4],
+                            zipCode: row[5],
+                            serviceType: row[6],
+                            description: row[7],
+                            preferredDates: row[8],
+                            timeNeeded: row[9],
+                            specialNotes: row[10],
+                            status: row[11] || 'Pending',
+                            matchedVolunteer: row[12] || ''
+                        });
+                    }
+                }
+                
+                updateStats();
+                renderMatches();
+                renderVolunteers();
+                renderRequests();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('matchesContent').innerHTML = '<div class="card"><p style="color: red;">Error loading data. Make sure your Google Sheet has tabs named "Volunteers" and "Service Requests".</p></div>';
+            }
         }
 
         function updateStats() {
@@ -417,8 +480,25 @@
         }
 
         function calculateDistance(zip1, zip2) {
-            // Simplified distance calculation - in production use proper ZIP code distance API
-            return Math.floor(Math.random() * 15) + 1;
+            // Simple distance estimation based on ZIP code difference
+            // For California ZIP codes (92xxx range), roughly 1 ZIP code unit ≈ 2-3 miles
+            // This is a simplified calculation - in production you'd use a proper ZIP code distance API
+            
+            const z1 = parseInt(zip1);
+            const z2 = parseInt(zip2);
+            
+            if (isNaN(z1) || isNaN(z2)) return 999; // Invalid ZIP
+            
+            const diff = Math.abs(z1 - z2);
+            
+            // Rough estimation for Southern California area
+            if (diff === 0) return 0;
+            if (diff === 1) return 3;
+            if (diff <= 3) return diff * 2.5;
+            if (diff <= 10) return diff * 2;
+            if (diff <= 50) return diff * 1.5;
+            
+            return Math.min(diff, 100); // Cap at 100 miles for display
         }
 
         function renderMatches() {
