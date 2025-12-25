@@ -400,26 +400,8 @@
         async function loadData() {
             // For demo purposes - in production, you'd fetch from Google Sheets API
             // This is a placeholder structure
-            volunteers = [
-                {
-                    name: 'Sample Teen',
-                    age: 15,
-                    zipCode: '92008',
-                    interests: 'Tutoring, Pet Care',
-                    availability: 'Weekends',
-                    status: 'Pending'
-                }
-            ];
-
-            requests = [
-                {
-                    name: 'Sample Family',
-                    zipCode: '92009',
-                    serviceType: 'Pet Care',
-                    description: 'Need help walking dog',
-                    status: 'Pending'
-                }
-            ];
+            volunteers = [];
+            requests = [];
 
             updateStats();
             renderMatches();
