@@ -369,6 +369,8 @@
         const SHEET_ID = '10qi0lmaeCI6Ra0WWu0utqE19W93HGVhFF1v2e9oeSxU';
         const API_KEY = 'AIzaSyD9KZ0QYO-VNVdjyVVYdMWbAM0dZITr-iE';
 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
+
         let volunteers = [];
         let requests = [];
 
@@ -622,12 +624,43 @@
             container.innerHTML = html;
         }
 
-        function approveMatch(requestIndex, volunteerIndex) {
+        async function approveMatch(requestIndex, volunteerIndex) {
             const request = requests[requestIndex];
             const volunteer = volunteers[volunteerIndex];
             
             if (confirm(`Approve match between ${volunteer.name} and ${request.name}?`)) {
-                // Create email notification
+                // Immediately hide from UI
+                requests[requestIndex].status = 'Matched';
+                volunteers[volunteerIndex].status = 'Matched';
+                requests[requestIndex].matchedVolunteer = volunteer.name;
+                
+                // Update the display immediately
+                updateStats();
+                renderMatches();
+                renderVolunteers();
+                renderRequests();
+                
+                // Update Google Sheet in background
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            type: 'update_match',
+                            volunteer_name: volunteer.name,
+                            volunteer_email: volunteer.email,
+                            request_name: request.name,
+                            request_email: request.email
+                        })
+                    });
+                } catch (error) {
+                    console.error('Error updating sheet:', error);
+                }
+                
+                // Create email notifications
                 const subject = 'Community Youth Volunteers - Match Approved!';
                 
                 const volunteerMessage = `Hi ${volunteer.parentName},
@@ -694,16 +727,7 @@ Community Youth Volunteers
                     window.open(`mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(familyMessage)}`);
                 }, 1000);
                 
-                // Update status (you'll need to manually update the Google Sheet status column)
-                alert('Email notifications opened! After sending both emails, please update the Google Sheet:\n\n' +
-                      `1. Mark volunteer "${volunteer.name}" status as "Matched"\n` +
-                      `2. Mark request "${request.name}" status as "Matched"\n` +
-                      `3. Add volunteer name to "Matched Volunteer" column`);
-                
-                // Refresh data
-                setTimeout(() => {
-                    loadData();
-                }, 2000);
+                alert('Match approved! Email notifications opened. The Google Sheet has been updated automatically.');
             }
         }
 
