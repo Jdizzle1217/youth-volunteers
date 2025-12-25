@@ -623,16 +623,87 @@
         }
 
         function approveMatch(requestIndex, volunteerIndex) {
-            if (confirm('Approve this match? Both parties will be notified.')) {
-                requests[requestIndex].status = 'Matched';
-                volunteers[volunteerIndex].status = 'Matched';
+            const request = requests[requestIndex];
+            const volunteer = volunteers[volunteerIndex];
+            
+            if (confirm(`Approve match between ${volunteer.name} and ${request.name}?`)) {
+                // Create email notification
+                const subject = 'Community Youth Volunteers - Match Approved!';
                 
-                alert('Match approved! Notifications will be sent to both parties.');
+                const volunteerMessage = `Hi ${volunteer.parentName},
+
+Great news! We've matched ${volunteer.name} with a volunteer opportunity.
+
+SERVICE DETAILS:
+Family: ${request.name}
+Service Type: ${request.serviceType}
+Description: ${request.description}
+Location: ${request.address}
+Preferred Dates: ${request.preferredDates}
+Time Needed: ${request.timeNeeded}
+
+FAMILY CONTACT:
+Name: ${request.name}
+Phone: ${request.phone}
+Email: ${request.email}
+
+Next Steps:
+1. Please contact the family to confirm details and schedule
+2. Make sure ${volunteer.name} has your permission and knows the location
+3. Contact us if you have any questions
+
+Thank you for volunteering with us!
+
+Community Youth Volunteers
+29jding20672@gmail.com`;
+
+                const familyMessage = `Hi ${request.name},
+
+Great news! We've matched you with a volunteer for your service request.
+
+VOLUNTEER DETAILS:
+Name: ${volunteer.name}
+Age: ${volunteer.age}
+Skills: ${volunteer.skills}
+Availability: ${volunteer.availability}
+
+PARENT/GUARDIAN CONTACT:
+Name: ${volunteer.parentName}
+Phone: ${volunteer.parentPhone}
+Email: ${volunteer.parentEmail}
+
+YOUR REQUEST:
+Service Type: ${request.serviceType}
+Description: ${request.description}
+
+Next Steps:
+1. The volunteer's parent will contact you to confirm details
+2. Remember: volunteers are minors providing non-professional help
+3. Contact us if you have any questions
+
+Thank you for using our service!
+
+Community Youth Volunteers
+29jding20672@gmail.com`;
+
+                // Send to volunteer's parent
+                window.open(`mailto:${volunteer.parentEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(volunteerMessage)}`);
                 
-                updateStats();
-                renderMatches();
-                renderVolunteers();
-                renderRequests();
+                // Small delay then send to family
+                setTimeout(() => {
+                    window.open(`mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(familyMessage)}`);
+                }, 1000);
+                
+                // Update status (you'll need to manually update the Google Sheet status column)
+                alert('Email notifications opened! After sending both emails, please update the Google Sheet:\n\n' +
+                      `1. Mark volunteer "${volunteer.name}" status as "Matched"\n` +
+                      `2. Mark request "${request.name}" status as "Matched"\n` +
+                      `3. Add volunteer name to "Matched Volunteer" column`);
+                
+                // Refresh data
+                setTimeout(() => {
+                    loadData();
+                }, 2000);
             }
         }
 
