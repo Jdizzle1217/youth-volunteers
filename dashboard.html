@@ -351,6 +351,7 @@
             <div class="tab active" onclick="switchTab('matches')">🎯 Suggested Matches</div>
             <div class="tab" onclick="switchTab('volunteers')">👥 All Volunteers</div>
             <div class="tab" onclick="switchTab('requests')">📋 All Requests</div>
+            <div class="tab" onclick="switchTab('verification')">📄 Verification Letters</div>
         </div>
 
         <!-- Tab Content -->
@@ -364,6 +365,57 @@
 
         <div id="requestsTab" class="tab-content">
             <div id="requestsContent" class="loading">Loading requests...</div>
+        </div>
+
+        <div id="verificationTab" class="tab-content">
+            <div class="card">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Generate Verification Letter</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">Create an official hour verification letter for a volunteer to submit to their school.</p>
+                
+                <div class="form-group">
+                    <label>Select Volunteer</label>
+                    <select id="verifyVolunteerSelect" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                        <option value="">Choose a volunteer...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Hours Completed</label>
+                    <input type="number" id="verifyHours" placeholder="e.g., 15" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                </div>
+
+                <div class="form-group">
+                    <label>Service Period</label>
+                    <input type="text" id="verifyPeriod" placeholder="e.g., September 2024 - December 2024" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                </div>
+
+                <div class="form-group">
+                    <label>Tasks Performed (Brief Summary)</label>
+                    <textarea id="verifyTasks" placeholder="e.g., Yard maintenance, pet care, tutoring younger students" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; min-height: 80px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Adult Advisor Name</label>
+                    <input type="text" id="advisorName" placeholder="[To be assigned]" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                </div>
+
+                <div class="form-group">
+                    <label>Adult Advisor Title</label>
+                    <input type="text" id="advisorTitle" placeholder="Program Advisor" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
+                </div>
+
+                <button onclick="generateVerificationLetter()" class="btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    📄 Generate Letter
+                </button>
+
+                <div id="letterPreview" style="display: none; margin-top: 2rem; padding: 2rem; background: white; border: 2px solid #667eea; border-radius: 8px;">
+                    <div style="text-align: right; margin-bottom: 1rem;">
+                        <button onclick="printLetter()" class="btn" style="width: auto; padding: 0.75rem 1.5rem; background: #10b981;">🖨️ Print Letter</button>
+                        <button onclick="copyLetter()" class="btn" style="width: auto; padding: 0.75rem 1.5rem; background: #3b82f6; margin-left: 0.5rem;">📋 Copy Text</button>
+                    </div>
+                    <div id="letterContent" style="font-family: 'Times New Roman', serif; line-height: 1.8; color: #000;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -562,9 +614,11 @@
 
         function renderVolunteers() {
             const container = document.getElementById('volunteersContent');
+            const selectDropdown = document.getElementById('verifyVolunteerSelect');
             let html = '';
+            let options = '<option value="">Choose a volunteer...</option>';
 
-            volunteers.forEach(volunteer => {
+            volunteers.forEach((volunteer, index) => {
                 html += `
                     <div class="card">
                         <div class="card-header">
@@ -591,9 +645,12 @@
                         </div>
                     </div>
                 `;
+                
+                options += `<option value="${index}">${volunteer.name} (Age ${volunteer.age})</option>`;
             });
 
             container.innerHTML = html;
+            selectDropdown.innerHTML = options;
         }
 
         function renderRequests() {
@@ -740,6 +797,102 @@ jeffreyding1217@gmail.com`;
                 login();
             }
         });
+
+        function generateVerificationLetter() {
+            const volunteerIndex = document.getElementById('verifyVolunteerSelect').value;
+            const hours = document.getElementById('verifyHours').value;
+            const period = document.getElementById('verifyPeriod').value;
+            const tasks = document.getElementById('verifyTasks').value;
+            const advisorName = document.getElementById('advisorName').value;
+            const advisorTitle = document.getElementById('advisorTitle').value;
+
+            if (!volunteerIndex || !hours || !period || !tasks) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const volunteer = volunteers[volunteerIndex];
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const letterHTML = `
+                <div style="max-width: 650px; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h2 style="color: #667eea; margin-bottom: 0.5rem;">Community Youth Volunteers</h2>
+                        <p style="color: #666; margin: 0;">Volunteer Service Verification</p>
+                        <p style="color: #666; margin: 0;">jeffreyding1217@gmail.com</p>
+                    </div>
+
+                    <p style="margin-bottom: 2rem;">${today}</p>
+
+                    <p style="font-weight: bold; margin-bottom: 1rem;">TO WHOM IT MAY CONCERN:</p>
+
+                    <p style="margin-bottom: 1rem;">
+                        This letter confirms that <strong>${volunteer.name}</strong> has successfully completed 
+                        <strong>${hours} hours</strong> of verified community service through Community Youth Volunteers 
+                        during the period of <strong>${period}</strong>.
+                    </p>
+
+                    <p style="margin-bottom: 1rem;">
+                        All service was performed on a voluntary, unpaid basis and provided meaningful assistance to 
+                        families in our community. ${volunteer.name} demonstrated responsibility, reliability, and a 
+                        commitment to helping others throughout their service.
+                    </p>
+
+                    <p style="margin-bottom: 1rem;">
+                        <strong>Service Activities Included:</strong><br>
+                        ${tasks}
+                    </p>
+
+                    <p style="margin-bottom: 1rem;">
+                        Our organization maintains detailed records of all volunteer activities, including dates, hours, 
+                        tasks performed, and confirmation from service recipients. These records are available for 
+                        independent verification upon request.
+                    </p>
+
+                    <p style="margin-bottom: 1rem;">
+                        Community Youth Volunteers operates under adult supervision with clear safety protocols and 
+                        accountability measures. All volunteer placements are reviewed and approved to ensure they are 
+                        age-appropriate and provide genuine community benefit.
+                    </p>
+
+                    <p style="margin-bottom: 2rem;">
+                        If you require additional information or verification, please contact our program advisor at 
+                        jeffreyding1217@gmail.com.
+                    </p>
+
+                    <p style="margin-bottom: 0.5rem;">Sincerely,</p>
+                    
+                    <div style="margin-top: 3rem; margin-bottom: 0.5rem; border-bottom: 1px solid #000; width: 250px;"></div>
+                    <p style="margin: 0;"><strong>${advisorName || '[Adult Advisor Name]'}</strong></p>
+                    <p style="margin: 0; color: #666;">${advisorTitle || 'Program Advisor'}</p>
+                    <p style="margin: 0; color: #666;">Community Youth Volunteers</p>
+                </div>
+            `;
+
+            document.getElementById('letterContent').innerHTML = letterHTML;
+            document.getElementById('letterPreview').style.display = 'block';
+        }
+
+        function printLetter() {
+            const letterContent = document.getElementById('letterContent').innerHTML;
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Verification Letter</title>');
+            printWindow.document.write('<style>body { font-family: "Times New Roman", serif; padding: 2rem; line-height: 1.8; }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(letterContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function copyLetter() {
+            const letterContent = document.getElementById('letterContent').innerText;
+            navigator.clipboard.writeText(letterContent).then(() => {
+                alert('Letter text copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
     </script>
 </body>
 </html>
