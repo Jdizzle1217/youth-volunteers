@@ -241,7 +241,7 @@
             margin: 2rem auto;
             padding: 0;
             border-radius: 12px;
-            max-width: 600px;
+            max-width: 700px;
             box-shadow: 0 10px 50px rgba(0,0,0,0.3);
             animation: slideDown 0.3s ease;
         }
@@ -260,7 +260,9 @@
         }
 
         .modal-body {
-            padding: 2rem;
+            padding: 2.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         .close {
@@ -278,25 +280,27 @@
 
         /* Form Styles */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
-            color: #333;
+            color: #2d3748;
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.875rem;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
+            font-family: inherit;
         }
 
         .form-group input:focus,
@@ -313,13 +317,16 @@
 
         .checkbox-group {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
         }
 
         .checkbox-group input[type="checkbox"] {
             width: auto;
             margin: 0;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
         }
 
         .submit-btn {
@@ -333,6 +340,7 @@
             width: 100%;
             font-weight: bold;
             transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1.5rem;
         }
 
         .submit-btn:hover {
@@ -342,6 +350,19 @@
 
         .required {
             color: #e53e3e;
+        }
+
+        .form-section-title {
+            color: #667eea;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
         }
 
         footer {
@@ -394,6 +415,10 @@
             .modal-content {
                 margin: 1rem;
                 width: calc(100% - 2rem);
+            }
+
+            .modal-body {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -520,7 +545,6 @@
                     <li>Study skills support</li>
                 </ul>
             </div>
-
             <div class="card">
                 <h3>🐾 Pet Care</h3>
                 <ul>
@@ -599,86 +623,125 @@
             </div>
             <div class="modal-body">
                 <form id="volunteerForm">
-                    <h3 style="margin-bottom: 1rem; color: #667eea;">Teen Information</h3>
+                    <h3 class="form-section-title">Teen Information</h3>
                     
                     <div class="form-group">
                         <label>Full Name <span class="required">*</span></label>
-                        <input type="text" id="teen_name" required>
+                        <input type="text" id="teen_name" required placeholder="Enter your full name">
                     </div>
 
                     <div class="form-group">
                         <label>Age <span class="required">*</span></label>
-                        <input type="number" id="age" min="13" max="19" required>
+                        <input type="number" id="age" min="13" max="19" required placeholder="Must be 13 or older">
                     </div>
 
                     <div class="form-group">
                         <label>Email <span class="required">*</span></label>
-                        <input type="email" id="teen_email" required>
+                        <input type="email" id="teen_email" required placeholder="your.email@example.com">
                     </div>
 
                     <div class="form-group">
                         <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="teen_phone" required>
+                        <input type="tel" id="teen_phone" required placeholder="(123) 456-7890">
                     </div>
 
                     <div class="form-group">
                         <label>Address <span class="required">*</span></label>
-                        <input type="text" id="address" required>
+                        <input type="text" id="address" required placeholder="Street address">
                     </div>
 
                     <div class="form-group">
                         <label>ZIP Code <span class="required">*</span></label>
-                        <input type="text" id="zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                        <input type="text" id="zip_code" required pattern="[0-9]{5}" placeholder="92008">
                     </div>
+
+                    <h3 class="form-section-title">Volunteer Interests & Availability</h3>
 
                     <div class="form-group">
                         <label>What types of volunteer work interest you? <span class="required">*</span></label>
-                        <textarea id="interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
+                        <select id="interests" required>
+                            <option value="">Select work type...</option>
+                            <option value="Yard & Home">Yard & Home (cleanup, organizing, light cleaning)</option>
+                            <option value="Educational">Educational (tutoring, homework help)</option>
+                            <option value="Pet Care">Pet Care (walking, sitting, basic care)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <textarea id="other_interests" style="display: none; margin-top: 0.75rem;" placeholder="Please describe your other interests..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>What skills or experience do you have?</label>
-                        <textarea id="skills" placeholder="e.g., good with kids, organized, patient..."></textarea>
+                        <textarea id="skills" placeholder="e.g., good with kids, organized, patient, reliable..."></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Availability <span class="required">*</span></label>
-                        <textarea id="availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
+                        <label>Availability - Days of the Week <span class="required">*</span></label>
+                        <select id="availability_days" required>
+                            <option value="">Select day...</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                            <option value="Weekdays">Weekdays (Mon-Fri)</option>
+                            <option value="Weekends">Weekends (Sat-Sun)</option>
+                            <option value="Any day">Any day</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Availability - Time Range <span class="required">*</span></label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label style="font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">Start Time</label>
+                                <select id="start_time" required>
+                                    <option value="">Select start...</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">End Time</label>
+                                <select id="end_time" required>
+                                    <option value="">Select end...</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Why do you want to volunteer?</label>
-                        <textarea id="motivation" placeholder="Tell us what motivates you to join our program"></textarea>
+                        <textarea id="motivation" placeholder="Tell us what motivates you to join our program..."></textarea>
                     </div>
 
-                    <h3 style="margin: 2rem 0 1rem; color: #667eea;">Parent/Guardian Information</h3>
+                    <h3 class="form-section-title">Parent/Guardian Information</h3>
 
                     <div class="form-group">
                         <label>Parent/Guardian Name <span class="required">*</span></label>
-                        <input type="text" id="parent_name" required>
+                        <input type="text" id="parent_name" required placeholder="Full name">
                     </div>
 
                     <div class="form-group">
                         <label>Parent/Guardian Email <span class="required">*</span></label>
-                        <input type="email" id="parent_email" required>
+                        <input type="email" id="parent_email" required placeholder="parent.email@example.com">
                     </div>
 
                     <div class="form-group">
                         <label>Parent/Guardian Phone <span class="required">*</span></label>
-                        <input type="tel" id="parent_phone" required>
+                        <input type="tel" id="parent_phone" required placeholder="(123) 456-7890">
                     </div>
 
                     <div class="form-group">
                         <label>Emergency Contact Name <span class="required">*</span></label>
-                        <input type="text" id="emergency_name" required>
+                        <input type="text" id="emergency_name" required placeholder="Full name">
                     </div>
 
                     <div class="form-group">
                         <label>Emergency Contact Phone <span class="required">*</span></label>
-                        <input type="tel" id="emergency_phone" required>
+                        <input type="tel" id="emergency_phone" required placeholder="(123) 456-7890">
                     </div>
 
-                    <div class="form-group checkbox-group">
+                    <div class="checkbox-group">
                         <input type="checkbox" id="consent" required>
                         <label for="consent">I am the parent/guardian and I consent to my child's participation in this volunteer program. I understand the program rules and agree to the liability waiver. <span class="required">*</span></label>
                     </div>
@@ -698,35 +761,39 @@
             </div>
             <div class="modal-body">
                 <form id="requestForm">
+                    <h3 class="form-section-title">Your Information</h3>
+
                     <div class="form-group">
                         <label>Your Name <span class="required">*</span></label>
-                        <input type="text" id="requester_name" required>
+                        <input type="text" id="requester_name" required placeholder="Enter your full name">
                     </div>
 
                     <div class="form-group">
                         <label>Email <span class="required">*</span></label>
-                        <input type="email" id="requester_email" required>
+                        <input type="email" id="requester_email" required placeholder="your.email@example.com">
                     </div>
 
                     <div class="form-group">
                         <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="requester_phone" required>
+                        <input type="tel" id="requester_phone" required placeholder="(123) 456-7890">
                     </div>
 
                     <div class="form-group">
                         <label>Service Location Address <span class="required">*</span></label>
-                        <input type="text" id="service_address" required>
+                        <input type="text" id="service_address" required placeholder="Where will the service take place?">
                     </div>
 
                     <div class="form-group">
                         <label>ZIP Code <span class="required">*</span></label>
-                        <input type="text" id="service_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                        <input type="text" id="service_zip_code" required pattern="[0-9]{5}" placeholder="92008">
                     </div>
+
+                    <h3 class="form-section-title">Service Details</h3>
 
                     <div class="form-group">
                         <label>Type of Help Needed <span class="required">*</span></label>
                         <select id="service_type" required>
-                            <option value="">Select a category...</option>
+                            <option value="">Select service type...</option>
                             <option value="Yard & Home">Yard & Home (cleanup, organizing, light cleaning)</option>
                             <option value="Educational">Educational (tutoring, homework help)</option>
                             <option value="Pet Care">Pet Care (walking, sitting, basic care)</option>
@@ -741,12 +808,50 @@
 
                     <div class="form-group">
                         <label>Preferred Date(s) <span class="required">*</span></label>
-                        <input type="text" id="preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
+                        <select id="preferred_date_type" required onchange="toggleDateOptions()">
+                            <option value="">Select timeframe...</option>
+                            <option value="specific">Specific Date</option>
+                            <option value="range">Date Range</option>
+                            <option value="flexible">Flexible/Ongoing</option>
+                        </select>
+                        <input type="date" id="specific_date" style="display: none; margin-top: 0.75rem;">
+                        <div id="date_range" style="display: none; margin-top: 0.75rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <input type="date" id="start_date" placeholder="Start date">
+                            <input type="date" id="end_date" placeholder="End date">
+                        </div>
+                        <div id="flexible_times" style="display: none; margin-top: 0.75rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" name="flexible_availability" value="Weekday Mornings">
+                                    Weekday Mornings
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" name="flexible_availability" value="Weekday Afternoons">
+                                    Weekday Afternoons
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" name="flexible_availability" value="Weekday Evenings">
+                                    Weekday Evenings
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" name="flexible_availability" value="Weekends">
+                                    Weekends
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Estimated Time Needed</label>
-                        <input type="text" id="time_needed" placeholder="e.g., 2 hours, half day">
+                        <select id="time_needed">
+                            <option value="">Select estimated time...</option>
+                            <option value="1 hour">1 hour</option>
+                            <option value="2 hours">2 hours</option>
+                            <option value="3 hours">3 hours</option>
+                            <option value="Half day (4 hours)">Half day (4 hours)</option>
+                            <option value="Full day (6+ hours)">Full day (6+ hours)</option>
+                            <option value="Multiple sessions">Multiple sessions</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -754,7 +859,7 @@
                         <textarea id="special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
                     </div>
 
-                    <div class="form-group checkbox-group">
+                    <div class="checkbox-group">
                         <input type="checkbox" id="agreement" required>
                         <label for="agreement">I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
                     </div>
@@ -779,6 +884,46 @@
         // Force scroll to top on page load
         document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo(0, 0);
+            populateTimeDropdowns();
+        });
+
+        function populateTimeDropdowns() {
+            const startTimeSelect = document.getElementById('start_time');
+            const endTimeSelect = document.getElementById('end_time');
+            
+            const times = [];
+            for (let hour = 6; hour <= 23; hour++) {
+                for (let minute = 0; minute < 60; minute += 15) {
+                    const period = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+                    const timeString = `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
+                    const valueString = `${hour}:${minute.toString().padStart(2, '0')}`;
+                    times.push({ display: timeString, value: valueString });
+                }
+            }
+            
+            times.forEach(time => {
+                const option1 = document.createElement('option');
+                option1.value = time.value;
+                option1.textContent = time.display;
+                startTimeSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = time.value;
+                option2.textContent = time.display;
+                endTimeSelect.appendChild(option2);
+            });
+        }
+
+        // Handle "Other" interests
+        document.getElementById('interests').addEventListener('change', function() {
+            const otherTextarea = document.getElementById('other_interests');
+            if (this.value === 'Other') {
+                otherTextarea.style.display = 'block';
+            } else {
+                otherTextarea.style.display = 'none';
+                otherTextarea.value = '';
+            }
         });
 
         function openVolunteerModal() {
@@ -797,12 +942,51 @@
             document.getElementById('requestModal').style.display = 'none';
         }
 
+        window.onclick = function(event) {
+            const volunteerModal = document.getElementById('volunteerModal');
+            const requestModal = document.getElementById('requestModal');
+            if (event.target == volunteerModal) {
+                volunteerModal.style.display = 'none';
+            }
+            if (event.target == requestModal) {
+                requestModal.style.display = 'none';
+            }
+        }
+
+        function toggleDateOptions() {
+            const dateType = document.getElementById('preferred_date_type').value;
+            document.getElementById('specific_date').style.display = 'none';
+            document.getElementById('date_range').style.display = 'none';
+            document.getElementById('flexible_times').style.display = 'none';
+
+            if (dateType === 'specific') {
+                document.getElementById('specific_date').style.display = 'block';
+            } else if (dateType === 'range') {
+                document.getElementById('date_range').style.display = 'grid';
+            } else if (dateType === 'flexible') {
+                document.getElementById('flexible_times').style.display = 'block';
+            }
+        }
+
         function submitVolunteerForm() {
             const form = document.getElementById('volunteerForm');
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
+
+            const interestsSelect = document.getElementById('interests');
+            let interests = interestsSelect.value;
+            const otherInterests = document.getElementById('other_interests').value;
+            
+            if (interests === 'Other' && otherInterests) {
+                interests = 'Other: ' + otherInterests;
+            }
+
+            const availabilityDay = document.getElementById('availability_days').value;
+            const startTime = document.getElementById('start_time').value;
+            const endTime = document.getElementById('end_time').value;
+            const availability = `Day: ${availabilityDay} | Time: ${startTime} - ${endTime}`;
 
             const formData = {
                 type: 'volunteer',
@@ -812,9 +996,9 @@
                 teen_phone: document.getElementById('teen_phone').value,
                 address: document.getElementById('address').value,
                 zip_code: document.getElementById('zip_code').value,
-                interests: document.getElementById('interests').value,
-                skills: document.getElementById('skills').value,
-                availability: document.getElementById('availability').value,
+                interests: interests,
+                skills: document.getElementById('skills').value || 'None specified',
+                availability: availability,
                 motivation: document.getElementById('motivation').value,
                 parent_name: document.getElementById('parent_name').value,
                 parent_email: document.getElementById('parent_email').value,
@@ -823,7 +1007,6 @@
                 emergency_phone: document.getElementById('emergency_phone').value
             };
 
-            // Submit to Google Sheets
             fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
                 method: 'POST',
                 mode: 'no-cors',
@@ -850,6 +1033,35 @@
                 return;
             }
 
+            let preferredDates = '';
+            const dateType = document.getElementById('preferred_date_type').value;
+            
+            if (dateType === 'specific') {
+                const specificDate = document.getElementById('specific_date').value;
+                if (!specificDate) {
+                    alert('Please select a specific date.');
+                    return;
+                }
+                preferredDates = new Date(specificDate).toLocaleDateString('en-US', { 
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+                });
+            } else if (dateType === 'range') {
+                const startDate = document.getElementById('start_date').value;
+                const endDate = document.getElementById('end_date').value;
+                if (!startDate || !endDate) {
+                    alert('Please select both start and end dates.');
+                    return;
+                }
+                preferredDates = `${new Date(startDate).toLocaleDateString()} to ${new Date(endDate).toLocaleDateString()}`;
+            } else if (dateType === 'flexible') {
+                const flexibleCheckboxes = document.querySelectorAll('input[name="flexible_availability"]:checked');
+                if (flexibleCheckboxes.length === 0) {
+                    alert('Please select at least one flexible time option.');
+                    return;
+                }
+                preferredDates = 'Flexible: ' + Array.from(flexibleCheckboxes).map(cb => cb.value).join(', ');
+            }
+
             const formData = {
                 type: 'request',
                 requester_name: document.getElementById('requester_name').value,
@@ -859,12 +1071,11 @@
                 zip_code: document.getElementById('service_zip_code').value,
                 service_type: document.getElementById('service_type').value,
                 task_description: document.getElementById('task_description').value,
-                preferred_dates: document.getElementById('preferred_dates').value,
-                time_needed: document.getElementById('time_needed').value,
+                preferred_dates: preferredDates,
+                time_needed: document.getElementById('time_needed').value || 'Not specified',
                 special_notes: document.getElementById('special_notes').value
             };
 
-            // Submit to Google Sheets
             fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
                 method: 'POST',
                 mode: 'no-cors',
@@ -882,17 +1093,6 @@
                 closeRequestModal();
                 form.reset();
             });
-        }
-
-        window.onclick = function(event) {
-            const volunteerModal = document.getElementById('volunteerModal');
-            const requestModal = document.getElementById('requestModal');
-            if (event.target == volunteerModal) {
-                volunteerModal.style.display = 'none';
-            }
-            if (event.target == requestModal) {
-                requestModal.style.display = 'none';
-            }
         }
     </script>
 </body>
