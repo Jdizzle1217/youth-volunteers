@@ -351,6 +351,7 @@
             <div class="tab active" onclick="switchTab('matches')">🎯 Suggested Matches</div>
             <div class="tab" onclick="switchTab('volunteers')">👥 All Volunteers</div>
             <div class="tab" onclick="switchTab('requests')">📋 All Requests</div>
+            <div class="tab" onclick="switchTab('hours')">⏱️ Logged Hours</div>
             <div class="tab" onclick="switchTab('verification')">📄 Verification Letters</div>
         </div>
 
@@ -365,6 +366,10 @@
 
         <div id="requestsTab" class="tab-content">
             <div id="requestsContent" class="loading">Loading requests...</div>
+        </div>
+
+        <div id="hoursTab" class="tab-content">
+            <div id="hoursContent" class="loading">Loading logged hours...</div>
         </div>
 
         <div id="verificationTab" class="tab-content">
@@ -468,6 +473,12 @@
                 );
                 const requestsData = await requestsResponse.json();
                 
+                // Fetch logged hours from Google Sheet
+                const hoursResponse = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Logged%20Hours?key=${API_KEY}`
+                );
+                const hoursData = await hoursResponse.json();
+                
                 // Parse volunteers data
                 volunteers = [];
                 if (volunteersData.values && volunteersData.values.length > 1) {
@@ -513,7 +524,28 @@
                             timeNeeded: row[9],
                             specialNotes: row[10],
                             status: row[11] || 'Pending',
-                            matchedVolunteer: row[12] || ''
+                            matchedVolunteer: row[12] || '',
+                            trackingCode: row[13] || 'N/A'
+                        });
+                    }
+                }
+                
+                // Parse logged hours data
+                loggedHours = [];
+                if (hoursData.values && hoursData.values.length > 1) {
+                    for (let i = 1; i < hoursData.values.length; i++) {
+                        const row = hoursData.values[i];
+                        loggedHours.push({
+                            timestamp: row[0],
+                            trackingCode: row[1],
+                            volunteerName: row[2],
+                            recipientName: row[3],
+                            serviceDate: row[4],
+                            hoursCompleted: parseFloat(row[5]) || 0,
+                            tasksCompleted: row[6],
+                            qualityRating: row[7],
+                            comments: row[8],
+                            verified: row[9] || 'Pending Review'
                         });
                     }
                 }
@@ -522,10 +554,11 @@
                 renderMatches();
                 renderVolunteers();
                 renderRequests();
+                renderLoggedHours();
                 
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('matchesContent').innerHTML = '<div class="card"><p style="color: red;">Error loading data. Make sure your Google Sheet has tabs named "Volunteers" and "Service Requests".</p></div>';
+                document.getElementById('matchesContent').innerHTML = '<div class="card"><p style="color: red;">Error loading data. Make sure your Google Sheet has tabs named "Volunteers", "Service Requests", and "Logged Hours".</p></div>';
             }
         }
 
@@ -676,10 +709,129 @@
                                 <span class="detail-label">Description</span>
                                 <span class="detail-value">${request.description}</span>
                             </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tracking Code</span>
+                                <span class="detail-value" style="font-weight: bold; color: #667eea;">${request.trackingCode}</span>
+                            </div>
+                            ${request.matchedVolunteer ? `
+                            <div class="detail-item">
+                                <span class="detail-label">Matched With</span>
+                                <span class="detail-value">${request.matchedVolunteer}</span>
+                            </div>
+                            ` : ''}
                         </div>
                     </div>
                 `;
             });
+
+            container.innerHTML = html;
+        }
+
+        function renderLoggedHours() {
+            const container = document.getElementById('hoursContent');
+            let html = '';
+            
+            // Calculate total hours
+            const totalHours = loggedHours.reduce((sum, h) => sum + h.hoursCompleted, 0);
+            
+            html += `
+                <div class="card" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Summary</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${loggedHours.length}</div>
+                            <div style="color: #666;">Total Entries</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${totalHours.toFixed(1)}</div>
+                            <div style="color: #666;">Total Hours Logged</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${loggedHours.filter(h => h.verified === 'Pending Review').length}</div>
+                            <div style="color: #666;">Pending Review</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (loggedHours.length === 0) {
+                html += '<div class="card"><p>No hours have been logged yet.</p></div>';
+            } else {
+                // Group hours by volunteer
+                const hoursByVolunteer = {};
+                loggedHours.forEach(hour => {
+                    if (!hoursByVolunteer[hour.volunteerName]) {
+                        hoursByVolunteer[hour.volunteerName] = [];
+                    }
+                    hoursByVolunteer[hour.volunteerName].push(hour);
+                });
+
+                // Render each volunteer's hours
+                Object.keys(hoursByVolunteer).sort().forEach(volunteerName => {
+                    const hours = hoursByVolunteer[volunteerName];
+                    const totalVolunteerHours = hours.reduce((sum, h) => sum + h.hoursCompleted, 0);
+                    
+                    html += `
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">${volunteerName}</div>
+                                <span style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">
+                                    ${totalVolunteerHours.toFixed(1)} hrs
+                                </span>
+                            </div>
+                    `;
+                    
+                    hours.forEach(hour => {
+                        const statusColor = hour.verified === 'Verified' ? '#10b981' : 
+                                          hour.verified === 'Pending Review' ? '#f59e0b' : '#6b7280';
+                        
+                        html += `
+                            <div style="border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
+                                <div class="card-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Date</span>
+                                        <span class="detail-value">${new Date(hour.serviceDate).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Hours</span>
+                                        <span class="detail-value">${hour.hoursCompleted} hours</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Tracking Code</span>
+                                        <span class="detail-value">${hour.trackingCode}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Confirmed By</span>
+                                        <span class="detail-value">${hour.recipientName}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Tasks</span>
+                                        <span class="detail-value">${hour.tasksCompleted}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Quality</span>
+                                        <span class="detail-value">${hour.qualityRating}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Status</span>
+                                        <span class="detail-value" style="color: ${statusColor}; font-weight: bold;">
+                                            ${hour.verified}
+                                        </span>
+                                    </div>
+                                    ${hour.comments ? `
+                                    <div class="detail-item" style="grid-column: 1 / -1;">
+                                        <span class="detail-label">Comments</span>
+                                        <span class="detail-value">${hour.comments}</span>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                });
+            }
 
             container.innerHTML = html;
         }
