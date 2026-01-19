@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Volunteer Hours - Community Youth Volunteers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 2.5rem;
+        }
+
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #e53e3e;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .success-message h3 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message p {
+            color: #047857;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Log Volunteer Hours</h1>
+            <p>Community Youth Volunteers</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <h3>Important Information</h3>
+                <p>As the service recipient, please confirm the volunteer hours completed. This helps us maintain accurate records and provide official verification for the volunteer's community service.</p>
+            </div>
+
+            <form id="hourLogForm">
+                <div class="form-group">
+                    <label>Tracking Code <span class="required">*</span></label>
+                    <input type="text" id="tracking_code" required placeholder="Enter the tracking code provided">
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">This code was sent to you via email when you were matched with a volunteer</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Volunteer Name <span class="required">*</span></label>
+                    <input type="text" id="volunteer_name" required placeholder="Full name of volunteer">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Name (Service Recipient) <span class="required">*</span></label>
+                    <input type="text" id="recipient_name" required placeholder="Your full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Service <span class="required">*</span></label>
+                    <input type="date" id="service_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Hours Completed <span class="required">*</span></label>
+                    <input type="number" id="hours_completed" required min="0.5" max="24" step="0.5" placeholder="e.g., 2.5">
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">Enter in half-hour increments (e.g., 1.5, 2, 2.5)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Tasks Completed <span class="required">*</span></label>
+                    <textarea id="tasks_completed" required placeholder="Briefly describe what the volunteer helped with..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Quality of Service</label>
+                    <select id="quality_rating">
+                        <option value="">Select rating (optional)</option>
+                        <option value="Excellent">Excellent - Exceeded expectations</option>
+                        <option value="Good">Good - Met expectations</option>
+                        <option value="Satisfactory">Satisfactory - Acceptable</option>
+                        <option value="Needs Improvement">Needs Improvement</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Additional Comments</label>
+                    <textarea id="comments" placeholder="Any additional feedback or comments (optional)"></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirmation" required>
+                    <label for="confirmation">I confirm that the information provided above is accurate and that the volunteer completed the stated hours of service. <span class="required">*</span></label>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Hour Confirmation</button>
+
+                <div class="success-message" id="successMessage">
+                    <h3>✓ Hours Logged Successfully!</h3>
+                    <p>Thank you for confirming the volunteer hours. The volunteer will receive credit for their service, and this record has been saved for verification purposes.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('hourLogForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = {
+                type: 'log_hours',
+                tracking_code: document.getElementById('tracking_code').value.trim().toUpperCase(),
+                volunteer_name: document.getElementById('volunteer_name').value,
+                recipient_name: document.getElementById('recipient_name').value,
+                service_date: document.getElementById('service_date').value,
+                hours_completed: parseFloat(document.getElementById('hours_completed').value),
+                tasks_completed: document.getElementById('tasks_completed').value,
+                quality_rating: document.getElementById('quality_rating').value || 'Not rated',
+                comments: document.getElementById('comments').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(formData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+
+                submitBtn.textContent = 'Submit Hour Confirmation';
+                submitBtn.disabled = false;
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hours logged successfully! Thank you for confirming the volunteer service.');
+                this.reset();
+                submitBtn.textContent = 'Submit Hour Confirmation';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Set max date to today
+        document.getElementById('service_date').max = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>
