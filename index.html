@@ -34,6 +34,7 @@
             line-height: 1.2;
         }
 
+        /* Top Bar */
         .top-bar {
             background-color: var(--primary-color);
             padding: 10px 0;
@@ -57,6 +58,7 @@
             text-decoration: underline;
         }
 
+        /* Header/Navigation */
         header {
             background-color: var(--white);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -75,10 +77,28 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary-color);
             font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .nav-links {
@@ -101,6 +121,7 @@
             color: var(--secondary-color);
         }
 
+        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(44, 95, 141, 0.85), rgba(44, 95, 141, 0.85)), 
                         var(--primary-color);
@@ -163,6 +184,7 @@
             color: var(--primary-color);
         }
 
+        /* Sections */
         section {
             padding: 80px 20px;
         }
@@ -189,68 +211,56 @@
             margin-right: auto;
         }
 
+        /* About Section */
         .about {
             background-color: var(--white);
         }
 
         .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .about-text h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .about-text p {
-            margin-bottom: 15px;
+        .about-content p {
+            font-size: 1.1rem;
             line-height: 1.8;
             color: var(--medium-gray);
+            margin-bottom: 20px;
         }
 
-        .stats-grid {
+        .placeholder-boxes {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
+            margin-top: 60px;
         }
 
-        .stat-box {
+        .placeholder-box {
             background-color: var(--light-gray);
-            padding: 30px;
+            padding: 40px 20px;
             border-radius: 4px;
             text-align: center;
+            border: 2px dashed #ddd;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
+        .placeholder-box p {
             color: var(--medium-gray);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
-        .services {
+        /* Get Involved Section */
+        .get-involved {
             background-color: var(--light-gray);
         }
 
-        .services-grid {
+        .volunteer-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
         }
 
-        .service-card {
+        .volunteer-card {
             background-color: var(--white);
             padding: 40px 30px;
             border-radius: 4px;
@@ -258,30 +268,30 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .service-card:hover {
+        .volunteer-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
 
-        .service-card h3 {
+        .volunteer-card h3 {
             color: var(--primary-color);
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
 
-        .service-card ul {
+        .volunteer-card ul {
             list-style: none;
             padding-left: 0;
         }
 
-        .service-card li {
+        .volunteer-card li {
             padding: 8px 0;
             color: var(--medium-gray);
             position: relative;
             padding-left: 25px;
         }
 
-        .service-card li:before {
+        .volunteer-card li:before {
             content: "✓";
             position: absolute;
             left: 0;
@@ -289,47 +299,42 @@
             font-weight: bold;
         }
 
-        .how-it-works {
+        /* Find Help Section */
+        .find-help {
             background-color: var(--white);
         }
 
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .step {
+        .help-content {
+            max-width: 900px;
+            margin: 0 auto;
             text-align: center;
-            position: relative;
         }
 
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0 auto 25px;
-        }
-
-        .step h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .step p {
+        .help-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
             color: var(--medium-gray);
-            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
+        /* Donate Section */
+        .donate {
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        .donate-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .donate-content p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            margin-bottom: 30px;
+        }
+
+        /* Safety Section */
         .safety {
             background-color: var(--primary-color);
             color: var(--white);
@@ -367,22 +372,7 @@
             line-height: 1.6;
         }
 
-        .donate {
-            background-color: var(--light-gray);
-            text-align: center;
-        }
-
-        .donate-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .donate-content p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            margin-bottom: 30px;
-        }
-
+        /* Contact Section */
         .contact {
             background-color: var(--white);
         }
@@ -418,6 +408,7 @@
             color: var(--secondary-color);
         }
 
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -565,6 +556,36 @@
             color: #d32f2f;
         }
 
+        .waiver-box {
+            background-color: #fff8e1;
+            border: 2px solid var(--secondary-color);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .waiver-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .waiver-box p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .waiver-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .waiver-box li {
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+        }
+
+        /* Footer */
         footer {
             background-color: var(--dark-gray);
             color: var(--white);
@@ -604,6 +625,7 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Responsive */
         @media (max-width: 968px) {
             .nav-links {
                 display: none;
@@ -613,14 +635,13 @@
                 font-size: 2.2rem;
             }
 
-            .about-content,
-            .contact-grid {
+            .volunteer-grid,
+            .safety-grid,
+            .placeholder-boxes {
                 grid-template-columns: 1fr;
             }
 
-            .services-grid,
-            .steps-container,
-            .safety-grid {
+            .contact-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -644,110 +665,83 @@
         html {
             scroll-behavior: smooth;
         }
-
-        .waiver-box {
-            background-color: #fff8e1;
-            border: 2px solid var(--secondary-color);
-            border-radius: 4px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .waiver-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .waiver-box p {
-            color: var(--dark-gray);
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .waiver-box ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .waiver-box li {
-            margin-bottom: 8px;
-            color: var(--dark-gray);
-        }
     </style>
 </head>
 <body>
+    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
             <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
-            <a href="#volunteer">Volunteer</a>
-            <a href="#donate">Donate</a>
         </div>
     </div>
 
+    <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Community Youth Volunteers</div>
+            <a href="#home" class="logo">
+                <div class="logo-icon">CV</div>
+                <span>Community Youth Volunteers</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#volunteer">Volunteer</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#safety">Safety</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#get-involved">Get Involved</a></li>
+                <li><a href="#find-help">Find Help</a></li>
                 <li><a href="#donate">Donate</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Empowering Youth Through Community Service</h1>
             <p>Connecting motivated teenagers with families who need help while building valuable real-world experience</p>
             <div>
-                <button class="btn btn-primary" onclick="openVolunteerModal()">Apply to Volunteer</button>
-                <button class="btn btn-secondary" onclick="openRequestModal()">Request Service</button>
+                <button class="btn btn-primary" onclick="openVolunteerModal()">Become a Volunteer</button>
+                <button class="btn btn-secondary" onclick="openRequestModal()">Request Help</button>
             </div>
         </div>
     </section>
 
+    <!-- About Us Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About Our Program</h2>
+            <h2 class="section-title">About Us</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <h3>Building Tomorrow's Leaders Today</h3>
-                    <p>Community Youth Volunteers is a nonprofit volunteer service network dedicated to helping teenagers aged 13 and older gain meaningful community service experience while supporting busy families with everyday tasks.</p>
-                    <p>All volunteer work through our program is voluntary and unpaid. Teenagers earn verified community service hours that can be used for school requirements, club participation, scholarship applications, and college admissions.</p>
-                    <p>We believe in the power of service to transform both volunteers and the communities they serve. Through safe, structured opportunities, we help teens develop responsibility, confidence, and valuable life skills.</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Verified Hours</span>
+                <p>We are a youth-led volunteer organization dedicated to connecting motivated teenagers with local families who need help with everyday tasks. Our goal is to create opportunities for teens (ages 13+) to gain real-world experience, build responsibility, and earn verified community service hours—while making a meaningful impact in their communities.</p>
+                
+                <p>Every day, many families—especially elderly individuals, busy parents, and those in need of extra support—struggle to keep up with simple but important tasks. At the same time, many teens are looking for ways to get involved, give back, and build skills for the future. Our organization bridges that gap.</p>
+                
+                <p>We match teen volunteers with safe, age-appropriate service opportunities such as tutoring, yard work, organizing, and more. All work is completely voluntary and unpaid, and every hour is tracked and verified to ensure it qualifies as legitimate community service.</p>
+                
+                <p>We are committed to maintaining a safe, structured, and transparent system, with parent consent, clear guidelines, and reliable hour verification. By doing this, we aim to empower the next generation while strengthening trust and connection within our community.</p>
+                
+                <div class="placeholder-boxes">
+                    <div class="placeholder-box">
+                        <p>Impact Metric 1<br>(To be updated)</p>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number">100+</span>
-                        <span class="stat-label">Teen Volunteers</span>
+                    <div class="placeholder-box">
+                        <p>Impact Metric 2<br>(To be updated)</p>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number">75+</span>
-                        <span class="stat-label">Families Served</span>
+                    <div class="placeholder-box">
+                        <p>Impact Metric 3<br>(To be updated)</p>
                     </div>
-                    <div class="stat-box">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Support Available</span>
+                    <div class="placeholder-box">
+                        <p>Impact Metric 4<br>(To be updated)</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="services">
+    <!-- Get Involved Section -->
+    <section id="get-involved" class="get-involved">
         <div class="container">
-            <h2 class="section-title">Our Service Categories</h2>
-            <p class="section-subtitle">We offer safe, age-appropriate volunteer opportunities across three main categories. All tasks are pre-approved and carefully matched to volunteer skills and availability.</p>
-            <div class="services-grid">
-                <div class="service-card">
+            <h2 class="section-title">Get Involved</h2>
+            <p class="section-subtitle">Join us in making a difference. Whether you're a teen looking to volunteer or want to support our mission, there are many ways to get involved.</p>
+            <div class="volunteer-grid">
+                <div class="volunteer-card">
                     <h3>Yard & Home Services</h3>
                     <ul>
                         <li>Yard cleanup and maintenance</li>
@@ -757,7 +751,7 @@
                         <li>Garage organization</li>
                     </ul>
                 </div>
-                <div class="service-card">
+                <div class="volunteer-card">
                     <h3>Educational Support</h3>
                     <ul>
                         <li>Tutoring younger children</li>
@@ -767,7 +761,7 @@
                         <li>Test preparation support</li>
                     </ul>
                 </div>
-                <div class="service-card">
+                <div class="volunteer-card">
                     <h3>Pet Care Services</h3>
                     <ul>
                         <li>Dog walking</li>
@@ -778,38 +772,37 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="volunteer" class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Our streamlined process makes it easy for teens to start volunteering and for families to get the help they need.</p>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Apply</h3>
-                    <p>Teens complete our volunteer application with parent or guardian consent. Families submit service requests describing their needs.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Match</h3>
-                    <p>We review all requests for safety and appropriateness, then match volunteers with opportunities based on their skills, interests, and availability.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Serve</h3>
-                    <p>Volunteers complete approved tasks while parents stay informed of their location. Families receive reliable, helpful assistance from motivated teens.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Verify</h3>
-                    <p>Hours are verified, digitally logged, and officially documented. We provide verified service hour confirmations for school and college applications.</p>
-                </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <button class="btn btn-primary" onclick="openVolunteerModal()">Apply to Volunteer</button>
             </div>
         </div>
     </section>
 
+    <!-- Find Help Section -->
+    <section id="find-help" class="find-help">
+        <div class="container">
+            <h2 class="section-title">Find Help</h2>
+            <div class="help-content">
+                <p>Are you a family in need of assistance with everyday tasks? Our network of responsible, supervised teen volunteers is here to help.</p>
+                <p>We connect you with motivated teenagers who can assist with yard work, tutoring, organizing, pet care, and more—all at no cost. Every volunteer is supervised by their parent or guardian, and all tasks are pre-approved to ensure safety and appropriateness.</p>
+                <p>Submit a service request below, and we'll match you with a qualified volunteer in your area.</p>
+                <button class="btn btn-primary" onclick="openRequestModal()">Request Service</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <h2 class="section-title">Support Our Mission</h2>
+            <div class="donate-content">
+                <p>Community Youth Volunteers is a nonprofit organization dedicated to building stronger communities through youth service. Your support helps us connect more teens with meaningful volunteer opportunities.</p>
+                <p style="font-style: italic; color: var(--medium-gray);">Donation options coming soon. For now, you can support us by spreading the word about our program.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
     <section id="safety" class="safety">
         <div class="container">
             <h2 class="section-title">Safety is Our Priority</h2>
@@ -835,57 +828,7 @@
         </div>
     </section>
 
-    <section id="donate" class="donate">
-        <div class="container">
-            <h2 class="section-title">Support Our Mission</h2>
-            <div class="donate-content">
-                <p>Community Youth Volunteers is a nonprofit organization dedicated to building stronger communities through youth service. Your support helps us connect more teens with meaningful volunteer opportunities.</p>
-                <p style="font-style: italic; color: var(--medium-gray);">Donation options coming soon. For now, you can support us by spreading the word about our program.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item">
-                        <h4>Email</h4>
-                        <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <h4>Program Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 5:00 PM<br>
-                        Saturday: 10:00 AM - 2:00 PM<br>
-                        Sunday: Closed</p>
-                    </div>
-                    <div class="contact-item">
-                        <h4>Response Time</h4>
-                        <p>We typically respond to all inquiries within 48 hours.</p>
-                    </div>
-                </div>
-                <div class="contact-info">
-                    <h3>Frequently Asked Questions</h3>
-                    <div class="contact-item">
-                        <h4>Who can volunteer?</h4>
-                        <p>Teenagers aged 13-18 with parent or guardian consent.</p>
-                    </div>
-                    <div class="contact-item">
-                        <h4>Are service hours verified?</h4>
-                        <p>Yes, all hours are digitally tracked and we provide official documentation.</p>
-                    </div>
-                    <div class="contact-item">
-                        <h4>Is there a fee to participate?</h4>
-                        <p>No, our program is completely free for both volunteers and families.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Volunteer Application Modal with Waiver -->
+    <!-- Volunteer Modal -->
     <div id="volunteerModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1146,18 +1089,18 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Community Youth Volunteers is a nonprofit volunteer service network dedicated to empowering teenagers through meaningful community service while supporting local families.</p>
+                <h3>About</h3>
+                <p>Community Youth Volunteers is a youth-led nonprofit connecting motivated teenagers with families who need help, building responsibility and community one service hour at a time.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <a href="#about">About</a>
-                <a href="#volunteer">Volunteer</a>
-                <a href="#services">Services</a>
-                <a href="#safety">Safety</a>
+                <a href="#about">About Us</a>
+                <a href="#get-involved">Get Involved</a>
+                <a href="#find-help">Find Help</a>
                 <a href="#donate">Donate</a>
             </div>
             <div class="footer-section">
@@ -1167,11 +1110,12 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Community Youth Volunteers. All rights reserved. A nonprofit volunteer service network.</p>
+            <p>&copy; 2026 Community Youth Volunteers. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Modal Functions
         function openVolunteerModal() {
             document.getElementById('volunteerModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -1192,6 +1136,7 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Form Submission
         function submitVolunteerForm() {
             const form = document.getElementById('volunteerForm');
             if (!form.checkValidity()) {
@@ -1285,6 +1230,7 @@
             });
         }
 
+        // Close modal when clicking outside
         window.onclick = function(event) {
             const volunteerModal = document.getElementById('volunteerModal');
             const requestModal = document.getElementById('requestModal');
@@ -1296,6 +1242,7 @@
             }
         }
 
+        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1309,7 +1256,7 @@
             });
         });
 
-        // Set today's date as default for signature date
+        // Set today's date as default
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('signature_date').value = today;
