@@ -34,7 +34,6 @@
             line-height: 1.2;
         }
 
-        /* Top Bar */
         .top-bar {
             background-color: var(--primary-color);
             padding: 10px 0;
@@ -58,7 +57,6 @@
             text-decoration: underline;
         }
 
-        /* Header/Navigation */
         header {
             background-color: var(--white);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -121,12 +119,10 @@
             color: var(--secondary-color);
         }
 
-        /* Scroll offset for sections */
         section {
             scroll-margin-top: 100px;
         }
 
-        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(44, 95, 141, 0.85), rgba(44, 95, 141, 0.85)), 
                         var(--primary-color);
@@ -189,7 +185,6 @@
             color: var(--primary-color);
         }
 
-        /* General Section Styling */
         .content-section {
             padding: 80px 20px;
         }
@@ -216,7 +211,6 @@
             margin-right: auto;
         }
 
-        /* About Section */
         .about {
             background-color: var(--white);
         }
@@ -254,7 +248,6 @@
             font-style: italic;
         }
 
-        /* Become a Volunteer Section */
         .become-volunteer {
             background-color: var(--light-gray);
         }
@@ -342,7 +335,6 @@
             font-weight: bold;
         }
 
-        /* Find Help Section */
         .find-help {
             background-color: var(--white);
         }
@@ -431,7 +423,6 @@
             line-height: 1.6;
         }
 
-        /* Safety Section */
         .safety {
             background-color: var(--primary-color);
             color: var(--white);
@@ -469,7 +460,6 @@
             line-height: 1.6;
         }
 
-        /* Donate Section */
         .donate {
             background-color: var(--light-gray);
             text-align: center;
@@ -486,7 +476,6 @@
             margin-bottom: 30px;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -663,7 +652,6 @@
             color: var(--dark-gray);
         }
 
-        /* Footer */
         footer {
             background-color: var(--dark-gray);
             color: var(--white);
@@ -703,7 +691,6 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Responsive */
         @media (max-width: 968px) {
             .nav-links {
                 display: none;
@@ -745,14 +732,12 @@
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
             <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
         </div>
     </div>
 
-    <!-- Header -->
     <header>
         <nav>
             <a href="#hero" class="logo">
@@ -769,7 +754,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="hero" class="hero">
         <div class="hero-content">
             <h1>Empowering Youth Through Community Service</h1>
@@ -781,7 +765,6 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
     <section id="about" class="about content-section">
         <div class="container">
             <h2 class="section-title">About Us</h2>
@@ -812,7 +795,6 @@
         </div>
     </section>
 
-    <!-- Become a Volunteer Section -->
     <section id="become-volunteer" class="become-volunteer content-section">
         <div class="container">
             <h2 class="section-title">Become a Volunteer</h2>
@@ -881,7 +863,6 @@
         </div>
     </section>
 
-    <!-- Find Help Section -->
     <section id="find-help" class="find-help content-section">
         <div class="container">
             <h2 class="section-title">Find Help</h2>
@@ -958,7 +939,6 @@
         </div>
     </section>
 
-    <!-- Safety Section -->
     <section id="safety" class="safety content-section">
         <div class="container">
             <h2 class="section-title">Safety is Our Priority</h2>
@@ -984,7 +964,6 @@
         </div>
     </section>
 
-    <!-- Donate Section -->
     <section id="donate" class="donate content-section">
         <div class="container">
             <h2 class="section-title">Support Our Mission</h2>
@@ -995,7 +974,6 @@
         </div>
     </section>
 
-    <!-- Volunteer Modal -->
     <div id="volunteerModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1009,57 +987,57 @@
                         
                         <div class="form-group">
                             <label>Full Name <span class="required">*</span></label>
-                            <input type="text" id="teen_name" required>
+                            <input type="text" name="teen_name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Date of Birth <span class="required">*</span></label>
-                            <input type="date" id="teen_dob" required>
+                            <input type="date" name="teen_dob" required>
                         </div>
 
                         <div class="form-group">
                             <label>Age <span class="required">*</span></label>
-                            <input type="number" id="age" min="13" max="19" required>
+                            <input type="number" name="age" min="13" max="19" required>
                         </div>
 
                         <div class="form-group">
                             <label>Email <span class="required">*</span></label>
-                            <input type="email" id="teen_email" required>
+                            <input type="email" name="teen_email" required>
                         </div>
 
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="teen_phone" required>
+                            <input type="tel" name="teen_phone" required>
                         </div>
 
                         <div class="form-group">
                             <label>Address <span class="required">*</span></label>
-                            <input type="text" id="address" required>
+                            <input type="text" name="address" required>
                         </div>
 
                         <div class="form-group">
                             <label>ZIP Code <span class="required">*</span></label>
-                            <input type="text" id="zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                            <input type="text" name="zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
                         </div>
 
                         <div class="form-group">
                             <label>What types of volunteer work interest you? <span class="required">*</span></label>
-                            <textarea id="interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
+                            <textarea name="interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>What skills or experience do you have?</label>
-                            <textarea id="skills" placeholder="e.g., good with kids, organized, patient..."></textarea>
+                            <textarea name="skills" placeholder="e.g., good with kids, organized, patient..."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Availability <span class="required">*</span></label>
-                            <textarea id="availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
+                            <textarea name="availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Why do you want to volunteer?</label>
-                            <textarea id="motivation" placeholder="Tell us what motivates you to join our program"></textarea>
+                            <textarea name="motivation" placeholder="Tell us what motivates you to join our program"></textarea>
                         </div>
                     </div>
 
@@ -1068,12 +1046,12 @@
 
                         <div class="form-group">
                             <label>Parent/Guardian Name <span class="required">*</span></label>
-                            <input type="text" id="parent_name" required>
+                            <input type="text" name="parent_name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Relationship to Volunteer <span class="required">*</span></label>
-                            <select id="parent_relationship" required>
+                            <select name="parent_relationship" required>
                                 <option value="">Select relationship...</option>
                                 <option value="Mother">Mother</option>
                                 <option value="Father">Father</option>
@@ -1084,27 +1062,27 @@
 
                         <div class="form-group">
                             <label>Parent/Guardian Email <span class="required">*</span></label>
-                            <input type="email" id="parent_email" required>
+                            <input type="email" name="parent_email" required>
                         </div>
 
                         <div class="form-group">
                             <label>Parent/Guardian Phone <span class="required">*</span></label>
-                            <input type="tel" id="parent_phone" required>
+                            <input type="tel" name="parent_phone" required>
                         </div>
 
                         <div class="form-group">
                             <label>Emergency Contact Name <span class="required">*</span></label>
-                            <input type="text" id="emergency_name" required>
+                            <input type="text" name="emergency_name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Emergency Contact Relationship <span class="required">*</span></label>
-                            <input type="text" id="emergency_relationship" required placeholder="e.g., Aunt, Grandparent, Family Friend">
+                            <input type="text" name="emergency_relationship" required placeholder="e.g., Aunt, Grandparent, Family Friend">
                         </div>
 
                         <div class="form-group">
                             <label>Emergency Contact Phone <span class="required">*</span></label>
-                            <input type="tel" id="emergency_phone" required>
+                            <input type="tel" name="emergency_phone" required>
                         </div>
                     </div>
 
@@ -1113,12 +1091,12 @@
 
                         <div class="form-group">
                             <label>Medical Conditions, Allergies, or Special Needs</label>
-                            <textarea id="medical_info" placeholder="List any medical conditions, allergies, medications, or special needs we should be aware of. Write 'None' if not applicable."></textarea>
+                            <textarea name="medical_info" placeholder="List any medical conditions, allergies, medications, or special needs we should be aware of. Write 'None' if not applicable."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Health Insurance Provider <span class="required">*</span></label>
-                            <input type="text" id="insurance_provider" required placeholder="e.g., Blue Cross, Kaiser, etc.">
+                            <input type="text" name="insurance_provider" required placeholder="e.g., Blue Cross, Kaiser, etc.">
                         </div>
                     </div>
 
@@ -1141,8 +1119,8 @@
                     <div class="form-section">
                         <h3>Media Release</h3>
                         <div class="checkbox-group">
-                            <input type="checkbox" id="media_consent">
-                            <label for="media_consent">I give permission for photos/videos of my child taken during volunteer activities to be used for promotional purposes (optional)</label>
+                            <input type="checkbox" name="media_consent" value="yes">
+                            <label>I give permission for photos/videos of my child taken during volunteer activities to be used for promotional purposes (optional)</label>
                         </div>
                     </div>
 
@@ -1151,28 +1129,27 @@
                         
                         <div class="form-group">
                             <label>Type Your Full Name as Electronic Signature <span class="required">*</span></label>
-                            <input type="text" id="parent_signature" required placeholder="Type your full name">
+                            <input type="text" name="parent_signature" required placeholder="Type your full name">
                             <small style="color: var(--medium-gray); display: block; margin-top: 5px;">By typing your name, you are electronically signing this agreement</small>
                         </div>
 
                         <div class="form-group">
                             <label>Today's Date <span class="required">*</span></label>
-                            <input type="date" id="signature_date" required>
+                            <input type="date" name="signature_date" required>
                         </div>
 
                         <div class="checkbox-group">
-                            <input type="checkbox" id="consent" required>
-                            <label for="consent"><strong>I certify that I am the parent/legal guardian of the volunteer named above, I have read and understand this entire agreement, and I consent to my child's participation in the Community Youth Volunteers program.</strong> <span class="required">*</span></label>
+                            <input type="checkbox" name="consent" required>
+                            <label><strong>I certify that I am the parent/legal guardian of the volunteer named above, I have read and understand this entire agreement, and I consent to my child's participation in the Community Youth Volunteers program.</strong> <span class="required">*</span></label>
                         </div>
                     </div>
 
-                    <button type="button" onclick="submitVolunteerForm()" class="submit-btn">Submit Application & Waiver</button>
+                    <button type="submit" class="submit-btn">Submit Application & Waiver</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Service Request Modal -->
     <div id="requestModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1186,27 +1163,27 @@
 
                         <div class="form-group">
                             <label>Your Name <span class="required">*</span></label>
-                            <input type="text" id="requester_name" required>
+                            <input type="text" name="requester_name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Email <span class="required">*</span></label>
-                            <input type="email" id="requester_email" required>
+                            <input type="email" name="requester_email" required>
                         </div>
 
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="requester_phone" required>
+                            <input type="tel" name="requester_phone" required>
                         </div>
 
                         <div class="form-group">
                             <label>Service Location Address <span class="required">*</span></label>
-                            <input type="text" id="service_address" required>
+                            <input type="text" name="service_address" required>
                         </div>
 
                         <div class="form-group">
                             <label>ZIP Code <span class="required">*</span></label>
-                            <input type="text" id="service_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
+                            <input type="text" name="service_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
                         </div>
                     </div>
 
@@ -1215,7 +1192,7 @@
 
                         <div class="form-group">
                             <label>Type of Help Needed <span class="required">*</span></label>
-                            <select id="service_type" required>
+                            <select name="service_type" required>
                                 <option value="">Select a category...</option>
                                 <option value="Yard & Home">Yard & Home Services</option>
                                 <option value="Educational">Educational Support</option>
@@ -1226,37 +1203,36 @@
 
                         <div class="form-group">
                             <label>Task Description <span class="required">*</span></label>
-                            <textarea id="task_description" required placeholder="Please describe the task in detail. Be specific about what needs to be done."></textarea>
+                            <textarea name="task_description" required placeholder="Please describe the task in detail. Be specific about what needs to be done."></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Preferred Date(s) <span class="required">*</span></label>
-                            <input type="text" id="preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
+                            <input type="text" name="preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
                         </div>
 
                         <div class="form-group">
                             <label>Estimated Time Needed</label>
-                            <input type="text" id="time_needed" placeholder="e.g., 2 hours, half day">
+                            <input type="text" name="time_needed" placeholder="e.g., 2 hours, half day">
                         </div>
 
                         <div class="form-group">
                             <label>Special Requirements or Notes</label>
-                            <textarea id="special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
+                            <textarea name="special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
                         </div>
 
                         <div class="checkbox-group">
-                            <input type="checkbox" id="agreement" required>
-                            <label for="agreement">I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
+                            <input type="checkbox" name="agreement" required>
+                            <label>I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
                         </div>
                     </div>
 
-                    <button type="button" onclick="submitRequestForm()" class="submit-btn">Submit Request</button>
+                    <button type="submit" class="submit-btn">Submit Request</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -1283,7 +1259,6 @@
     </footer>
 
     <script>
-        // Modal Functions
         function openVolunteerModal() {
             document.getElementById('volunteerModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -1304,131 +1279,36 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Form Submission
-        function submitVolunteerForm() {
-            const form = document.getElementById('volunteerForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const formData = {
+        // Volunteer Form Submission
+        document.getElementById('volunteerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
                 type: 'volunteer_with_waiver',
-                teen_name: document.getElementById('teen_name').value,
-                teen_dob: document.getElementById('teen_dob').value,
-                age: document.getElementById('age').value,
-                teen_email: document.getElementById('teen_email').value,
-                teen_phone: document.getElementById('teen_phone').value,
-                address: document.getElementById('address').value,
-                zip_code: document.getElementById('zip_code').value,
-                interests: document.getElementById('interests').value,
-                skills: document.getElementById('skills').value,
-                availability: document.getElementById('availability').value,
-                motivation: document.getElementById('motivation').value,
-                parent_name: document.getElementById('parent_name').value,
-                parent_relationship: document.getElementById('parent_relationship').value,
-                parent_email: document.getElementById('parent_email').value,
-                parent_phone: document.getElementById('parent_phone').value,
-                emergency_name: document.getElementById('emergency_name').value,
-                emergency_relationship: document.getElementById('emergency_relationship').value,
-                emergency_phone: document.getElementById('emergency_phone').value,
-                medical_info: document.getElementById('medical_info').value,
-                insurance_provider: document.getElementById('insurance_provider').value,
-                media_consent: document.getElementById('media_consent').checked ? 'Yes' : 'No',
-                parent_signature: document.getElementById('parent_signature').value,
-                signature_date: document.getElementById('signature_date').value
+                teen_name: formData.get('teen_name'),
+                teen_dob: formData.get('teen_dob'),
+                age: formData.get('age'),
+                teen_email: formData.get('teen_email'),
+                teen_phone: formData.get('teen_phone'),
+                address: formData.get('address'),
+                zip_code: formData.get('zip_code'),
+                interests: formData.get('interests'),
+                skills: formData.get('skills') || '',
+                availability: formData.get('availability'),
+                motivation: formData.get('motivation') || '',
+                parent_name: formData.get('parent_name'),
+                parent_relationship: formData.get('parent_relationship'),
+                parent_email: formData.get('parent_email'),
+                parent_phone: formData.get('parent_phone'),
+                emergency_name: formData.get('emergency_name'),
+                emergency_relationship: formData.get('emergency_relationship'),
+                emergency_phone: formData.get('emergency_phone'),
+                medical_info: formData.get('medical_info') || '',
+                insurance_provider: formData.get('insurance_provider'),
+                media_consent: formData.get('media_consent') === 'yes' ? 'Yes' : 'No',
+                parent_signature: formData.get('parent_signature'),
+                signature_date: formData.get('signature_date')
             };
 
-            https://script.google.com/macros/s/AKfycbylzXacEZlAnhu_NiOqD5P-pe98BQpb-Q4nEH2ZsI-82lTguhTBXWJn8fTIKYmXxHvCug/exec
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                alert('Thank you! Your application and waiver have been submitted. You will receive an email with emergency protocols within a few minutes.');
-                closeVolunteerModal();
-                form.reset();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('Application submitted! Check your email for confirmation. If you don\'t receive it within 24 hours, contact us at jeffreyding1217@gmail.com.');
-                closeVolunteerModal();
-                form.reset();
-            });
-        }
-
-        function submitRequestForm() {
-            const form = document.getElementById('requestForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const formData = {
-                type: 'request',
-                requester_name: document.getElementById('requester_name').value,
-                requester_email: document.getElementById('requester_email').value,
-                requester_phone: document.getElementById('requester_phone').value,
-                service_address: document.getElementById('service_address').value,
-                zip_code: document.getElementById('service_zip_code').value,
-                service_type: document.getElementById('service_type').value,
-                task_description: document.getElementById('task_description').value,
-                preferred_dates: document.getElementById('preferred_dates').value,
-                time_needed: document.getElementById('time_needed').value,
-                special_notes: document.getElementById('special_notes').value
-            };
-
-            https://script.google.com/macros/s/AKfycbylzXacEZlAnhu_NiOqD5P-pe98BQpb-Q4nEH2ZsI-82lTguhTBXWJn8fTIKYmXxHvCug/exec
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                alert('Thank you for your service request! We will review it and match you with a volunteer within 48 hours. Check your email for your tracking code.');
-                closeRequestModal();
-                form.reset();
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('Request submitted! If you don\'t hear from us within 48 hours, please contact us at jeffreyding1217@gmail.com.');
-                closeRequestModal();
-                form.reset();
-            });
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const volunteerModal = document.getElementById('volunteerModal');
-            const requestModal = document.getElementById('requestModal');
-            if (event.target == volunteerModal) {
-                closeVolunteerModal();
-            }
-            if (event.target == requestModal) {
-                closeRequestModal();
-            }
-        }
-
-        // Smooth scroll with offset
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Set today's date as default
-        document.addEventListener('DOMContentLoaded', function() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('signature_date').value = today;
-        });
-    </script>
-</body>
-</html>
+            fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6Xgejpl
