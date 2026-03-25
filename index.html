@@ -6,11 +6,7 @@
     <title>Community Youth Volunteers</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary-color: #2c5f8d;
@@ -53,9 +49,7 @@
             font-size: 0.9rem;
         }
 
-        .top-bar a:hover {
-            text-decoration: underline;
-        }
+        .top-bar a:hover { text-decoration: underline; }
 
         header {
             background-color: var(--white);
@@ -115,26 +109,18 @@
             letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
+        .nav-links a:hover { color: var(--secondary-color); }
 
-        section {
-            scroll-margin-top: 100px;
-        }
+        section { scroll-margin-top: 100px; }
 
         .hero {
-            background: linear-gradient(rgba(44, 95, 141, 0.85), rgba(44, 95, 141, 0.85)), 
-                        var(--primary-color);
+            background: linear-gradient(rgba(44, 95, 141, 0.88), rgba(44, 95, 141, 0.88)), #2c5f8d;
             color: var(--white);
             padding: 120px 20px 100px;
             text-align: center;
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .hero-content { max-width: 800px; margin: 0 auto; }
 
         .hero h1 {
             font-size: 3rem;
@@ -185,14 +171,9 @@
             color: var(--primary-color);
         }
 
-        .content-section {
-            padding: 80px 20px;
-        }
+        .content-section { padding: 80px 20px; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         .section-title {
             text-align: center;
@@ -211,14 +192,10 @@
             margin-right: auto;
         }
 
-        .about {
-            background-color: var(--white);
-        }
+        /* About */
+        .about { background-color: var(--white); }
 
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .about-content { max-width: 900px; margin: 0 auto; }
 
         .about-content p {
             font-size: 1.1rem;
@@ -248,14 +225,10 @@
             font-style: italic;
         }
 
-        .become-volunteer {
-            background-color: var(--light-gray);
-        }
+        /* Become a Volunteer */
+        .become-volunteer { background-color: var(--light-gray); }
 
-        .volunteer-info {
-            max-width: 900px;
-            margin: 0 auto 50px;
-        }
+        .volunteer-info { max-width: 900px; margin: 0 auto 50px; }
 
         .volunteer-info p {
             font-size: 1.1rem;
@@ -284,10 +257,7 @@
             font-size: 1.3rem;
         }
 
-        .benefit-card p {
-            color: var(--medium-gray);
-            line-height: 1.6;
-        }
+        .benefit-card p { color: var(--medium-gray); line-height: 1.6; }
 
         .volunteer-grid {
             display: grid;
@@ -309,16 +279,9 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
         }
 
-        .volunteer-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+        .volunteer-card h3 { color: var(--primary-color); margin-bottom: 20px; font-size: 1.5rem; }
 
-        .volunteer-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
+        .volunteer-card ul { list-style: none; padding-left: 0; }
 
         .volunteer-card li {
             padding: 8px 0;
@@ -335,14 +298,10 @@
             font-weight: bold;
         }
 
-        .find-help {
-            background-color: var(--white);
-        }
+        /* Find Help */
+        .find-help { background-color: var(--white); }
 
-        .help-intro {
-            max-width: 900px;
-            margin: 0 auto 50px;
-        }
+        .help-intro { max-width: 900px; margin: 0 auto 50px; }
 
         .help-intro p {
             font-size: 1.1rem;
@@ -358,9 +317,7 @@
             margin-bottom: 50px;
         }
 
-        .help-step {
-            text-align: center;
-        }
+        .help-step { text-align: center; }
 
         .step-number {
             width: 60px;
@@ -376,16 +333,9 @@
             margin: 0 auto 20px;
         }
 
-        .help-step h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
+        .help-step h3 { color: var(--primary-color); margin-bottom: 10px; font-size: 1.2rem; }
 
-        .help-step p {
-            color: var(--medium-gray);
-            line-height: 1.6;
-        }
+        .help-step p { color: var(--medium-gray); line-height: 1.6; }
 
         .help-examples {
             background-color: var(--light-gray);
@@ -394,11 +344,7 @@
             margin-bottom: 50px;
         }
 
-        .help-examples h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        .help-examples h3 { color: var(--primary-color); margin-bottom: 20px; text-align: center; }
 
         .examples-grid {
             display: grid;
@@ -413,28 +359,16 @@
             border-left: 4px solid var(--secondary-color);
         }
 
-        .example-item h4 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
+        .example-item h4 { color: var(--primary-color); margin-bottom: 10px; }
 
-        .example-item p {
-            color: var(--medium-gray);
-            line-height: 1.6;
-        }
+        .example-item p { color: var(--medium-gray); line-height: 1.6; }
 
-        .safety {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
+        /* Safety */
+        .safety { background-color: var(--primary-color); color: var(--white); }
 
-        .safety .section-title {
-            color: var(--white);
-        }
+        .safety .section-title { color: var(--white); }
 
-        .safety .section-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-        }
+        .safety .section-subtitle { color: rgba(255, 255, 255, 0.9); }
 
         .safety-grid {
             display: grid;
@@ -449,33 +383,18 @@
             border-left: 4px solid var(--secondary-color);
         }
 
-        .safety-item h3 {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
+        .safety-item h3 { color: var(--white); margin-bottom: 15px; font-size: 1.3rem; }
 
-        .safety-item p {
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-        }
+        .safety-item p { color: rgba(255, 255, 255, 0.9); line-height: 1.6; }
 
-        .donate {
-            background-color: var(--light-gray);
-            text-align: center;
-        }
+        /* Donate */
+        .donate { background-color: var(--light-gray); text-align: center; }
 
-        .donate-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        .donate-content { max-width: 700px; margin: 0 auto; }
 
-        .donate-content p {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            margin-bottom: 30px;
-        }
+        .donate-content p { font-size: 1.1rem; color: var(--medium-gray); margin-bottom: 30px; }
 
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -505,11 +424,7 @@
             position: relative;
         }
 
-        .modal-header h2 {
-            color: var(--white);
-            margin: 0;
-            font-size: 1.8rem;
-        }
+        .modal-header h2 { color: var(--white); margin: 0; font-size: 1.8rem; }
 
         .close {
             color: var(--white);
@@ -522,9 +437,7 @@
             line-height: 1;
         }
 
-        .close:hover {
-            opacity: 0.8;
-        }
+        .close:hover { opacity: 0.8; }
 
         .modal-body {
             padding: 40px;
@@ -532,9 +445,7 @@
             overflow-y: auto;
         }
 
-        .form-section {
-            margin-bottom: 35px;
-        }
+        .form-section { margin-bottom: 35px; }
 
         .form-section h3 {
             color: var(--primary-color);
@@ -544,9 +455,7 @@
             border-bottom: 2px solid var(--light-gray);
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
 
         .form-group label {
             display: block;
@@ -575,10 +484,7 @@
             border-color: var(--secondary-color);
         }
 
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
+        .form-group textarea { min-height: 100px; resize: vertical; }
 
         .checkbox-group {
             display: flex;
@@ -593,10 +499,7 @@
             flex-shrink: 0;
         }
 
-        .checkbox-group label {
-            font-weight: 400;
-            margin-bottom: 0;
-        }
+        .checkbox-group label { font-weight: 400; margin-bottom: 0; }
 
         .submit-btn {
             background-color: var(--secondary-color);
@@ -619,9 +522,7 @@
             box-shadow: 0 5px 15px rgba(247, 148, 29, 0.3);
         }
 
-        .required {
-            color: #d32f2f;
-        }
+        .required { color: #d32f2f; }
 
         .waiver-box {
             background-color: #fff8e1;
@@ -631,27 +532,15 @@
             margin: 25px 0;
         }
 
-        .waiver-box h4 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
+        .waiver-box h4 { color: var(--primary-color); margin-bottom: 15px; }
 
-        .waiver-box p {
-            color: var(--dark-gray);
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
+        .waiver-box p { color: var(--dark-gray); line-height: 1.6; margin-bottom: 10px; }
 
-        .waiver-box ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
+        .waiver-box ul { margin-left: 20px; margin-top: 10px; }
 
-        .waiver-box li {
-            margin-bottom: 8px;
-            color: var(--dark-gray);
-        }
+        .waiver-box li { margin-bottom: 8px; color: var(--dark-gray); }
 
+        /* Footer */
         footer {
             background-color: var(--dark-gray);
             color: var(--white);
@@ -667,11 +556,7 @@
             margin-bottom: 30px;
         }
 
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
+        .footer-section h3 { color: var(--white); margin-bottom: 20px; font-size: 1.2rem; }
 
         .footer-section p, .footer-section a {
             color: rgba(255, 255, 255, 0.8);
@@ -680,9 +565,7 @@
             display: block;
         }
 
-        .footer-section a:hover {
-            color: var(--secondary-color);
-        }
+        .footer-section a:hover { color: var(--secondary-color); }
 
         .footer-bottom {
             text-align: center;
@@ -691,47 +574,24 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Responsive */
         @media (max-width: 968px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .volunteer-grid,
-            .volunteer-benefits,
-            .help-steps,
-            .examples-grid,
-            .safety-grid,
-            .placeholder-boxes {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .volunteer-grid, .volunteer-benefits, .help-steps,
+            .examples-grid, .safety-grid, .placeholder-boxes {
                 grid-template-columns: 1fr;
             }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                margin: 20px;
-                width: calc(100% - 40px);
-            }
-
-            .btn-primary {
-                margin-right: 0;
-                margin-bottom: 15px;
-                display: block;
-                text-align: center;
-            }
+            .footer-content { grid-template-columns: 1fr; }
+            .modal-content { margin: 20px; width: calc(100% - 40px); }
+            .btn-primary { margin-right: 0; margin-bottom: 15px; display: block; text-align: center; }
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
+
     <div class="top-bar">
         <div class="container">
             <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
@@ -770,26 +630,14 @@
             <h2 class="section-title">About Us</h2>
             <div class="about-content">
                 <p>We are a youth-led volunteer organization dedicated to connecting motivated teenagers with local families who need help with everyday tasks. Our goal is to create opportunities for teens (ages 13+) to gain real-world experience, build responsibility, and earn verified community service hours—while making a meaningful impact in their communities.</p>
-                
                 <p>Every day, many families—especially elderly individuals, busy parents, and those in need of extra support—struggle to keep up with simple but important tasks. At the same time, many teens are looking for ways to get involved, give back, and build skills for the future. Our organization bridges that gap.</p>
-                
                 <p>We match teen volunteers with safe, age-appropriate service opportunities such as tutoring, yard work, organizing, and more. All work is completely voluntary and unpaid, and every hour is tracked and verified to ensure it qualifies as legitimate community service.</p>
-                
                 <p>We are committed to maintaining a safe, structured, and transparent system, with parent consent, clear guidelines, and reliable hour verification. By doing this, we aim to empower the next generation while strengthening trust and connection within our community.</p>
-                
                 <div class="placeholder-boxes">
-                    <div class="placeholder-box">
-                        <p>Impact Metric 1<br>(To be updated)</p>
-                    </div>
-                    <div class="placeholder-box">
-                        <p>Impact Metric 2<br>(To be updated)</p>
-                    </div>
-                    <div class="placeholder-box">
-                        <p>Impact Metric 3<br>(To be updated)</p>
-                    </div>
-                    <div class="placeholder-box">
-                        <p>Impact Metric 4<br>(To be updated)</p>
-                    </div>
+                    <div class="placeholder-box"><p>Impact Metric 1<br>(To be updated)</p></div>
+                    <div class="placeholder-box"><p>Impact Metric 2<br>(To be updated)</p></div>
+                    <div class="placeholder-box"><p>Impact Metric 3<br>(To be updated)</p></div>
+                    <div class="placeholder-box"><p>Impact Metric 4<br>(To be updated)</p></div>
                 </div>
             </div>
         </div>
@@ -799,13 +647,10 @@
         <div class="container">
             <h2 class="section-title">Become a Volunteer</h2>
             <p class="section-subtitle">Join our community of teen volunteers and start making a difference in your neighborhood while earning verified service hours.</p>
-            
             <div class="volunteer-info">
                 <p>Volunteering with us is more than just fulfilling service hour requirements—it's about building real-world skills, gaining confidence, and making genuine connections in your community. Whether you're looking to strengthen your college applications, explore different career paths, or simply give back, we provide structured, safe opportunities that fit your schedule and interests.</p>
-                
                 <p>As a volunteer, you'll be matched with families and individuals in your area who need help with tasks that match your skills and availability. All work is supervised by parents or guardians, completely voluntary and unpaid, and every hour you complete is tracked and verified for official documentation.</p>
             </div>
-
             <div class="volunteer-benefits">
                 <div class="benefit-card">
                     <h3>Verified Hours</h3>
@@ -820,12 +665,10 @@
                     <p>Choose opportunities that fit your availability. Volunteer on weekends, after school, or during breaks—it's entirely up to you and your family.</p>
                 </div>
             </div>
-
-            <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 1.8rem;">Service Opportunities</h3>
-            
+            <h3 style="text-align:center;color:var(--primary-color);margin-bottom:30px;font-size:1.8rem;">Service Opportunities</h3>
             <div class="volunteer-grid">
                 <div class="volunteer-card">
-                    <h3>Yard & Home Services</h3>
+                    <h3>Yard &amp; Home Services</h3>
                     <ul>
                         <li>Yard cleanup and maintenance</li>
                         <li>Leaf raking and debris removal</li>
@@ -855,9 +698,8 @@
                     </ul>
                 </div>
             </div>
-
-            <div style="text-align: center; margin-top: 50px;">
-                <p style="font-size: 1.1rem; color: var(--medium-gray); margin-bottom: 30px;">Ready to get started? Complete our volunteer application and waiver form. Parent or guardian consent is required.</p>
+            <div style="text-align:center;margin-top:50px;">
+                <p style="font-size:1.1rem;color:var(--medium-gray);margin-bottom:30px;">Ready to get started? Complete our volunteer application and waiver form. Parent or guardian consent is required.</p>
                 <button class="btn btn-primary" onclick="openVolunteerModal()">Apply Now</button>
             </div>
         </div>
@@ -867,15 +709,11 @@
         <div class="container">
             <h2 class="section-title">Find Help</h2>
             <p class="section-subtitle">Get assistance from responsible, motivated teen volunteers in your community—completely free.</p>
-            
             <div class="help-intro">
                 <p>We understand that everyday tasks can become overwhelming, whether you're a busy parent, an elderly individual, or someone who needs extra support. Our program connects you with reliable teen volunteers who are eager to help—at no cost to you.</p>
-                
                 <p>Every volunteer is supervised by their parent or guardian, and all tasks are pre-approved to ensure they're safe and age-appropriate. Our matching system connects you with volunteers based on your location, the type of help you need, and their skills and availability.</p>
             </div>
-
-            <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 1.8rem;">How It Works</h3>
-            
+            <h3 style="text-align:center;color:var(--primary-color);margin-bottom:30px;font-size:1.8rem;">How It Works</h3>
             <div class="help-steps">
                 <div class="help-step">
                     <div class="step-number">1</div>
@@ -898,7 +736,6 @@
                     <p>After the service is completed, confirm the hours to help the volunteer earn verified community service credit.</p>
                 </div>
             </div>
-
             <div class="help-examples">
                 <h3>What We Can Help With</h3>
                 <div class="examples-grid">
@@ -920,20 +757,18 @@
                     </div>
                 </div>
             </div>
-
-            <div style="background-color: var(--light-gray); padding: 30px; border-radius: 4px; margin-bottom: 50px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 20px; text-align: center;">Important Information</h3>
-                <ul style="max-width: 700px; margin: 0 auto; line-height: 2; color: var(--medium-gray);">
+            <div style="background-color:var(--light-gray);padding:30px;border-radius:4px;margin-bottom:50px;">
+                <h3 style="color:var(--primary-color);margin-bottom:20px;text-align:center;">Important Information</h3>
+                <ul style="max-width:700px;margin:0 auto;line-height:2;color:var(--medium-gray);">
                     <li>All services are completely free—volunteers are unpaid and doing this for community service hours</li>
-                    <li>All volunteers are minors (ages 13-18) providing non-professional assistance</li>
+                    <li>All volunteers are minors (ages 13–18) providing non-professional assistance</li>
                     <li>Parent or guardian supervision is required for all volunteer activities</li>
                     <li>Tasks must be safe, age-appropriate, and pre-approved by our organization</li>
                     <li>You'll receive a tracking code to confirm completed hours after service</li>
                 </ul>
             </div>
-
-            <div style="text-align: center;">
-                <p style="font-size: 1.1rem; color: var(--medium-gray); margin-bottom: 30px;">Ready to request help? Fill out our service request form and we'll match you with a volunteer.</p>
+            <div style="text-align:center;">
+                <p style="font-size:1.1rem;color:var(--medium-gray);margin-bottom:30px;">Ready to request help? Fill out our service request form and we'll match you with a volunteer.</p>
                 <button class="btn btn-primary" onclick="openRequestModal()">Request Service</button>
             </div>
         </div>
@@ -969,73 +804,62 @@
             <h2 class="section-title">Support Our Mission</h2>
             <div class="donate-content">
                 <p>Community Youth Volunteers is a nonprofit organization dedicated to building stronger communities through youth service. Your support helps us connect more teens with meaningful volunteer opportunities.</p>
-                <p style="font-style: italic; color: var(--medium-gray);">Donation options coming soon. For now, you can support us by spreading the word about our program.</p>
+                <p style="font-style:italic;color:var(--medium-gray);">Donation options coming soon. For now, you can support us by spreading the word about our program.</p>
             </div>
         </div>
     </section>
 
+    <!-- Volunteer Modal -->
     <div id="volunteerModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close" onclick="closeVolunteerModal()">&times;</span>
-                <h2>Volunteer Application & Waiver</h2>
+                <h2>Volunteer Application &amp; Waiver</h2>
             </div>
             <div class="modal-body">
-                <p style="color: red; font-weight: bold; margin-bottom: 20px;">TEST: If you can see this form and type in the fields, the form is working!</p>
-                <form id="volunteerForm" onsubmit="return false;">
+                <form id="volunteerForm">
                     <div class="form-section">
                         <h3>Volunteer Information</h3>
-                        
                         <div class="form-group">
                             <label>Full Name <span class="required">*</span></label>
                             <input type="text" id="v_teen_name" required>
                         </div>
-
                         <div class="form-group">
                             <label>Date of Birth <span class="required">*</span></label>
                             <input type="date" id="v_teen_dob" required>
                         </div>
-
                         <div class="form-group">
                             <label>Age <span class="required">*</span></label>
                             <input type="number" id="v_age" min="13" max="19" required>
                         </div>
-
                         <div class="form-group">
                             <label>Email <span class="required">*</span></label>
                             <input type="email" id="v_teen_email" required>
                         </div>
-
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
                             <input type="tel" id="v_teen_phone" required>
                         </div>
-
                         <div class="form-group">
                             <label>Address <span class="required">*</span></label>
                             <input type="text" id="v_address" required>
                         </div>
-
                         <div class="form-group">
                             <label>ZIP Code <span class="required">*</span></label>
                             <input type="text" id="v_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
                         </div>
-
                         <div class="form-group">
                             <label>What types of volunteer work interest you? <span class="required">*</span></label>
                             <textarea id="v_interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>What skills or experience do you have?</label>
                             <textarea id="v_skills" placeholder="e.g., good with kids, organized, patient..."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>Availability <span class="required">*</span></label>
                             <textarea id="v_availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>Why do you want to volunteer?</label>
                             <textarea id="v_motivation" placeholder="Tell us what motivates you to join our program"></textarea>
@@ -1044,12 +868,10 @@
 
                     <div class="form-section">
                         <h3>Parent/Guardian Information</h3>
-
                         <div class="form-group">
                             <label>Parent/Guardian Name <span class="required">*</span></label>
                             <input type="text" id="v_parent_name" required>
                         </div>
-
                         <div class="form-group">
                             <label>Relationship to Volunteer <span class="required">*</span></label>
                             <select id="v_parent_relationship" required>
@@ -1060,27 +882,22 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label>Parent/Guardian Email <span class="required">*</span></label>
                             <input type="email" id="v_parent_email" required>
                         </div>
-
                         <div class="form-group">
                             <label>Parent/Guardian Phone <span class="required">*</span></label>
                             <input type="tel" id="v_parent_phone" required>
                         </div>
-
                         <div class="form-group">
                             <label>Emergency Contact Name <span class="required">*</span></label>
                             <input type="text" id="v_emergency_name" required>
                         </div>
-
                         <div class="form-group">
                             <label>Emergency Contact Relationship <span class="required">*</span></label>
                             <input type="text" id="v_emergency_relationship" required placeholder="e.g., Aunt, Grandparent, Family Friend">
                         </div>
-
                         <div class="form-group">
                             <label>Emergency Contact Phone <span class="required">*</span></label>
                             <input type="tel" id="v_emergency_phone" required>
@@ -1088,13 +905,11 @@
                     </div>
 
                     <div class="form-section">
-                        <h3>Medical & Emergency Information</h3>
-
+                        <h3>Medical &amp; Emergency Information</h3>
                         <div class="form-group">
                             <label>Medical Conditions, Allergies, or Special Needs</label>
                             <textarea id="v_medical_info" placeholder="List any medical conditions, allergies, medications, or special needs we should be aware of. Write 'None' if not applicable."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>Health Insurance Provider <span class="required">*</span></label>
                             <input type="text" id="v_insurance_provider" required placeholder="e.g., Blue Cross, Kaiser, etc.">
@@ -1102,7 +917,7 @@
                     </div>
 
                     <div class="waiver-box">
-                        <h4>Liability Waiver & Release of Claims</h4>
+                        <h4>Liability Waiver &amp; Release of Claims</h4>
                         <p><strong>PLEASE READ CAREFULLY BEFORE SIGNING</strong></p>
                         <p>I, the parent/guardian, hereby acknowledge and agree to the following:</p>
                         <ul>
@@ -1121,36 +936,34 @@
                         <h3>Media Release</h3>
                         <div class="checkbox-group">
                             <input type="checkbox" id="v_media_consent">
-                            <label>I give permission for photos/videos of my child taken during volunteer activities to be used for promotional purposes (optional)</label>
+                            <label for="v_media_consent">I give permission for photos/videos of my child taken during volunteer activities to be used for promotional purposes (optional)</label>
                         </div>
                     </div>
 
                     <div class="form-section">
                         <h3>Parent/Guardian Signature</h3>
-                        
                         <div class="form-group">
                             <label>Type Your Full Name as Electronic Signature <span class="required">*</span></label>
                             <input type="text" id="v_parent_signature" required placeholder="Type your full name">
-                            <small style="color: var(--medium-gray); display: block; margin-top: 5px;">By typing your name, you are electronically signing this agreement</small>
+                            <small style="color:var(--medium-gray);display:block;margin-top:5px;">By typing your name, you are electronically signing this agreement</small>
                         </div>
-
                         <div class="form-group">
                             <label>Today's Date <span class="required">*</span></label>
                             <input type="date" id="v_signature_date" required>
                         </div>
-
                         <div class="checkbox-group">
                             <input type="checkbox" id="v_consent" required>
-                            <label><strong>I certify that I am the parent/legal guardian of the volunteer named above, I have read and understand this entire agreement, and I consent to my child's participation in the Community Youth Volunteers program.</strong> <span class="required">*</span></label>
+                            <label for="v_consent"><strong>I certify that I am the parent/legal guardian of the volunteer named above, I have read and understand this entire agreement, and I consent to my child's participation in the Community Youth Volunteers program.</strong> <span class="required">*</span></label>
                         </div>
                     </div>
 
-                    <button type="button" onclick="submitVolunteerForm()" class="submit-btn">Submit Application & Waiver</button>
+                    <button type="button" onclick="submitVolunteerForm()" class="submit-btn">Submit Application &amp; Waiver</button>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Service Request Modal -->
     <div id="requestModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1158,30 +971,25 @@
                 <h2>Service Request</h2>
             </div>
             <div class="modal-body">
-                <form id="requestForm" onsubmit="return false;">
+                <form id="requestForm">
                     <div class="form-section">
                         <h3>Your Information</h3>
-
                         <div class="form-group">
                             <label>Your Name <span class="required">*</span></label>
                             <input type="text" id="r_requester_name" required>
                         </div>
-
                         <div class="form-group">
                             <label>Email <span class="required">*</span></label>
                             <input type="email" id="r_requester_email" required>
                         </div>
-
                         <div class="form-group">
                             <label>Phone Number <span class="required">*</span></label>
                             <input type="tel" id="r_requester_phone" required>
                         </div>
-
                         <div class="form-group">
                             <label>Service Location Address <span class="required">*</span></label>
                             <input type="text" id="r_service_address" required>
                         </div>
-
                         <div class="form-group">
                             <label>ZIP Code <span class="required">*</span></label>
                             <input type="text" id="r_service_zip_code" required pattern="[0-9]{5}" placeholder="e.g., 92008">
@@ -1190,41 +998,35 @@
 
                     <div class="form-section">
                         <h3>Service Details</h3>
-
                         <div class="form-group">
                             <label>Type of Help Needed <span class="required">*</span></label>
                             <select id="r_service_type" required>
                                 <option value="">Select a category...</option>
-                                <option value="Yard & Home">Yard & Home Services</option>
+                                <option value="Yard & Home">Yard &amp; Home Services</option>
                                 <option value="Educational">Educational Support</option>
                                 <option value="Pet Care">Pet Care Services</option>
                                 <option value="Other">Other (please describe below)</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label>Task Description <span class="required">*</span></label>
                             <textarea id="r_task_description" required placeholder="Please describe the task in detail. Be specific about what needs to be done."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>Preferred Date(s) <span class="required">*</span></label>
                             <input type="text" id="r_preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
                         </div>
-
                         <div class="form-group">
                             <label>Estimated Time Needed</label>
                             <input type="text" id="r_time_needed" placeholder="e.g., 2 hours, half day">
                         </div>
-
                         <div class="form-group">
                             <label>Special Requirements or Notes</label>
                             <textarea id="r_special_notes" placeholder="Any specific skills needed, access instructions, or other important information"></textarea>
                         </div>
-
                         <div class="checkbox-group">
                             <input type="checkbox" id="r_agreement" required>
-                            <label>I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
+                            <label for="r_agreement">I understand that volunteers are minors providing non-professional assistance, and I agree to the program's terms and conditions. <span class="required">*</span></label>
                         </div>
                     </div>
 
@@ -1251,7 +1053,7 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>
-                <p style="margin-top: 20px;">Building responsibility, confidence, and community connections.</p>
+                <p style="margin-top:20px;">Building responsibility, confidence, and community connections.</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1260,6 +1062,8 @@
     </footer>
 
     <script>
+        var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
+
         function openVolunteerModal() {
             document.getElementById('volunteerModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -1281,13 +1085,13 @@
         }
 
         function submitVolunteerForm() {
-            const form = document.getElementById('volunteerForm');
+            var form = document.getElementById('volunteerForm');
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
 
-            const data = {
+            var data = {
                 type: 'volunteer_with_waiver',
                 teen_name: document.getElementById('v_teen_name').value,
                 teen_dob: document.getElementById('v_teen_dob').value,
@@ -1314,35 +1118,31 @@
                 signature_date: document.getElementById('v_signature_date').value
             };
 
-            console.log('Submitting volunteer data:', data);
-
-            fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
+            fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(() => {
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function() {
                 alert('Thank you! Your application and waiver have been submitted. You will receive an email with emergency protocols within a few minutes.');
                 closeVolunteerModal();
                 form.reset();
-            }).catch(error => {
+            }).catch(function(error) {
                 console.error('Error:', error);
-                alert('Application submitted! Check your email for confirmation. If you don\'t receive it within 24 hours, contact us at jeffreyding1217@gmail.com.');
+                alert("Application submitted! Check your email for confirmation. If you don't receive it within 24 hours, contact us at jeffreyding1217@gmail.com.");
                 closeVolunteerModal();
                 form.reset();
             });
         }
 
         function submitRequestForm() {
-            const form = document.getElementById('requestForm');
+            var form = document.getElementById('requestForm');
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
 
-            const data = {
+            var data = {
                 type: 'request',
                 requester_name: document.getElementById('r_requester_name').value,
                 requester_email: document.getElementById('r_requester_email').value,
@@ -1356,53 +1156,38 @@
                 special_notes: document.getElementById('r_special_notes').value
             };
 
-            console.log('Submitting request data:', data);
-
-            fetch('https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec', {
+            fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(() => {
+                headers: { 'Content-Type': 'application/json' }
+            }).then(function() {
                 alert('Thank you for your service request! We will review it and match you with a volunteer within 48 hours. Check your email for your tracking code.');
                 closeRequestModal();
                 form.reset();
-            }).catch(error => {
+            }).catch(function(error) {
                 console.error('Error:', error);
-                alert('Request submitted! If you don\'t hear from us within 48 hours, please contact us at jeffreyding1217@gmail.com.');
+                alert("Request submitted! If you don't hear from us within 48 hours, please contact us at jeffreyding1217@gmail.com.");
                 closeRequestModal();
                 form.reset();
             });
         }
 
         window.onclick = function(event) {
-            const volunteerModal = document.getElementById('volunteerModal');
-            const requestModal = document.getElementById('requestModal');
-            if (event.target == volunteerModal) {
-                closeVolunteerModal();
-            }
-            if (event.target == requestModal) {
-                closeRequestModal();
-            }
-        }
+            if (event.target == document.getElementById('volunteerModal')) closeVolunteerModal();
+            if (event.target == document.getElementById('requestModal')) closeRequestModal();
+        };
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const today = new Date().toISOString().split('T')[0];
+            var today = new Date().toISOString().split('T')[0];
             document.getElementById('v_signature_date').value = today;
         });
     </script>
