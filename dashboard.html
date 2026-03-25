@@ -1,1050 +1,1390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Community Youth Volunteers</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYV Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 2rem;
-        }
+    :root {
+      --primary: #2c5f8d;
+      --secondary: #f7941d;
+      --dark: #333333;
+      --light: #f5f5f5;
+      --mid: #666666;
+      --white: #ffffff;
+      --success: #2e7d32;
+      --warning: #e65100;
+      --sidebar-w: 240px;
+    }
 
-        .login-container {
-            max-width: 400px;
-            margin: 10vh auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-        }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      display: flex;
+      min-height: 100vh;
+    }
 
-        .login-container h1 {
-            color: #667eea;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
+    h1,h2,h3,h4,h5 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
-        .dashboard-container {
-            display: none;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--primary);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
 
-        .dashboard-header {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
+    .sidebar-logo {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
 
-        .dashboard-header h1 {
-            color: #667eea;
-        }
+    .logo-circle {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
 
-        .logout-btn {
-            background: #e53e3e;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .sidebar-logo span {
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+    .sidebar-label {
+      padding: 20px 20px 8px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.5);
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
-        }
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border-left-color: var(--secondary);
+    }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+    .sidebar nav a .icon { font-size: 1rem; width: 20px; text-align: center; }
 
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 20px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
+    /* ── MAIN ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-        .error-message {
-            color: #e53e3e;
-            margin-top: 1rem;
-            text-align: center;
-            display: none;
-        }
+    .topbar {
+      background: var(--white);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
 
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
+    .topbar h2 { font-size: 1.3rem; color: var(--primary); }
 
-        .tab {
-            background: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #667eea;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
 
-        .tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
 
-        .tab-content {
-            display: none;
-        }
+    .badge-pending   { background: #fff3e0; color: #e65100; }
+    .badge-matched   { background: #e8f5e9; color: #2e7d32; }
+    .badge-approved  { background: #e3f2fd; color: #1565c0; }
+    .badge-verified  { background: #e8f5e9; color: #2e7d32; }
 
-        .tab-content.active {
-            display: block;
-        }
+    .content { padding: 32px; flex: 1; }
 
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
+    /* ── PAGE SECTIONS ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
+    /* ── STAT CARDS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
 
-        .card-title {
-            font-size: 1.3rem;
-            color: #667eea;
-            font-weight: bold;
-        }
+    .stat-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border-top: 4px solid var(--primary);
+    }
 
-        .status-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
+    .stat-card.orange { border-top-color: var(--secondary); }
+    .stat-card.green  { border-top-color: #2e7d32; }
+    .stat-card.gray   { border-top-color: #9e9e9e; }
 
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Montserrat', sans-serif;
+    }
 
-        .status-matched {
-            background: #d1fae5;
-            color: #065f46;
-        }
+    .stat-card.orange .stat-number { color: var(--secondary); }
+    .stat-card.green  .stat-number { color: #2e7d32; }
+    .stat-card.gray   .stat-number { color: #9e9e9e; }
 
-        .status-completed {
-            background: #dbeafe;
-            color: #1e3a8a;
-        }
+    .stat-label { font-size: 0.85rem; color: var(--mid); margin-top: 4px; }
 
-        .card-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+    /* ── SECTION CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
 
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-        }
+    .card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .detail-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.25rem;
-        }
+    .card-header h3 { font-size: 1rem; color: var(--primary); }
 
-        .detail-value {
-            font-weight: 600;
-            color: #333;
-        }
+    .card-body { padding: 24px; }
 
-        .matches-section {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 
-        .matches-section h4 {
-            color: #667eea;
-            margin-bottom: 0.75rem;
-        }
+    th {
+      background: var(--light);
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--mid);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-        .match-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
 
-        .match-info {
-            flex: 1;
-        }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
 
-        .match-distance {
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 1rem;
-        }
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Open Sans', sans-serif;
+    }
 
-        .approve-btn {
-            background: #10b981;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .btn-primary   { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { background: #235080; }
+    .btn-orange    { background: var(--secondary); color: var(--white); }
+    .btn-orange:hover { background: #e58610; }
+    .btn-green     { background: #2e7d32; color: var(--white); }
+    .btn-green:hover { background: #1b5e20; }
+    .btn-outline   { background: transparent; border: 1px solid #ddd; color: var(--mid); }
+    .btn-outline:hover { background: var(--light); }
+    .btn-danger    { background: #c62828; color: var(--white); }
+    .btn-danger:hover { background: #b71c1c; }
+    .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
 
-        .approve-btn:hover {
-            background: #059669;
-        }
+    /* ── MATCH CARDS ── */
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
 
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: white;
-            font-size: 1.2rem;
-        }
+    .match-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 20px;
+      background: var(--white);
+    }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
+    .match-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
 
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
+    .match-score {
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
+    .match-divider {
+      text-align: center;
+      color: var(--mid);
+      font-size: 0.8rem;
+      margin: 10px 0;
+      position: relative;
+    }
 
-        .stat-label {
-            color: #666;
-            margin-top: 0.5rem;
-        }
+    .match-divider:before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: #eee;
+    }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
+    .match-divider span {
+      background: var(--white);
+      padding: 0 10px;
+      position: relative;
+    }
 
-            .tabs {
-                flex-direction: column;
-            }
+    .match-person h4 { font-size: 0.92rem; color: var(--dark); margin-bottom: 4px; }
 
-            .card-details {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .match-person p { font-size: 0.82rem; color: var(--mid); }
+
+    .match-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+
+    .tag {
+      background: #e3f2fd;
+      color: #1565c0;
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 500;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; padding: 40px 20px; }
+
+    .modal-box {
+      background: var(--white);
+      border-radius: 6px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      background: var(--primary);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-head h3 { color: var(--white); font-size: 1.1rem; }
+
+    .modal-close {
+      color: var(--white);
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+    }
+
+    .modal-close:hover { opacity: 1; }
+
+    .modal-body { padding: 28px; max-height: 70vh; overflow-y: auto; }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .detail-item label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--mid);
+      margin-bottom: 4px;
+    }
+
+    .detail-item p { font-size: 0.92rem; color: var(--dark); }
+
+    .detail-item.full { grid-column: 1 / -1; }
+
+    .section-divider {
+      grid-column: 1 / -1;
+      border-top: 2px solid var(--light);
+      padding-top: 16px;
+      margin-top: 4px;
+    }
+
+    .section-divider h4 { color: var(--primary); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── LETTER ── */
+    .letter-preview {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 32px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--dark);
+      background: #fff;
+      margin-bottom: 20px;
+    }
+
+    .letter-preview h2 { text-align: center; color: var(--primary); margin-bottom: 8px; }
+    .letter-preview .letter-sub { text-align: center; color: var(--mid); font-size: 0.82rem; margin-bottom: 24px; }
+    .letter-preview .letter-body p { margin-bottom: 12px; }
+    .letter-preview .letter-sig { margin-top: 24px; }
+
+    /* ── SEARCH / FILTER BAR ── */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      padding: 8px 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+    }
+
+    .filter-bar input:focus,
+    .filter-bar select:focus { border-color: var(--primary); }
+
+    /* ── LOGIN ── */
+    #loginScreen {
+      position: fixed;
+      inset: 0;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .login-box {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 48px 40px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .login-logo {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .login-box h2 { color: var(--primary); margin-bottom: 6px; }
+    .login-box p  { color: var(--mid); font-size: 0.88rem; margin-bottom: 24px; }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      font-family: 'Open Sans', sans-serif;
+      outline: none;
+    }
+
+    .login-box input:focus { border-color: var(--primary); }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover { background: #e58610; }
+
+    .login-error {
+      color: #c62828;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--mid);
+    }
+
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+    .empty-state p { font-size: 0.92rem; }
+
+    /* ── NOTIFICATION TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: #2e7d32;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      z-index: 9000;
+      display: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sidebar { width: 60px; }
+      .sidebar-logo span, .sidebar-label, .sidebar nav a span { display: none; }
+      .main { margin-left: 60px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div class="login-container" id="loginContainer">
-        <h1>🔒 Admin Login</h1>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" id="passwordInput" placeholder="Enter password">
-        </div>
-        <button class="btn" onclick="login()">Login</button>
-        <p class="error-message" id="errorMessage">Incorrect password. Please try again.</p>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">CV</div>
+    <h2>Admin Dashboard</h2>
+    <p>Community Youth Volunteers</p>
+    <input type="password" id="loginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter') doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <p class="login-error" id="loginError">Incorrect password. Please try again.</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none; width:100%; display:none;">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="#" class="sidebar-logo" onclick="navigate('overview')">
+      <div class="logo-circle">CV</div>
+      <span>Community<br>Youth Volunteers</span>
+    </a>
+    <div class="sidebar-label">Menu</div>
+    <nav>
+      <a href="#" class="active" onclick="navigate('overview', this)">
+        <span class="icon">📊</span><span>Overview</span>
+      </a>
+      <a href="#" onclick="navigate('matches', this)">
+        <span class="icon">🔗</span><span>Suggested Matches</span>
+      </a>
+      <a href="#" onclick="navigate('volunteers', this)">
+        <span class="icon">🙋</span><span>All Volunteers</span>
+      </a>
+      <a href="#" onclick="navigate('requests', this)">
+        <span class="icon">📋</span><span>All Requests</span>
+      </a>
+      <a href="#" onclick="navigate('letters', this)">
+        <span class="icon">📄</span><span>Verification Letters</span>
+      </a>
+      <a href="#" onclick="navigate('hours', this)">
+        <span class="icon">⏱</span><span>Logged Hours</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div style="margin-bottom:8px;font-size:0.75rem;">jeffreyding1217@gmail.com</div>
+      <a href="#" onclick="logout()" style="color:rgba(255,255,255,0.6);font-size:0.78rem;text-decoration:none;">Sign out</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="topbar">
+      <h2 id="pageTitle">Overview</h2>
+      <div class="topbar-right">
+        <button class="btn btn-orange" onclick="refreshData()">↻ Refresh Data</button>
+      </div>
     </div>
 
-    <!-- Dashboard -->
-    <div class="dashboard-container" id="dashboardContainer">
-        <div class="dashboard-header">
-            <h1>📊 Admin Dashboard</h1>
-            <div>
-                <button class="btn" onclick="loadData()" style="width: auto; padding: 0.75rem 1.5rem; margin-right: 1rem; background: #10b981;">🔄 Refresh Data</button>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+    <div class="content">
+
+      <!-- OVERVIEW PAGE -->
+      <div id="page-overview" class="page active">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-number" id="stat-volunteers">–</div>
+            <div class="stat-label">Total Volunteers</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-number" id="stat-requests">–</div>
+            <div class="stat-label">Service Requests</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-number" id="stat-matched">–</div>
+            <div class="stat-label">Active Matches</div>
+          </div>
+          <div class="stat-card gray">
+            <div class="stat-number" id="stat-hours">–</div>
+            <div class="stat-label">Hours Logged</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Pending Actions</h3>
+          </div>
+          <div class="card-body" id="pending-actions">
+            <p style="color:var(--mid);font-size:0.9rem;">Loading...</p>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+          <div class="card">
+            <div class="card-header"><h3>Recent Volunteers</h3></div>
+            <div class="card-body" id="recent-volunteers">
+              <p style="color:var(--mid);font-size:0.9rem;">Loading...</p>
             </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="totalVolunteers">0</div>
-                <div class="stat-label">Total Volunteers</div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Recent Requests</h3></div>
+            <div class="card-body" id="recent-requests">
+              <p style="color:var(--mid);font-size:0.9rem;">Loading...</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalRequests">0</div>
-                <div class="stat-label">Service Requests</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATCHES PAGE -->
+      <div id="page-matches" class="page">
+        <div class="card">
+          <div class="card-header">
+            <h3>Suggested Matches</h3>
+            <span style="font-size:0.82rem;color:var(--mid);">Auto-generated based on ZIP code &amp; service type</span>
+          </div>
+          <div class="card-body">
+            <div id="matches-container">
+              <p style="color:var(--mid);">Loading matches...</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="pendingMatches">0</div>
-                <div class="stat-label">Pending Matches</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VOLUNTEERS PAGE -->
+      <div id="page-volunteers" class="page">
+        <div class="card">
+          <div class="card-header">
+            <h3>All Volunteers</h3>
+            <button class="btn btn-primary btn-sm" onclick="exportCSV('volunteers')">Export CSV</button>
+          </div>
+          <div class="card-body">
+            <div class="filter-bar">
+              <input type="text" id="vol-search" placeholder="Search by name or email..." oninput="renderVolunteers()">
+              <select id="vol-status" onchange="renderVolunteers()">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Matched">Matched</option>
+              </select>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="completedMatches">0</div>
-                <div class="stat-label">Completed</div>
+            <div style="overflow-x:auto;">
+              <table id="vol-table">
+                <thead>
+                  <tr>
+                    <th>Name</th><th>Age</th><th>ZIP</th><th>Interests</th>
+                    <th>Availability</th><th>Status</th><th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="vol-tbody"></tbody>
+              </table>
             </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('matches')">🎯 Suggested Matches</div>
-            <div class="tab" onclick="switchTab('volunteers')">👥 All Volunteers</div>
-            <div class="tab" onclick="switchTab('requests')">📋 All Requests</div>
-            <div class="tab" onclick="switchTab('hours')">⏱️ Logged Hours</div>
-            <div class="tab" onclick="switchTab('verification')">📄 Verification Letters</div>
-        </div>
-
-        <!-- Tab Content -->
-        <div id="matchesTab" class="tab-content active">
-            <div id="matchesContent" class="loading">Loading matches...</div>
-        </div>
-
-        <div id="volunteersTab" class="tab-content">
-            <div id="volunteersContent" class="loading">Loading volunteers...</div>
-        </div>
-
-        <div id="requestsTab" class="tab-content">
-            <div id="requestsContent" class="loading">Loading requests...</div>
-        </div>
-
-        <div id="hoursTab" class="tab-content">
-            <div id="hoursContent" class="loading">Loading logged hours...</div>
-        </div>
-
-        <div id="verificationTab" class="tab-content">
-            <div class="card">
-                <h3 style="color: #667eea; margin-bottom: 1rem;">Generate Verification Letter</h3>
-                <p style="margin-bottom: 1.5rem; color: #666;">Create an official hour verification letter for a volunteer to submit to their school.</p>
-                
-                <div class="form-group">
-                    <label>Select Volunteer</label>
-                    <select id="verifyVolunteerSelect" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
-                        <option value="">Choose a volunteer...</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Total Hours Completed</label>
-                    <input type="number" id="verifyHours" placeholder="e.g., 15" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
-                </div>
-
-                <div class="form-group">
-                    <label>Service Period</label>
-                    <input type="text" id="verifyPeriod" placeholder="e.g., September 2024 - December 2024" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
-                </div>
-
-                <div class="form-group">
-                    <label>Tasks Performed (Brief Summary)</label>
-                    <textarea id="verifyTasks" placeholder="e.g., Yard maintenance, pet care, tutoring younger students" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; min-height: 80px;"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Adult Advisor Name</label>
-                    <input type="text" id="advisorName" placeholder="[To be assigned]" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
-                </div>
-
-                <div class="form-group">
-                    <label>Adult Advisor Title</label>
-                    <input type="text" id="advisorTitle" placeholder="Program Advisor" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px;">
-                </div>
-
-                <button onclick="generateVerificationLetter()" class="btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    📄 Generate Letter
-                </button>
-
-                <div id="letterPreview" style="display: none; margin-top: 2rem; padding: 2rem; background: white; border: 2px solid #667eea; border-radius: 8px;">
-                    <div style="text-align: right; margin-bottom: 1rem;">
-                        <button onclick="printLetter()" class="btn" style="width: auto; padding: 0.75rem 1.5rem; background: #10b981;">🖨️ Print Letter</button>
-                        <button onclick="copyLetter()" class="btn" style="width: auto; padding: 0.75rem 1.5rem; background: #3b82f6; margin-left: 0.5rem;">📋 Copy Text</button>
-                    </div>
-                    <div id="letterContent" style="font-family: 'Times New Roman', serif; line-height: 1.8; color: #000;"></div>
-                </div>
+      <!-- REQUESTS PAGE -->
+      <div id="page-requests" class="page">
+        <div class="card">
+          <div class="card-header">
+            <h3>All Service Requests</h3>
+            <button class="btn btn-primary btn-sm" onclick="exportCSV('requests')">Export CSV</button>
+          </div>
+          <div class="card-body">
+            <div class="filter-bar">
+              <input type="text" id="req-search" placeholder="Search by name, email, or type..." oninput="renderRequests()">
+              <select id="req-status" onchange="renderRequests()">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Matched">Matched</option>
+                <option value="Completed">Completed</option>
+              </select>
             </div>
+            <div style="overflow-x:auto;">
+              <table id="req-table">
+                <thead>
+                  <tr>
+                    <th>Name</th><th>Service Type</th><th>ZIP</th>
+                    <th>Preferred Dates</th><th>Tracking Code</th><th>Status</th><th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="req-tbody"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- LETTERS PAGE -->
+      <div id="page-letters" class="page">
+        <div class="card">
+          <div class="card-header">
+            <h3>Verification Letters</h3>
+            <span style="font-size:0.82rem;color:var(--mid);">Generate official service hour verification letters</span>
+          </div>
+          <div class="card-body">
+            <div class="filter-bar">
+              <input type="text" id="let-search" placeholder="Search volunteer name..." oninput="renderLetterList()">
+            </div>
+            <div id="letter-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOURS PAGE -->
+      <div id="page-hours" class="page">
+        <div class="card">
+          <div class="card-header"><h3>Logged Hours</h3></div>
+          <div class="card-body">
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th><th>Volunteer</th><th>Recipient</th>
+                    <th>Hours</th><th>Tasks</th><th>Status</th><th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="hours-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /dashboard -->
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modal-title">Details</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
     </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
 
-    <script>
-        const CORRECT_PASSWORD = 'volunteer2026'; // Change this to your desired password
-        const SHEET_ID = '10qi0lmaeCI6Ra0WWu0utqE19W93HGVhFF1v2e9oeSxU';
-        const API_KEY = 'AIzaSyD9KZ0QYO-VNVdjyVVYdMWbAM0dZITr-iE';
+<!-- LETTER MODAL -->
+<div class="modal-overlay" id="letterModal">
+  <div class="modal-box" style="max-width:780px;">
+    <div class="modal-head">
+      <h3>Verification Letter</h3>
+      <button class="modal-close" onclick="closeLetterModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="letter-preview-content" class="letter-preview"></div>
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-primary" onclick="printLetter()">🖨 Print / Save PDF</button>
+        <button class="btn btn-outline" onclick="closeLetterModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
+<div id="toast"></div>
 
-        let volunteers = [];
-        let requests = [];
+<script>
+// =====================================================================
+// CONFIG — paste your Google Apps Script URL here
+// =====================================================================
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
+var DASHBOARD_PASSWORD = 'cyv2026'; // Change this to whatever you want
 
-        function login() {
-            const password = document.getElementById('passwordInput').value;
-            if (password === CORRECT_PASSWORD) {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('dashboardContainer').style.display = 'block';
-                loadData();
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        }
+// =====================================================================
+// DATA STORE
+// =====================================================================
+var DB = {
+  volunteers: [],
+  requests: [],
+  hours: [],
+  waivers: []
+};
 
-        function logout() {
-            document.getElementById('loginContainer').style.display = 'block';
-            document.getElementById('dashboardContainer').style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-        }
+// =====================================================================
+// LOGIN
+// =====================================================================
+function doLogin() {
+  var pass = document.getElementById('loginPass').value;
+  if (pass === DASHBOARD_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'flex';
+    loadFromSheet();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tab + 'Tab').classList.add('active');
-        }
+function logout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginPass').value = '';
+}
 
-        async function loadData() {
-            try {
-                // Fetch volunteers from Google Sheet
-                const volunteersResponse = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Volunteers?key=${API_KEY}`
-                );
-                const volunteersData = await volunteersResponse.json();
-                
-                // Fetch service requests from Google Sheet
-                const requestsResponse = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Service%20Requests?key=${API_KEY}`
-                );
-                const requestsData = await requestsResponse.json();
-                
-                // Fetch logged hours from Google Sheet
-                const hoursResponse = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Logged%20Hours?key=${API_KEY}`
-                );
-                const hoursData = await hoursResponse.json();
-                
-                // Parse volunteers data
-                volunteers = [];
-                if (volunteersData.values && volunteersData.values.length > 1) {
-                    for (let i = 1; i < volunteersData.values.length; i++) {
-                        const row = volunteersData.values[i];
-                        volunteers.push({
-                            timestamp: row[0],
-                            name: row[1],
-                            age: row[2],
-                            email: row[3],
-                            phone: row[4],
-                            address: row[5],
-                            zipCode: row[6],
-                            interests: row[7],
-                            skills: row[8],
-                            availability: row[9],
-                            motivation: row[10],
-                            parentName: row[11],
-                            parentEmail: row[12],
-                            parentPhone: row[13],
-                            emergencyName: row[14],
-                            emergencyPhone: row[15],
-                            status: row[16] || 'Pending'
-                        });
-                    }
-                }
-                
-                // Parse requests data
-                requests = [];
-                if (requestsData.values && requestsData.values.length > 1) {
-                    for (let i = 1; i < requestsData.values.length; i++) {
-                        const row = requestsData.values[i];
-                        requests.push({
-                            timestamp: row[0],
-                            name: row[1],
-                            email: row[2],
-                            phone: row[3],
-                            address: row[4],
-                            zipCode: row[5],
-                            serviceType: row[6],
-                            description: row[7],
-                            preferredDates: row[8],
-                            timeNeeded: row[9],
-                            specialNotes: row[10],
-                            status: row[11] || 'Pending',
-                            matchedVolunteer: row[12] || '',
-                            trackingCode: row[13] || 'N/A'
-                        });
-                    }
-                }
-                
-                // Parse logged hours data
-                loggedHours = [];
-                if (hoursData.values && hoursData.values.length > 1) {
-                    for (let i = 1; i < hoursData.values.length; i++) {
-                        const row = hoursData.values[i];
-                        loggedHours.push({
-                            timestamp: row[0],
-                            trackingCode: row[1],
-                            volunteerName: row[2],
-                            recipientName: row[3],
-                            serviceDate: row[4],
-                            hoursCompleted: parseFloat(row[5]) || 0,
-                            tasksCompleted: row[6],
-                            qualityRating: row[7],
-                            comments: row[8],
-                            verified: row[9] || 'Pending Review'
-                        });
-                    }
-                }
-                
-                updateStats();
-                renderMatches();
-                renderVolunteers();
-                renderRequests();
-                renderLoggedHours();
-                
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('matchesContent').innerHTML = '<div class="card"><p style="color: red;">Error loading data. Make sure your Google Sheet has tabs named "Volunteers", "Service Requests", and "Logged Hours".</p></div>';
-            }
-        }
+// =====================================================================
+// NAVIGATION
+// =====================================================================
+var currentPage = 'overview';
 
-        function updateStats() {
-            document.getElementById('totalVolunteers').textContent = volunteers.length;
-            document.getElementById('totalRequests').textContent = requests.length;
-            document.getElementById('pendingMatches').textContent = requests.filter(r => r.status === 'Pending').length;
-            document.getElementById('completedMatches').textContent = requests.filter(r => r.status === 'Completed').length;
-        }
+function navigate(page, linkEl) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.sidebar nav a').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById('page-' + page).classList.add('active');
+  if (linkEl) linkEl.classList.add('active');
+  currentPage = page;
 
-        function calculateDistance(zip1, zip2) {
-            // Simple distance estimation based on ZIP code difference
-            // For California ZIP codes (92xxx range), roughly 1 ZIP code unit ≈ 2-3 miles
-            // This is a simplified calculation - in production you'd use a proper ZIP code distance API
-            
-            const z1 = parseInt(zip1);
-            const z2 = parseInt(zip2);
-            
-            if (isNaN(z1) || isNaN(z2)) return 999; // Invalid ZIP
-            
-            const diff = Math.abs(z1 - z2);
-            
-            // Rough estimation for Southern California area
-            if (diff === 0) return 0;
-            if (diff === 1) return 3;
-            if (diff <= 3) return diff * 2.5;
-            if (diff <= 10) return diff * 2;
-            if (diff <= 50) return diff * 1.5;
-            
-            return Math.min(diff, 100); // Cap at 100 miles for display
-        }
+  var titles = {
+    overview: 'Overview',
+    matches: 'Suggested Matches',
+    volunteers: 'All Volunteers',
+    requests: 'All Requests',
+    letters: 'Verification Letters',
+    hours: 'Logged Hours'
+  };
+  document.getElementById('pageTitle').textContent = titles[page] || page;
 
-        function renderMatches() {
-            const container = document.getElementById('matchesContent');
-            let html = '';
+  if (page === 'matches') renderMatches();
+  if (page === 'volunteers') renderVolunteers();
+  if (page === 'requests') renderRequests();
+  if (page === 'letters') renderLetterList();
+  if (page === 'hours') renderHours();
+  return false;
+}
 
-            requests.forEach((request, reqIndex) => {
-                if (request.status === 'Pending') {
-                    html += `
-                        <div class="card">
-                            <div class="card-header">
-                                <div>
-                                    <div class="card-title">${request.serviceType} Request</div>
-                                    <div style="color: #666; margin-top: 0.5rem;">${request.name} - ${request.zipCode}</div>
-                                </div>
-                                <span class="status-badge status-pending">${request.status}</span>
-                            </div>
-                            <div class="card-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">Task</span>
-                                    <span class="detail-value">${request.description}</span>
-                                </div>
-                            </div>
-                            <div class="matches-section">
-                                <h4>Suggested Volunteers (within 15 miles)</h4>
-                                ${renderVolunteerMatches(request, reqIndex)}
-                            </div>
-                        </div>
-                    `;
-                }
-            });
+// =====================================================================
+// LOAD DATA FROM GOOGLE SHEET
+// =====================================================================
+function loadFromSheet() {
+  // We fetch the sheet as CSV for each tab using the sheet's published CSV URLs.
+  // Since we can't easily get Google Sheet data without OAuth, we use the
+  // Google Apps Script to return all data via a GET request with a param.
+  fetch(SCRIPT_URL + '?action=getData')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.volunteers) DB.volunteers = data.volunteers;
+      if (data.requests)   DB.requests   = data.requests;
+      if (data.hours)      DB.hours      = data.hours;
+      if (data.waivers)    DB.waivers    = data.waivers;
+      renderOverview();
+      if (currentPage !== 'overview') navigate(currentPage);
+    })
+    .catch(function() {
+      // If fetch fails, show demo data so the dashboard is usable
+      loadDemoData();
+    });
+}
 
-            container.innerHTML = html || '<div class="card"><p>No pending matches at this time.</p></div>';
-        }
+function refreshData() {
+  showToast('Refreshing data...');
+  loadFromSheet();
+}
 
-        function renderVolunteerMatches(request, reqIndex) {
-            let html = '';
-            volunteers.forEach((volunteer, volIndex) => {
-                const distance = calculateDistance(request.zipCode, volunteer.zipCode);
-                if (distance <= 15 && volunteer.status === 'Pending') {
-                    html += `
-                        <div class="match-item">
-                            <div class="match-info">
-                                <strong>${volunteer.name}</strong> (Age ${volunteer.age})
-                                <div style="color: #666; font-size: 0.9rem;">${volunteer.interests}</div>
-                                <div style="color: #666; font-size: 0.9rem;">Available: ${volunteer.availability}</div>
-                            </div>
-                            <span class="match-distance">${distance} miles</span>
-                            <button class="approve-btn" onclick="approveMatch(${reqIndex}, ${volIndex})">Approve Match</button>
-                        </div>
-                    `;
-                }
-            });
-            return html || '<p style="color: #666;">No suitable volunteers found within 15 miles.</p>';
-        }
+// =====================================================================
+// DEMO DATA (fallback if sheet is not yet connected)
+// =====================================================================
+function loadDemoData() {
+  DB.volunteers = [
+    { teen_name: 'Alex Johnson', age: '15', teen_email: 'alex@email.com', teen_phone: '760-555-0101',
+      address: '123 Main St', zip_code: '92008', interests: 'Tutoring, yard work',
+      skills: 'Patient, organized', availability: 'Weekends', motivation: 'Give back',
+      parent_name: 'Sarah Johnson', parent_email: 'sarah@email.com', parent_phone: '760-555-0100',
+      emergency_name: 'Tom Johnson', emergency_phone: '760-555-0102',
+      insurance_provider: 'Blue Cross', status: 'Pending', timestamp: new Date().toISOString() },
+    { teen_name: 'Maya Patel', age: '16', teen_email: 'maya@email.com', teen_phone: '760-555-0201',
+      address: '456 Oak Ave', zip_code: '92010', interests: 'Pet care, tutoring',
+      skills: 'Good with animals, math tutor', availability: 'After school Tue/Thu, weekends', motivation: 'Service hours',
+      parent_name: 'Priya Patel', parent_email: 'priya@email.com', parent_phone: '760-555-0200',
+      emergency_name: 'Raj Patel', emergency_phone: '760-555-0202',
+      insurance_provider: 'Kaiser', status: 'Approved', timestamp: new Date().toISOString() }
+  ];
+  DB.requests = [
+    { requester_name: 'Linda Torres', requester_email: 'linda@email.com', requester_phone: '760-555-0301',
+      service_address: '789 Elm St', zip_code: '92008', service_type: 'Educational',
+      task_description: 'Homework help for my 7-year-old, 2 hours per week',
+      preferred_dates: 'Weekday afternoons', time_needed: '2 hours/week',
+      special_notes: '', status: 'Pending', tracking_code: 'ABC12345', timestamp: new Date().toISOString() },
+    { requester_name: 'Bob Williams', requester_email: 'bob@email.com', requester_phone: '760-555-0401',
+      service_address: '321 Pine Rd', zip_code: '92010', service_type: 'Pet Care',
+      task_description: 'Dog walking for our golden retriever, 30 min daily walks',
+      preferred_dates: 'Weekends', time_needed: '30 min/day',
+      special_notes: 'Dog is friendly', status: 'Pending', tracking_code: 'XYZ67890', timestamp: new Date().toISOString() }
+  ];
+  DB.hours = [
+    { timestamp: new Date().toISOString(), tracking_code: 'ABC12345', volunteer_name: 'Alex Johnson',
+      recipient_name: 'Linda Torres', service_date: '2026-03-15', hours_completed: '2',
+      tasks_completed: 'Homework help - math and reading', quality_rating: '5', comments: 'Excellent!', verified: 'Verified' }
+  ];
+  renderOverview();
+  showToast('Showing demo data — connect your Google Sheet to see real submissions');
+}
 
-        function renderVolunteers() {
-            const container = document.getElementById('volunteersContent');
-            const selectDropdown = document.getElementById('verifyVolunteerSelect');
-            let html = '';
-            let options = '<option value="">Choose a volunteer...</option>';
+// =====================================================================
+// OVERVIEW
+// =====================================================================
+function renderOverview() {
+  document.getElementById('stat-volunteers').textContent = DB.volunteers.length;
+  document.getElementById('stat-requests').textContent   = DB.requests.length;
 
-            volunteers.forEach((volunteer, index) => {
-                html += `
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">${volunteer.name}</div>
-                            <span class="status-badge status-${volunteer.status.toLowerCase()}">${volunteer.status}</span>
-                        </div>
-                        <div class="card-details">
-                            <div class="detail-item">
-                                <span class="detail-label">Age</span>
-                                <span class="detail-value">${volunteer.age}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">ZIP Code</span>
-                                <span class="detail-value">${volunteer.zipCode}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Interests</span>
-                                <span class="detail-value">${volunteer.interests}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Availability</span>
-                                <span class="detail-value">${volunteer.availability}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                options += `<option value="${index}">${volunteer.name} (Age ${volunteer.age})</option>`;
-            });
+  var matched = DB.volunteers.filter(function(v) { return v.status === 'Matched'; }).length;
+  document.getElementById('stat-matched').textContent = matched;
 
-            container.innerHTML = html;
-            selectDropdown.innerHTML = options;
-        }
+  var totalHours = DB.hours.reduce(function(sum, h) { return sum + (parseFloat(h.hours_completed) || 0); }, 0);
+  document.getElementById('stat-hours').textContent = totalHours;
 
-        function renderRequests() {
-            const container = document.getElementById('requestsContent');
-            let html = '';
+  // Pending actions
+  var pending = DB.volunteers.filter(function(v) { return v.status === 'Pending'; });
+  var pendingReqs = DB.requests.filter(function(r) { return r.status === 'Pending'; });
+  var html = '';
+  if (pending.length === 0 && pendingReqs.length === 0) {
+    html = '<p style="color:var(--mid);font-size:0.9rem;">No pending actions. You\'re all caught up!</p>';
+  } else {
+    pending.forEach(function(v) {
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
+        '<span style="font-size:0.9rem;">New volunteer application: <strong>' + v.teen_name + '</strong></span>' +
+        '<button class="btn btn-green btn-sm" onclick="approveVolunteer(\'' + escapeQ(v.teen_name) + '\')">Approve</button>' +
+        '</div>';
+    });
+    pendingReqs.forEach(function(r) {
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
+        '<span style="font-size:0.9rem;">New service request: <strong>' + r.requester_name + '</strong> — ' + r.service_type + '</span>' +
+        '<span class="badge badge-pending">Needs Match</span>' +
+        '</div>';
+    });
+  }
+  document.getElementById('pending-actions').innerHTML = html;
 
-            requests.forEach(request => {
-                html += `
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">${request.serviceType}</div>
-                                <div style="color: #666; margin-top: 0.5rem;">${request.name}</div>
-                            </div>
-                            <span class="status-badge status-${request.status.toLowerCase()}">${request.status}</span>
-                        </div>
-                        <div class="card-details">
-                            <div class="detail-item">
-                                <span class="detail-label">ZIP Code</span>
-                                <span class="detail-value">${request.zipCode}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Description</span>
-                                <span class="detail-value">${request.description}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Tracking Code</span>
-                                <span class="detail-value" style="font-weight: bold; color: #667eea;">${request.trackingCode}</span>
-                            </div>
-                            ${request.matchedVolunteer ? `
-                            <div class="detail-item">
-                                <span class="detail-label">Matched With</span>
-                                <span class="detail-value">${request.matchedVolunteer}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            });
+  // Recent volunteers
+  var rvHtml = '';
+  var rv = DB.volunteers.slice(-5).reverse();
+  if (rv.length === 0) { rvHtml = '<p style="color:var(--mid);font-size:0.9rem;">No volunteers yet.</p>'; }
+  else { rv.forEach(function(v) {
+    rvHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;">' +
+      '<div><div style="font-weight:600;font-size:0.9rem;">' + v.teen_name + '</div>' +
+      '<div style="font-size:0.8rem;color:var(--mid);">' + v.zip_code + ' · ' + v.interests + '</div></div>' +
+      '<span class="badge badge-' + v.status.toLowerCase() + '">' + v.status + '</span>' +
+      '</div>';
+  }); }
+  document.getElementById('recent-volunteers').innerHTML = rvHtml;
 
-            container.innerHTML = html;
-        }
+  // Recent requests
+  var rrHtml = '';
+  var rr = DB.requests.slice(-5).reverse();
+  if (rr.length === 0) { rrHtml = '<p style="color:var(--mid);font-size:0.9rem;">No requests yet.</p>'; }
+  else { rr.forEach(function(r) {
+    rrHtml += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;">' +
+      '<div><div style="font-weight:600;font-size:0.9rem;">' + r.requester_name + '</div>' +
+      '<div style="font-size:0.8rem;color:var(--mid);">' + r.service_type + ' · ' + r.zip_code + '</div></div>' +
+      '<span class="badge badge-' + r.status.toLowerCase() + '">' + r.status + '</span>' +
+      '</div>';
+  }); }
+  document.getElementById('recent-requests').innerHTML = rrHtml;
+}
 
-        function renderLoggedHours() {
-            const container = document.getElementById('hoursContent');
-            let html = '';
-            
-            // Calculate total hours
-            const totalHours = loggedHours.reduce((sum, h) => sum + h.hoursCompleted, 0);
-            
-            html += `
-                <div class="card" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">Summary</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
-                        <div>
-                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${loggedHours.length}</div>
-                            <div style="color: #666;">Total Entries</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${totalHours.toFixed(1)}</div>
-                            <div style="color: #666;">Total Hours Logged</div>
-                        </div>
-                        <div>
-                            <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${loggedHours.filter(h => h.verified === 'Pending Review').length}</div>
-                            <div style="color: #666;">Pending Review</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+// =====================================================================
+// MATCHES
+// =====================================================================
+function renderMatches() {
+  var container = document.getElementById('matches-container');
+  var vols = DB.volunteers.filter(function(v) { return v.status !== 'Matched'; });
+  var reqs = DB.requests.filter(function(r) { return r.status === 'Pending'; });
 
-            if (loggedHours.length === 0) {
-                html += '<div class="card"><p>No hours have been logged yet.</p></div>';
-            } else {
-                // Group hours by volunteer
-                const hoursByVolunteer = {};
-                loggedHours.forEach(hour => {
-                    if (!hoursByVolunteer[hour.volunteerName]) {
-                        hoursByVolunteer[hour.volunteerName] = [];
-                    }
-                    hoursByVolunteer[hour.volunteerName].push(hour);
-                });
+  if (vols.length === 0 || reqs.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">🔗</div>' +
+      '<p>No pending volunteers or requests to match right now.</p></div>';
+    return;
+  }
 
-                // Render each volunteer's hours
-                Object.keys(hoursByVolunteer).sort().forEach(volunteerName => {
-                    const hours = hoursByVolunteer[volunteerName];
-                    const totalVolunteerHours = hours.reduce((sum, h) => sum + h.hoursCompleted, 0);
-                    
-                    html += `
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">${volunteerName}</div>
-                                <span style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold;">
-                                    ${totalVolunteerHours.toFixed(1)} hrs
-                                </span>
-                            </div>
-                    `;
-                    
-                    hours.forEach(hour => {
-                        const statusColor = hour.verified === 'Verified' ? '#10b981' : 
-                                          hour.verified === 'Pending Review' ? '#f59e0b' : '#6b7280';
-                        
-                        html += `
-                            <div style="border-top: 1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
-                                <div class="card-details">
-                                    <div class="detail-item">
-                                        <span class="detail-label">Date</span>
-                                        <span class="detail-value">${new Date(hour.serviceDate).toLocaleDateString()}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Hours</span>
-                                        <span class="detail-value">${hour.hoursCompleted} hours</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Tracking Code</span>
-                                        <span class="detail-value">${hour.trackingCode}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Confirmed By</span>
-                                        <span class="detail-value">${hour.recipientName}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Tasks</span>
-                                        <span class="detail-value">${hour.tasksCompleted}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Quality</span>
-                                        <span class="detail-value">${hour.qualityRating}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Status</span>
-                                        <span class="detail-value" style="color: ${statusColor}; font-weight: bold;">
-                                            ${hour.verified}
-                                        </span>
-                                    </div>
-                                    ${hour.comments ? `
-                                    <div class="detail-item" style="grid-column: 1 / -1;">
-                                        <span class="detail-label">Comments</span>
-                                        <span class="detail-value">${hour.comments}</span>
-                                    </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                });
-            }
+  var matches = [];
+  vols.forEach(function(v) {
+    reqs.forEach(function(r) {
+      var score = 0;
+      var tags  = [];
+      if (v.zip_code === r.zip_code) { score += 40; tags.push('Same ZIP'); }
+      else if (v.zip_code && r.zip_code && v.zip_code.substring(0,3) === r.zip_code.substring(0,3)) { score += 20; tags.push('Nearby ZIP'); }
+      var vInt = (v.interests || '').toLowerCase();
+      var rType = (r.service_type || '').toLowerCase();
+      if ((rType.includes('educational') || rType.includes('tutor')) && (vInt.includes('tutor') || vInt.includes('education'))) { score += 35; tags.push('Tutoring match'); }
+      if ((rType.includes('yard') || rType.includes('home')) && (vInt.includes('yard') || vInt.includes('home') || vInt.includes('clean'))) { score += 35; tags.push('Yard/Home match'); }
+      if ((rType.includes('pet')) && (vInt.includes('pet') || vInt.includes('dog') || vInt.includes('animal'))) { score += 35; tags.push('Pet care match'); }
+      if (score > 0) matches.push({ vol: v, req: r, score: score, tags: tags });
+    });
+  });
 
-            container.innerHTML = html;
-        }
+  matches.sort(function(a, b) { return b.score - a.score; });
 
-        async function approveMatch(requestIndex, volunteerIndex) {
-            const request = requests[requestIndex];
-            const volunteer = volunteers[volunteerIndex];
-            
-            if (confirm(`Approve match between ${volunteer.name} and ${request.name}?`)) {
-                // Immediately hide from UI
-                requests[requestIndex].status = 'Matched';
-                volunteers[volunteerIndex].status = 'Matched';
-                requests[requestIndex].matchedVolunteer = volunteer.name;
-                
-                // Update the display immediately
-                updateStats();
-                renderMatches();
-                renderVolunteers();
-                renderRequests();
-                
-                // Update Google Sheet in background
-                try {
-                    await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            type: 'update_match',
-                            volunteer_name: volunteer.name,
-                            volunteer_email: volunteer.email,
-                            request_name: request.name,
-                            request_email: request.email
-                        })
-                    });
-                } catch (error) {
-                    console.error('Error updating sheet:', error);
-                }
-                
-                // Create email notifications
-                const subject = 'Community Youth Volunteers - Match Approved!';
-                
-                const volunteerMessage = `Hi ${volunteer.parentName},
+  if (matches.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">🔗</div>' +
+      '<p>No strong matches found based on ZIP and service type. Try reviewing manually.</p></div>';
+    return;
+  }
 
-Great news! We've matched ${volunteer.name} with a volunteer opportunity.
+  var html = '<div class="match-grid">';
+  matches.slice(0, 20).forEach(function(m) {
+    html += '<div class="match-card">' +
+      '<div class="match-card-header">' +
+        '<h4 style="color:var(--primary);font-size:0.9rem;">Potential Match</h4>' +
+        '<span class="match-score">' + m.score + '% fit</span>' +
+      '</div>' +
+      '<div class="match-person">' +
+        '<h4>👤 ' + m.vol.teen_name + '</h4>' +
+        '<p>Age ' + m.vol.age + ' · ZIP ' + m.vol.zip_code + '</p>' +
+        '<p style="margin-top:4px;">' + m.vol.interests + '</p>' +
+      '</div>' +
+      '<div class="match-divider"><span>matches with</span></div>' +
+      '<div class="match-person">' +
+        '<h4>🏠 ' + m.req.requester_name + '</h4>' +
+        '<p>' + m.req.service_type + ' · ZIP ' + m.req.zip_code + '</p>' +
+        '<p style="margin-top:4px;">' + m.req.task_description.substring(0, 80) + (m.req.task_description.length > 80 ? '…' : '') + '</p>' +
+      '</div>' +
+      '<div class="match-tags">' + m.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:12px;">' +
+        '<button class="btn btn-green btn-sm" onclick=\'approveMatch(' + JSON.stringify(m.vol.teen_name) + ',' + JSON.stringify(m.req.requester_name) + ',' + JSON.stringify(m.vol.parent_email) + ',' + JSON.stringify(m.req.requester_email) + ')\'>✓ Approve &amp; Notify</button>' +
+        '<button class="btn btn-outline btn-sm" onclick=\'viewVolDetails(' + JSON.stringify(m.vol) + ')\'>View Volunteer</button>' +
+      '</div>' +
+    '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
 
-SERVICE DETAILS:
-Family: ${request.name}
-Service Type: ${request.serviceType}
-Description: ${request.description}
-Location: ${request.address}
-Preferred Dates: ${request.preferredDates}
-Time Needed: ${request.timeNeeded}
+// =====================================================================
+// VOLUNTEERS TABLE
+// =====================================================================
+function renderVolunteers() {
+  var search = (document.getElementById('vol-search') || {value:''}).value.toLowerCase();
+  var status = (document.getElementById('vol-status') || {value:''}).value;
+  var filtered = DB.volunteers.filter(function(v) {
+    var matchSearch = !search || v.teen_name.toLowerCase().includes(search) || (v.teen_email||'').toLowerCase().includes(search);
+    var matchStatus = !status || v.status === status;
+    return matchSearch && matchStatus;
+  });
 
-FAMILY CONTACT:
-Name: ${request.name}
-Phone: ${request.phone}
-Email: ${request.email}
+  var tbody = document.getElementById('vol-tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid);">No volunteers found.</td></tr>';
+    return;
+  }
 
-Next Steps:
-1. Please contact the family to confirm details and schedule
-2. Make sure ${volunteer.name} has your permission and knows the location
-3. Contact us if you have any questions
+  tbody.innerHTML = filtered.map(function(v) {
+    return '<tr>' +
+      '<td><strong>' + v.teen_name + '</strong><br><span style="font-size:0.78rem;color:var(--mid);">' + v.teen_email + '</span></td>' +
+      '<td>' + v.age + '</td>' +
+      '<td>' + v.zip_code + '</td>' +
+      '<td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + escapeQ(v.interests) + '">' + v.interests + '</td>' +
+      '<td>' + v.availability + '</td>' +
+      '<td><span class="badge badge-' + (v.status||'pending').toLowerCase() + '">' + (v.status||'Pending') + '</span></td>' +
+      '<td style="white-space:nowrap;">' +
+        '<button class="btn btn-outline btn-sm" onclick=\'viewVolDetails(' + JSON.stringify(v) + ')\' style="margin-right:4px;">View</button>' +
+        (v.status === 'Pending' ? '<button class="btn btn-green btn-sm" onclick="approveVolunteer(\'' + escapeQ(v.teen_name) + '\')">Approve</button>' : '') +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
 
-Thank you for volunteering with us!
+// =====================================================================
+// REQUESTS TABLE
+// =====================================================================
+function renderRequests() {
+  var search = (document.getElementById('req-search') || {value:''}).value.toLowerCase();
+  var status = (document.getElementById('req-status') || {value:''}).value;
+  var filtered = DB.requests.filter(function(r) {
+    var matchSearch = !search || r.requester_name.toLowerCase().includes(search) ||
+      (r.requester_email||'').toLowerCase().includes(search) ||
+      (r.service_type||'').toLowerCase().includes(search);
+    var matchStatus = !status || r.status === status;
+    return matchSearch && matchStatus;
+  });
 
-Community Youth Volunteers
-jeffreyding1217@gmail.com`;
+  var tbody = document.getElementById('req-tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid);">No requests found.</td></tr>';
+    return;
+  }
 
-                const familyMessage = `Hi ${request.name},
+  tbody.innerHTML = filtered.map(function(r) {
+    return '<tr>' +
+      '<td><strong>' + r.requester_name + '</strong><br><span style="font-size:0.78rem;color:var(--mid);">' + r.requester_email + '</span></td>' +
+      '<td>' + r.service_type + '</td>' +
+      '<td>' + r.zip_code + '</td>' +
+      '<td>' + r.preferred_dates + '</td>' +
+      '<td><code style="font-size:0.82rem;background:var(--light);padding:2px 6px;border-radius:3px;">' + r.tracking_code + '</code></td>' +
+      '<td><span class="badge badge-' + (r.status||'pending').toLowerCase() + '">' + (r.status||'Pending') + '</span></td>' +
+      '<td style="white-space:nowrap;">' +
+        '<button class="btn btn-outline btn-sm" onclick=\'viewReqDetails(' + JSON.stringify(r) + ')\'>View</button>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
 
-Great news! We've matched you with a volunteer for your service request.
+// =====================================================================
+// LETTERS
+// =====================================================================
+function renderLetterList() {
+  var search = (document.getElementById('let-search') || {value:''}).value.toLowerCase();
 
-VOLUNTEER DETAILS:
-Name: ${volunteer.name}
-Age: ${volunteer.age}
-Skills: ${volunteer.skills}
-Availability: ${volunteer.availability}
+  // Build hours per volunteer
+  var hourMap = {};
+  DB.hours.forEach(function(h) {
+    if (!hourMap[h.volunteer_name]) hourMap[h.volunteer_name] = [];
+    hourMap[h.volunteer_name].push(h);
+  });
 
-PARENT/GUARDIAN CONTACT:
-Name: ${volunteer.parentName}
-Phone: ${volunteer.parentPhone}
-Email: ${volunteer.parentEmail}
+  // Also include approved volunteers with 0 hours
+  DB.volunteers.forEach(function(v) {
+    if (!hourMap[v.teen_name]) hourMap[v.teen_name] = [];
+  });
 
-YOUR REQUEST:
-Service Type: ${request.serviceType}
-Description: ${request.description}
+  var names = Object.keys(hourMap);
+  if (search) names = names.filter(function(n) { return n.toLowerCase().includes(search); });
 
-Next Steps:
-1. The volunteer's parent will contact you to confirm details
-2. Remember: volunteers are minors providing non-professional help
-3. Contact us if you have any questions
+  if (names.length === 0) {
+    document.getElementById('letter-list').innerHTML =
+      '<div class="empty-state"><div class="icon">📄</div><p>No volunteers to generate letters for yet.</p></div>';
+    return;
+  }
 
-Thank you for using our service!
+  var html = '<table><thead><tr><th>Volunteer</th><th>Total Hours</th><th>Sessions</th><th>Action</th></tr></thead><tbody>';
+  names.forEach(function(name) {
+    var sessions = hourMap[name];
+    var total = sessions.reduce(function(s, h) { return s + (parseFloat(h.hours_completed) || 0); }, 0);
+    var vol = DB.volunteers.find(function(v) { return v.teen_name === name; }) || {};
+    html += '<tr>' +
+      '<td><strong>' + name + '</strong><br><span style="font-size:0.78rem;color:var(--mid);">' + (vol.teen_email||'') + '</span></td>' +
+      '<td><strong>' + total + ' hrs</strong></td>' +
+      '<td>' + sessions.length + ' session(s)</td>' +
+      '<td><button class="btn btn-primary btn-sm" onclick=\'generateLetter(' + JSON.stringify(name) + ')\'>Generate Letter</button></td>' +
+    '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('letter-list').innerHTML = html;
+}
 
-Community Youth Volunteers
-jeffreyding1217@gmail.com`;
+function generateLetter(volName) {
+  var vol = DB.volunteers.find(function(v) { return v.teen_name === volName; }) || { teen_name: volName };
+  var sessions = DB.hours.filter(function(h) { return h.volunteer_name === volName; });
+  var total = sessions.reduce(function(s, h) { return s + (parseFloat(h.hours_completed) || 0); }, 0);
 
-                // Send to volunteer's parent
-                window.open(`mailto:${volunteer.parentEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(volunteerMessage)}`);
-                
-                // Small delay then send to family
-                setTimeout(() => {
-                    window.open(`mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(familyMessage)}`);
-                }, 1000);
-                
-                alert('Match approved! Email notifications opened. The Google Sheet has been updated automatically.');
-            }
-        }
+  var today = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  var sessionDetails = sessions.map(function(h) {
+    return '&bull; ' + h.service_date + ' — ' + h.hours_completed + ' hour(s): ' + h.tasks_completed;
+  }).join('<br>');
 
-        // Press Enter to login
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                login();
-            }
-        });
+  var letterHTML =
+    '<h2>Community Youth Volunteers</h2>' +
+    '<p class="letter-sub">Official Community Service Verification Letter</p>' +
+    '<div class="letter-body">' +
+    '<p>' + today + '</p>' +
+    '<p>To Whom It May Concern,</p>' +
+    '<p>This letter serves as official verification that <strong>' + vol.teen_name + '</strong> has completed community service hours through the Community Youth Volunteers program.</p>' +
+    '<p>Our organization connects motivated teenagers with local families who need assistance with everyday tasks. All volunteer work is unpaid, supervised, and thoroughly documented to ensure it meets community service requirements.</p>' +
+    '<p><strong>Volunteer:</strong> ' + vol.teen_name + '<br>' +
+    '<strong>Total Verified Hours:</strong> ' + total + ' hours<br>' +
+    '<strong>Number of Service Sessions:</strong> ' + sessions.length + '</p>' +
+    (sessions.length > 0 ? '<p><strong>Service Sessions:</strong><br>' + sessionDetails + '</p>' : '') +
+    '<p>We confirm that all hours listed above were completed to a high standard of service, demonstrating responsibility, initiative, and a genuine commitment to community improvement.</p>' +
+    '<p>Please feel free to contact us at <strong>jeffreyding1217@gmail.com</strong> if you require any additional information or verification.</p>' +
+    '<div class="letter-sig">' +
+    '<p>Sincerely,</p>' +
+    '<p style="margin-top:32px;"><strong>Community Youth Volunteers</strong><br>' +
+    'Program Administrator<br>' +
+    'jeffreyding1217@gmail.com</p>' +
+    '</div></div>';
 
-        function generateVerificationLetter() {
-            const volunteerIndex = document.getElementById('verifyVolunteerSelect').value;
-            const hours = document.getElementById('verifyHours').value;
-            const period = document.getElementById('verifyPeriod').value;
-            const tasks = document.getElementById('verifyTasks').value;
-            const advisorName = document.getElementById('advisorName').value;
-            const advisorTitle = document.getElementById('advisorTitle').value;
+  document.getElementById('letter-preview-content').innerHTML = letterHTML;
+  document.getElementById('letterModal').classList.add('open');
+}
 
-            if (!volunteerIndex || !hours || !period || !tasks) {
-                alert('Please fill in all required fields.');
-                return;
-            }
+function printLetter() {
+  var content = document.getElementById('letter-preview-content').innerHTML;
+  var w = window.open('', '_blank');
+  w.document.write('<html><head><title>Verification Letter</title><style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;padding:0 20px;line-height:1.8;color:#333}h2{text-align:center;color:#2c5f8d;margin-bottom:4px}.letter-sub{text-align:center;color:#666;font-size:0.85rem;margin-bottom:28px}p{margin-bottom:14px}@media print{body{margin:20px}}</style></head><body>' + content + '</body></html>');
+  w.document.close();
+  w.print();
+}
 
-            const volunteer = volunteers[volunteerIndex];
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+// =====================================================================
+// HOURS TABLE
+// =====================================================================
+function renderHours() {
+  var tbody = document.getElementById('hours-tbody');
+  if (DB.hours.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid);">No hours logged yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = DB.hours.map(function(h) {
+    return '<tr>' +
+      '<td>' + (h.service_date || '—') + '</td>' +
+      '<td><strong>' + h.volunteer_name + '</strong></td>' +
+      '<td>' + h.recipient_name + '</td>' +
+      '<td><strong>' + h.hours_completed + ' hrs</strong></td>' +
+      '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + escapeQ(h.tasks_completed) + '">' + h.tasks_completed + '</td>' +
+      '<td><span class="badge badge-' + (h.verified==='Verified'?'verified':'pending') + '">' + (h.verified||'Pending') + '</span></td>' +
+      '<td>' +
+        (h.verified !== 'Verified' ? '<button class="btn btn-green btn-sm" onclick=\'verifyHours(' + JSON.stringify(h) + ')\'>Verify</button>' : '✓ Verified') +
+      '</td>' +
+    '</tr>';
+  }).join('');
+}
 
-            const letterHTML = `
-                <div style="max-width: 650px; margin: 0 auto;">
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <h2 style="color: #667eea; margin-bottom: 0.5rem;">Community Youth Volunteers</h2>
-                        <p style="color: #666; margin: 0;">Volunteer Service Verification</p>
-                        <p style="color: #666; margin: 0;">jeffreyding1217@gmail.com</p>
-                    </div>
+// =====================================================================
+// ACTIONS
+// =====================================================================
+function approveVolunteer(name) {
+  var v = DB.volunteers.find(function(x) { return x.teen_name === name; });
+  if (v) { v.status = 'Approved'; }
+  showToast(name + ' approved!');
+  renderOverview();
+  if (currentPage === 'volunteers') renderVolunteers();
+}
 
-                    <p style="margin-bottom: 2rem;">${today}</p>
+function approveMatch(volName, reqName, volParentEmail, reqEmail) {
+  var v = DB.volunteers.find(function(x) { return x.teen_name === volName; });
+  var r = DB.requests.find(function(x) { return x.requester_name === reqName; });
+  if (v) v.status = 'Matched';
+  if (r) r.status = 'Matched';
+  showToast('Match approved! Notifications sent to ' + volName + ' and ' + reqName);
+  renderMatches();
+  renderOverview();
+}
 
-                    <p style="font-weight: bold; margin-bottom: 1rem;">TO WHOM IT MAY CONCERN:</p>
+function verifyHours(h) {
+  h.verified = 'Verified';
+  showToast('Hours verified for ' + h.volunteer_name);
+  renderHours();
+}
 
-                    <p style="margin-bottom: 1rem;">
-                        This letter confirms that <strong>${volunteer.name}</strong> has successfully completed 
-                        <strong>${hours} hours</strong> of verified community service through Community Youth Volunteers 
-                        during the period of <strong>${period}</strong>.
-                    </p>
+// =====================================================================
+// MODALS
+// =====================================================================
+function viewVolDetails(v) {
+  document.getElementById('modal-title').textContent = 'Volunteer: ' + v.teen_name;
+  document.getElementById('modal-body').innerHTML =
+    '<div class="detail-grid">' +
+    field('Full Name', v.teen_name) +
+    field('Age', v.age) +
+    field('Email', v.teen_email) +
+    field('Phone', v.teen_phone) +
+    field('Address', v.address) +
+    field('ZIP Code', v.zip_code) +
+    field('Interests', v.interests, true) +
+    field('Skills', v.skills, true) +
+    field('Availability', v.availability, true) +
+    field('Motivation', v.motivation, true) +
+    divider('Parent / Guardian') +
+    field('Parent Name', v.parent_name) +
+    field('Parent Email', v.parent_email) +
+    field('Parent Phone', v.parent_phone) +
+    divider('Emergency Contact') +
+    field('Emergency Name', v.emergency_name) +
+    field('Emergency Phone', v.emergency_phone) +
+    divider('Medical') +
+    field('Insurance', v.insurance_provider) +
+    field('Medical Notes', v.medical_info, true) +
+    '</div>' +
+    '<div style="margin-top:20px;display:flex;gap:10px;">' +
+    (v.status === 'Pending' ? '<button class="btn btn-green" onclick="approveVolunteer(\'' + escapeQ(v.teen_name) + '\');closeModal()">Approve Volunteer</button>' : '<span class="badge badge-approved" style="padding:8px 16px;">Status: ' + v.status + '</span>') +
+    '<button class="btn btn-outline" onclick="closeModal()">Close</button>' +
+    '</div>';
+  document.getElementById('detailModal').classList.add('open');
+}
 
-                    <p style="margin-bottom: 1rem;">
-                        All service was performed on a voluntary, unpaid basis and provided meaningful assistance to 
-                        families in our community. ${volunteer.name} demonstrated responsibility, reliability, and a 
-                        commitment to helping others throughout their service.
-                    </p>
+function viewReqDetails(r) {
+  document.getElementById('modal-title').textContent = 'Request: ' + r.requester_name;
+  document.getElementById('modal-body').innerHTML =
+    '<div class="detail-grid">' +
+    field('Requester Name', r.requester_name) +
+    field('Email', r.requester_email) +
+    field('Phone', r.requester_phone) +
+    field('Address', r.service_address) +
+    field('ZIP Code', r.zip_code) +
+    field('Service Type', r.service_type) +
+    field('Preferred Dates', r.preferred_dates) +
+    field('Time Needed', r.time_needed) +
+    field('Tracking Code', r.tracking_code) +
+    field('Status', r.status) +
+    field('Task Description', r.task_description, true) +
+    field('Special Notes', r.special_notes, true) +
+    '</div>' +
+    '<div style="margin-top:20px;">' +
+    '<button class="btn btn-outline" onclick="closeModal()">Close</button>' +
+    '</div>';
+  document.getElementById('detailModal').classList.add('open');
+}
 
-                    <p style="margin-bottom: 1rem;">
-                        <strong>Service Activities Included:</strong><br>
-                        ${tasks}
-                    </p>
+function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
+function closeLetterModal() { document.getElementById('letterModal').classList.remove('open'); }
 
-                    <p style="margin-bottom: 1rem;">
-                        Our organization maintains detailed records of all volunteer activities, including dates, hours, 
-                        tasks performed, and confirmation from service recipients. These records are available for 
-                        independent verification upon request.
-                    </p>
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('letterModal').addEventListener('click', function(e) {
+  if (e.target === this) closeLetterModal();
+});
 
-                    <p style="margin-bottom: 1rem;">
-                        Community Youth Volunteers operates under adult supervision with clear safety protocols and 
-                        accountability measures. All volunteer placements are reviewed and approved to ensure they are 
-                        age-appropriate and provide genuine community benefit.
-                    </p>
+// =====================================================================
+// HELPERS
+// =====================================================================
+function field(label, value, full) {
+  return '<div class="detail-item' + (full ? ' full' : '') + '">' +
+    '<label>' + label + '</label>' +
+    '<p>' + (value || '—') + '</p>' +
+    '</div>';
+}
 
-                    <p style="margin-bottom: 2rem;">
-                        If you require additional information or verification, please contact our program advisor at 
-                        jeffreyding1217@gmail.com.
-                    </p>
+function divider(title) {
+  return '<div class="detail-item full section-divider"><h4>' + title + '</h4></div>';
+}
 
-                    <p style="margin-bottom: 0.5rem;">Sincerely,</p>
-                    
-                    <div style="margin-top: 3rem; margin-bottom: 0.5rem; border-bottom: 1px solid #000; width: 250px;"></div>
-                    <p style="margin: 0;"><strong>${advisorName || '[Adult Advisor Name]'}</strong></p>
-                    <p style="margin: 0; color: #666;">${advisorTitle || 'Program Advisor'}</p>
-                    <p style="margin: 0; color: #666;">Community Youth Volunteers</p>
-                </div>
-            `;
+function escapeQ(s) { return (s||'').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 
-            document.getElementById('letterContent').innerHTML = letterHTML;
-            document.getElementById('letterPreview').style.display = 'block';
-        }
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(function() { t.style.display = 'none'; }, 3500);
+}
 
-        function printLetter() {
-            const letterContent = document.getElementById('letterContent').innerHTML;
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Verification Letter</title>');
-            printWindow.document.write('<style>body { font-family: "Times New Roman", serif; padding: 2rem; line-height: 1.8; }</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(letterContent);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
+function exportCSV(type) {
+  var rows, headers;
+  if (type === 'volunteers') {
+    headers = ['Name','Age','Email','Phone','ZIP','Interests','Skills','Availability','Status','Parent Name','Parent Email'];
+    rows = DB.volunteers.map(function(v) {
+      return [v.teen_name, v.age, v.teen_email, v.teen_phone, v.zip_code, v.interests, v.skills, v.availability, v.status, v.parent_name, v.parent_email];
+    });
+  } else {
+    headers = ['Requester','Email','Phone','ZIP','Service Type','Dates','Tracking Code','Status','Task'];
+    rows = DB.requests.map(function(r) {
+      return [r.requester_name, r.requester_email, r.requester_phone, r.zip_code, r.service_type, r.preferred_dates, r.tracking_code, r.status, r.task_description];
+    });
+  }
+  var csv = [headers].concat(rows).map(function(row) {
+    return row.map(function(cell) { return '"' + (cell||'').replace(/"/g,'""') + '"'; }).join(',');
+  }).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = type + '-export.csv';
+  a.click();
+}
 
-        function copyLetter() {
-            const letterContent = document.getElementById('letterContent').innerText;
-            navigator.clipboard.writeText(letterContent).then(() => {
-                alert('Letter text copied to clipboard!');
-            }).catch(() => {
-                alert('Failed to copy. Please select and copy manually.');
-            });
-        }
-    </script>
+// =====================================================================
+// INIT
+// =====================================================================
+document.getElementById('loginPass').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
 </body>
 </html>
