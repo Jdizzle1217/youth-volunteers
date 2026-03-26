@@ -594,7 +594,7 @@
 
     <div class="top-bar">
         <div class="container">
-            <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
+            <a href="/cdn-cgi/l/email-protection#4c26292a2a3e29352825222b7d7e7d7b0c2b212d2520622f2321">Contact Us</a>
         </div>
     </div>
 
@@ -1052,7 +1052,7 @@
             </div>
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#640e01020216011d000d0a0355565553240309050d084a070b09"><span class="__cf_email__" data-cfemail="056f60636377607c616c6b6234373432456268646c692b666a68">[email&#160;protected]</span></a>
                 <p style="margin-top:20px;">Building responsibility, confidence, and community connections.</p>
             </div>
         </div>
@@ -1061,7 +1061,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
 
         function openVolunteerModal() {
@@ -1118,18 +1118,12 @@
                 signature_date: document.getElementById('v_signature_date').value
             };
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(data),
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function() {
-                alert('Thank you! Your application and waiver have been submitted. You will receive an email with emergency protocols within a few minutes.');
-                closeVolunteerModal();
-                form.reset();
-            }).catch(function(error) {
-                console.error('Error:', error);
-                alert("Application submitted! Check your email for confirmation. If you don't receive it within 24 hours, contact us at jeffreyding1217@gmail.com.");
+            submitToSheet(data, function(success) {
+                if (success) {
+                    alert('Thank you! Your application and waiver have been submitted. You will receive an email with emergency protocols within a few minutes.');
+                } else {
+                    alert('There was a problem submitting your application. Please email us directly at jeffreyding1217@gmail.com.');
+                }
                 closeVolunteerModal();
                 form.reset();
             });
@@ -1156,21 +1150,54 @@
                 special_notes: document.getElementById('r_special_notes').value
             };
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(data),
-                headers: { 'Content-Type': 'application/json' }
-            }).then(function() {
-                alert('Thank you for your service request! We will review it and match you with a volunteer within 48 hours. Check your email for your tracking code.');
-                closeRequestModal();
-                form.reset();
-            }).catch(function(error) {
-                console.error('Error:', error);
-                alert("Request submitted! If you don't hear from us within 48 hours, please contact us at jeffreyding1217@gmail.com.");
+            submitToSheet(data, function(success) {
+                if (success) {
+                    alert('Thank you for your service request! We will review it and match you with a volunteer within 48 hours. Check your email for your tracking code.');
+                } else {
+                    alert('There was a problem submitting your request. Please email us directly at jeffreyding1217@gmail.com.');
+                }
                 closeRequestModal();
                 form.reset();
             });
+        }
+
+
+        // Reliable JSONP-based submission to Google Apps Script
+        function submitToSheet(data, callback) {
+            var callbackName = '__cyvSubmit_' + Date.now();
+            var timedOut = false;
+
+            // Timeout after 10 seconds
+            var timer = setTimeout(function() {
+                timedOut = true;
+                cleanup();
+                callback(false);
+            }, 10000);
+
+            function cleanup() {
+                clearTimeout(timer);
+                if (window[callbackName]) delete window[callbackName];
+                var s = document.getElementById(callbackName);
+                if (s) s.parentNode.removeChild(s);
+            }
+
+            window[callbackName] = function(response) {
+                if (timedOut) return;
+                cleanup();
+                callback(response && response.result === 'success');
+            };
+
+            // Encode data as a query param for JSONP GET request
+            var encoded = encodeURIComponent(JSON.stringify(data));
+            var script = document.createElement('script');
+            script.id  = callbackName;
+            script.src = SCRIPT_URL + '?callback=' + callbackName + '&payload=' + encoded;
+            script.onerror = function() {
+                if (timedOut) return;
+                cleanup();
+                callback(false);
+            };
+            document.body.appendChild(script);
         }
 
         window.onclick = function(event) {
@@ -1182,14 +1209,4 @@
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 var target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var today = new Date().toISOString().split('T')[0];
-            document.getElementById('v_signature_date').value = today;
-        });
-    </script>
-</body>
-</html>
+                if (target) target.scrollIntoView({ behavior:
