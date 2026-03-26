@@ -546,10 +546,10 @@
   <div class="login-box">
     <div class="login-logo">CV</div>
     <h2>Admin Dashboard</h2>
-    <p>Community Youth Volunteers</p>
-    <input type="password" id="loginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter') doLogin()">
-    <button class="login-btn" onclick="doLogin()">Sign In</button>
-    <p class="login-error" id="loginError">Incorrect password. Please try again.</p>
+    <div style="color:#666;font-size:0.88rem;margin-bottom:24px;">Community Youth Volunteers</div>
+    <input type="password" id="loginPass" placeholder="Enter password">
+    <button class="login-btn" id="loginBtn">Sign In</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
   </div>
 </div>
 
@@ -821,7 +821,7 @@ function doLogin() {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'flex';
     document.getElementById('dashboard').style.flexDirection = 'row';
-    loadFromSheet();
+    try { loadFromSheet(); } catch(e) { loadDemoData(); }
   } else {
     document.getElementById('loginError').style.display = 'block';
   }
@@ -1353,3 +1353,16 @@ function exportCSV(type) {
 }
 
 // ============================================================
+
+// Wire up login button and Enter key after page loads
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('loginBtn');
+  var inp = document.getElementById('loginPass');
+  if (btn) btn.addEventListener('click', doLogin);
+  if (inp) inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+</script>
+</body>
+</html>
