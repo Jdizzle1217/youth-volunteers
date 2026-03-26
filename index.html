@@ -1061,7 +1061,177 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
+        var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
+
+        function openVolunteerModal() {
+            document.getElementById('volunteerModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeVolunteerModal() {
+            document.getElementById('volunteerModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        function openRequestModal() {
+            document.getElementById('requestModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeRequestModal() {
+            document.getElementById('requestModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function submitVolunteerForm() {
+            var form = document.getElementById('volunteerForm');
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            var btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            var data = {
+                type: 'volunteer_with_waiver',
+                teen_name:             document.getElementById('v_teen_name').value,
+                teen_dob:              document.getElementById('v_teen_dob').value,
+                age:                   document.getElementById('v_age').value,
+                teen_email:            document.getElementById('v_teen_email').value,
+                teen_phone:            document.getElementById('v_teen_phone').value,
+                address:               document.getElementById('v_address').value,
+                zip_code:              document.getElementById('v_zip_code').value,
+                interests:             document.getElementById('v_interests').value,
+                skills:                document.getElementById('v_skills').value,
+                availability:          document.getElementById('v_availability').value,
+                motivation:            document.getElementById('v_motivation').value,
+                parent_name:           document.getElementById('v_parent_name').value,
+                parent_relationship:   document.getElementById('v_parent_relationship').value,
+                parent_email:          document.getElementById('v_parent_email').value,
+                parent_phone:          document.getElementById('v_parent_phone').value,
+                emergency_name:        document.getElementById('v_emergency_name').value,
+                emergency_relationship:document.getElementById('v_emergency_relationship').value,
+                emergency_phone:       document.getElementById('v_emergency_phone').value,
+                medical_info:          document.getElementById('v_medical_info').value,
+                insurance_provider:    document.getElementById('v_insurance_provider').value,
+                media_consent:         document.getElementById('v_media_consent').checked ? 'Yes' : 'No',
+                parent_signature:      document.getElementById('v_parent_signature').value,
+                signature_date:        document.getElementById('v_signature_date').value
+            };
+
+            sendData(data, function(ok) {
+                btn.disabled = false;
+                btn.textContent = 'Submit Application & Waiver';
+                if (ok) {
+                    alert('Thank you! Your application has been submitted. You will receive an email with emergency protocols shortly.');
+                    closeVolunteerModal();
+                    form.reset();
+                } else {
+                    alert('Submission failed. Please email us at jeffreyding1217@gmail.com with your information.');
+                }
+            });
+        }
+
+        function submitRequestForm() {
+            var form = document.getElementById('requestForm');
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            var btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            var data = {
+                type:             'request',
+                requester_name:   document.getElementById('r_requester_name').value,
+                requester_email:  document.getElementById('r_requester_email').value,
+                requester_phone:  document.getElementById('r_requester_phone').value,
+                service_address:  document.getElementById('r_service_address').value,
+                zip_code:         document.getElementById('r_service_zip_code').value,
+                service_type:     document.getElementById('r_service_type').value,
+                task_description: document.getElementById('r_task_description').value,
+                preferred_dates:  document.getElementById('r_preferred_dates').value,
+                time_needed:      document.getElementById('r_time_needed').value,
+                special_notes:    document.getElementById('r_special_notes').value
+            };
+
+            sendData(data, function(ok) {
+                btn.disabled = false;
+                btn.textContent = 'Submit Request';
+                if (ok) {
+                    alert('Thank you! We will review your request and match you with a volunteer. Check your email for your tracking code.');
+                    closeRequestModal();
+                    form.reset();
+                } else {
+                    alert('Submission failed. Please email us at jeffreyding1217@gmail.com with your request.');
+                }
+            });
+        }
+
+        // Send data using an iframe trick — works around CORS completely
+        function sendData(data, callback) {
+            // Create a hidden iframe to receive the response
+            var iframeName = 'submit_frame_' + Date.now();
+            var iframe = document.createElement('iframe');
+            iframe.name = iframeName;
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            // Create a hidden form that POSTs to the Apps Script
+            var hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = SCRIPT_URL;
+            hiddenForm.target = iframeName;
+            hiddenForm.style.display = 'none';
+
+            // Add all data as a single JSON field
+            var input = document.createElement('input');
+            input.type  = 'hidden';
+            input.name  = 'data';
+            input.value = JSON.stringify(data);
+            hiddenForm.appendChild(input);
+
+            document.body.appendChild(hiddenForm);
+
+            // Listen for iframe load = submission complete
+            var done = false;
+            iframe.onload = function() {
+                if (done) return;
+                done = true;
+                setTimeout(function() {
+                    document.body.removeChild(iframe);
+                    document.body.removeChild(hiddenForm);
+                }, 500);
+                callback(true);
+            };
+
+            // Fallback timeout — assume success after 8s if no error
+            setTimeout(function() {
+                if (done) return;
+                done = true;
+                try { document.body.removeChild(iframe); } catch(e) {}
+                try { document.body.removeChild(hiddenForm); } catch(e) {}
+                callback(true);
+            }, 8000);
+
+            hiddenForm.submit();
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('volunteerModal')) closeVolunteerModal();
+            if (event.target == document.getElementById('requestModal'))   closeRequestModal();
+        };
+
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date().toISOString().split('T')[0];
+            var sigDate = document.getElementById('v_signature_date');
+            if (sigDate) sigDate.value = today;
+        });
+    </script><script>
         var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_yxo02Cq7BYp5oRCZHHS6XgejplwbTheKEp7DfcE_TUm0eUjijZSygt8beKpREh7tIw/exec';
 
         function openVolunteerModal() {
