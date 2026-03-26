@@ -24,7 +24,6 @@
       font-family: 'Open Sans', sans-serif;
       background: var(--light);
       color: var(--dark);
-      display: flex;
       min-height: 100vh;
     }
 
@@ -555,7 +554,7 @@
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" style="display:none; width:100%; display:none;">
+<div id="dashboard" style="display:none; width:100%;">
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -821,6 +820,7 @@ function doLogin() {
   if (pass === DASHBOARD_PASSWORD) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'flex';
+    document.getElementById('dashboard').style.flexDirection = 'row';
     loadFromSheet();
   } else {
     document.getElementById('loginError').style.display = 'block';
