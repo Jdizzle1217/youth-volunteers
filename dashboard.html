@@ -867,23 +867,38 @@ function navigate(page, linkEl) {
 // LOAD DATA FROM GOOGLE SHEET
 // =====================================================================
 function loadFromSheet() {
-  // We fetch the sheet as CSV for each tab using the sheet's published CSV URLs.
-  // Since we can't easily get Google Sheet data without OAuth, we use the
-  // Google Apps Script to return all data via a GET request with a param.
-  fetch(SCRIPT_URL + '?action=getData')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.volunteers) DB.volunteers = data.volunteers;
-      if (data.requests)   DB.requests   = data.requests;
-      if (data.hours)      DB.hours      = data.hours;
-      if (data.waivers)    DB.waivers    = data.waivers;
+  // Google Apps Script blocks fetch() due to CORS.
+  // We use JSONP instead: inject a <script> tag that calls back into our page.
+  showToast('Loading data...');
+
+  // Clean up any previous JSONP script tag
+  var old = document.getElementById('jsonp-loader');
+  if (old) old.parentNode.removeChild(old);
+
+  // Set a global callback that Apps Script will call
+  window.__cyvCallback = function(data) {
+    if (data.volunteers) DB.volunteers = data.volunteers;
+    if (data.requests)   DB.requests   = data.requests;
+    if (data.hours)      DB.hours      = data.hours;
+    if (data.waivers)    DB.waivers    = data.waivers;
+    renderOverview();
+    if (currentPage !== 'overview') navigate(currentPage);
+    showToast('Data loaded!');
+  };
+
+  var script = document.createElement('script');
+  script.id  = 'jsonp-loader';
+  script.src = SCRIPT_URL + '?action=getData&callback=__cyvCallback';
+  script.onerror = function() { loadDemoData(); };
+  document.body.appendChild(script);
+
+  // Timeout fallback — if no response in 8 seconds, show empty state
+  setTimeout(function() {
+    if (DB.volunteers.length === 0 && DB.requests.length === 0) {
+      showToast('No data yet — submit a form on the website to see it here.');
       renderOverview();
-      if (currentPage !== 'overview') navigate(currentPage);
-    })
-    .catch(function() {
-      // If fetch fails, show demo data so the dashboard is usable
-      loadDemoData();
-    });
+    }
+  }, 8000);
 }
 
 function refreshData() {
