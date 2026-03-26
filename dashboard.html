@@ -585,7 +585,7 @@
       </a>
     </nav>
     <div class="sidebar-bottom">
-      <div style="margin-bottom:8px;font-size:0.75rem;">jeffreyding1217@gmail.com</div>
+      <div style="margin-bottom:8px;font-size:0.75rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="066c63606074637f626f68613734373146616b676f6a2865696b">[email&#160;protected]</a></div>
       <a href="#" onclick="logout()" style="color:rgba(255,255,255,0.6);font-size:0.78rem;text-decoration:none;">Sign out</a>
     </div>
   </aside>
@@ -796,7 +796,7 @@
 
 <div id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // =====================================================================
 // CONFIG — paste your Google Apps Script URL here
 // =====================================================================
@@ -895,39 +895,12 @@ function refreshData() {
 // DEMO DATA (fallback if sheet is not yet connected)
 // =====================================================================
 function loadDemoData() {
-  DB.volunteers = [
-    { teen_name: 'Alex Johnson', age: '15', teen_email: 'alex@email.com', teen_phone: '760-555-0101',
-      address: '123 Main St', zip_code: '92008', interests: 'Tutoring, yard work',
-      skills: 'Patient, organized', availability: 'Weekends', motivation: 'Give back',
-      parent_name: 'Sarah Johnson', parent_email: 'sarah@email.com', parent_phone: '760-555-0100',
-      emergency_name: 'Tom Johnson', emergency_phone: '760-555-0102',
-      insurance_provider: 'Blue Cross', status: 'Pending', timestamp: new Date().toISOString() },
-    { teen_name: 'Maya Patel', age: '16', teen_email: 'maya@email.com', teen_phone: '760-555-0201',
-      address: '456 Oak Ave', zip_code: '92010', interests: 'Pet care, tutoring',
-      skills: 'Good with animals, math tutor', availability: 'After school Tue/Thu, weekends', motivation: 'Service hours',
-      parent_name: 'Priya Patel', parent_email: 'priya@email.com', parent_phone: '760-555-0200',
-      emergency_name: 'Raj Patel', emergency_phone: '760-555-0202',
-      insurance_provider: 'Kaiser', status: 'Approved', timestamp: new Date().toISOString() }
-  ];
-  DB.requests = [
-    { requester_name: 'Linda Torres', requester_email: 'linda@email.com', requester_phone: '760-555-0301',
-      service_address: '789 Elm St', zip_code: '92008', service_type: 'Educational',
-      task_description: 'Homework help for my 7-year-old, 2 hours per week',
-      preferred_dates: 'Weekday afternoons', time_needed: '2 hours/week',
-      special_notes: '', status: 'Pending', tracking_code: 'ABC12345', timestamp: new Date().toISOString() },
-    { requester_name: 'Bob Williams', requester_email: 'bob@email.com', requester_phone: '760-555-0401',
-      service_address: '321 Pine Rd', zip_code: '92010', service_type: 'Pet Care',
-      task_description: 'Dog walking for our golden retriever, 30 min daily walks',
-      preferred_dates: 'Weekends', time_needed: '30 min/day',
-      special_notes: 'Dog is friendly', status: 'Pending', tracking_code: 'XYZ67890', timestamp: new Date().toISOString() }
-  ];
-  DB.hours = [
-    { timestamp: new Date().toISOString(), tracking_code: 'ABC12345', volunteer_name: 'Alex Johnson',
-      recipient_name: 'Linda Torres', service_date: '2026-03-15', hours_completed: '2',
-      tasks_completed: 'Homework help - math and reading', quality_rating: '5', comments: 'Excellent!', verified: 'Verified' }
-  ];
+  DB.volunteers = [];
+  DB.requests   = [];
+  DB.hours      = [];
+  DB.waivers    = [];
   renderOverview();
-  showToast('Showing demo data — connect your Google Sheet to see real submissions');
+  showToast('Could not reach Google Sheet — check your Apps Script deployment.');
 }
 
 // =====================================================================
@@ -1379,12 +1352,4 @@ function exportCSV(type) {
   a.click();
 }
 
-// =====================================================================
-// INIT
-// =====================================================================
-document.getElementById('loginPass').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') doLogin();
-});
-</script>
-</body>
-</html>
+// ============================================================
