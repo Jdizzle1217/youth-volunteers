@@ -486,6 +486,41 @@
 
         .form-group textarea { min-height: 100px; resize: vertical; }
 
+        .checklist-option {
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.92rem;
+        }
+
+        .checklist-option:hover {
+            border-color: var(--secondary-color);
+            background: #fff8f0;
+        }
+
+        .checklist-option input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            accent-color: var(--secondary-color);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .form-group input[type="text"] {
+            margin-top: 4px;
+        }
+
         .checkbox-group {
             display: flex;
             align-items: flex-start;
@@ -588,6 +623,118 @@
         }
 
         html { scroll-behavior: smooth; }
+
+        /* ── AVAILABILITY GRID ── */
+        #avail-grid-wrap, #req-avail-grid-wrap {
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        #avail-grid, #req-avail-grid {
+            display: grid;
+            min-width: 700px;
+            user-select: none;
+        }
+
+        .ag-corner {
+            background: #f0f4f8;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #999;
+            text-align: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 6px;
+            border-right: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .ag-header {
+            background: #f0f4f8;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 2px solid #ddd;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5px;
+            height: 56px;
+        }
+
+        .ag-time-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #555;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        /* Shade AM vs PM columns */
+        .ag-header.is-pm { background: #eef2f7; }
+        .ag-cell.is-pm   { background: #fafbfc; }
+        .ag-cell.is-pm:hover    { background: #fff3e0; }
+        .ag-cell.is-pm.selected { background: #f7941d; }
+
+        /* Hour boundary line */
+        .ag-header.hour-start { border-left: 1px solid #bbb; }
+        .ag-cell.hour-start   { border-left: 1px solid #e0e0e0; }
+
+        .ag-day {
+            background: #f0f4f8;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #2c5f8d;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            border-right: 2px solid #ddd;
+            white-space: nowrap;
+        }
+
+        .ag-cell {
+            height: 34px;
+            border-right: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+            cursor: pointer;
+            transition: background 0.08s;
+            background: #fff;
+        }
+
+        .ag-cell:hover   { background: #fff3e0; }
+        .ag-cell.selected            { background: #f7941d !important; }
+        .ag-cell.selected:hover      { background: #e58610 !important; }
+
+        .avail-legend {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 8px;
+            font-size: 0.78rem;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .avail-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .legend-box.sel  { background: #f7941d; border-color: #e58610; }
+        .legend-box.pm   { background: #fafbfc; border-color: #ddd; }
+
     </style>
 </head>
 <body>
@@ -850,7 +997,16 @@
                         </div>
                         <div class="form-group">
                             <label>What types of volunteer work interest you? <span class="required">*</span></label>
-                            <textarea id="v_interests" required placeholder="e.g., tutoring, yard work, pet care..."></textarea>
+                            <div class="checklist-grid">
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="Tutoring / Homework Help"> Tutoring / Homework Help</label>
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="Yard Work & Cleanup"> Yard Work &amp; Cleanup</label>
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="Pet Care"> Pet Care</label>
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="Organizing & Cleaning"> Organizing &amp; Cleaning</label>
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="Tech Help for Seniors"> Tech Help for Seniors</label>
+                                <label class="checklist-option"><input type="checkbox" class="v_interest_check" value="General Errands"> General Errands</label>
+                            </div>
+                            <input type="text" id="v_interests_other" placeholder="Other (describe any additional interests or accommodations)">
+                            <input type="hidden" id="v_interests">
                         </div>
                         <div class="form-group">
                             <label>What skills or experience do you have?</label>
@@ -858,7 +1014,18 @@
                         </div>
                         <div class="form-group">
                             <label>Availability <span class="required">*</span></label>
-                            <textarea id="v_availability" required placeholder="e.g., Weekends, after school on Tuesdays and Thursdays..."></textarea>
+                            <p style="font-size:0.82rem;color:var(--medium-gray);margin-bottom:10px;">Select the times you are available each day — each column is a 30-minute window. Click a cell to toggle it, or click and drag across multiple cells at once. Orange = available.</p>
+                            <div id="avail-grid-wrap">
+                                <div id="avail-grid"></div>
+                            </div>
+                            <div class="avail-legend">
+                                <span><div class="legend-box sel"></div> Available (selected)</span>
+                                <span><div class="legend-box"></div> AM hours</span>
+                                <span><div class="legend-box pm"></div> PM hours</span>
+                                <span style="margin-left:auto;color:#aaa;font-style:italic;">Click or drag to select</span>
+                            </div>
+                            <input type="text" id="v_availability_other" placeholder="Any additional notes (e.g. not during exam week, mornings only in summer)" style="margin-top:10px;">
+                            <input type="hidden" id="v_availability" required>
                         </div>
                         <div class="form-group">
                             <label>Why do you want to volunteer?</label>
@@ -1000,13 +1167,16 @@
                         <h3>Service Details</h3>
                         <div class="form-group">
                             <label>Type of Help Needed <span class="required">*</span></label>
-                            <select id="r_service_type" required>
-                                <option value="">Select a category...</option>
-                                <option value="Yard & Home">Yard &amp; Home Services</option>
-                                <option value="Educational">Educational Support</option>
-                                <option value="Pet Care">Pet Care Services</option>
-                                <option value="Other">Other (please describe below)</option>
-                            </select>
+                            <div class="checklist-grid">
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="Tutoring / Homework Help"> Tutoring / Homework Help</label>
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="Yard Work &amp; Cleanup"> Yard Work &amp; Cleanup</label>
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="Pet Care"> Pet Care</label>
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="Organizing &amp; Cleaning"> Organizing &amp; Cleaning</label>
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="Tech Help"> Tech Help</label>
+                                <label class="checklist-option"><input type="checkbox" class="r_type_check" value="General Errands"> General Errands</label>
+                            </div>
+                            <input type="text" id="r_service_type_other" placeholder="Other (describe any additional help needed)">
+                            <input type="hidden" id="r_service_type" required>
                         </div>
                         <div class="form-group">
                             <label>Task Description <span class="required">*</span></label>
@@ -1014,7 +1184,18 @@
                         </div>
                         <div class="form-group">
                             <label>Preferred Date(s) <span class="required">*</span></label>
-                            <input type="text" id="r_preferred_dates" required placeholder="e.g., This Saturday, weekday afternoons, flexible">
+                            <p style="font-size:0.82rem;color:var(--medium-gray);margin-bottom:10px;">Select the times that work best — each column is a 30-minute window. Click or drag to select. Orange = preferred.</p>
+                            <div id="req-avail-grid-wrap">
+                                <div id="req-avail-grid"></div>
+                            </div>
+                            <div class="avail-legend">
+                                <span><div class="legend-box sel"></div> Preferred time</span>
+                                <span><div class="legend-box"></div> AM hours</span>
+                                <span><div class="legend-box pm"></div> PM hours</span>
+                                <span style="margin-left:auto;color:#aaa;font-style:italic;">Click or drag to select</span>
+                            </div>
+                            <input type="text" id="r_preferred_dates_other" placeholder="Any scheduling notes (e.g. ASAP, flexible, weekends only)" style="margin-top:10px;">
+                            <input type="hidden" id="r_preferred_dates" required>
                         </div>
                         <div class="form-group">
                             <label>Estimated Time Needed</label>
@@ -1098,9 +1279,9 @@
                 teen_phone:            document.getElementById('v_teen_phone').value,
                 address:               document.getElementById('v_address').value,
                 zip_code:              document.getElementById('v_zip_code').value,
-                interests:             document.getElementById('v_interests').value,
+                interests:             getChecklist('v_interest_check', 'v_interests_other'),
                 skills:                document.getElementById('v_skills').value,
-                availability:          document.getElementById('v_availability').value,
+                availability:          (document.getElementById('v_availability').value + (document.getElementById('v_availability_other').value ? ' | Notes: ' + document.getElementById('v_availability_other').value : '')),
                 motivation:            document.getElementById('v_motivation').value,
                 parent_name:           document.getElementById('v_parent_name').value,
                 parent_relationship:   document.getElementById('v_parent_relationship').value,
@@ -1115,6 +1296,25 @@
                 parent_signature:      document.getElementById('v_parent_signature').value,
                 signature_date:        document.getElementById('v_signature_date').value
             };
+
+            // Build checklist values before sending
+            data.interests    = getChecklist('v_interest_check', 'v_interests_other');
+            data.availability = document.getElementById('v_availability').value + (document.getElementById('v_availability_other').value ? ' | Notes: ' + document.getElementById('v_availability_other').value : '');
+
+            // Require at least one interest checked
+            if (!data.interests) {
+                alert('Please select at least one area of interest.');
+                btn.disabled = false;
+                btn.textContent = 'Submit Application & Waiver';
+                return;
+            }
+            // Require at least one availability checked
+            if (!data.availability) {
+                alert('Please select at least one availability option.');
+                btn.disabled = false;
+                btn.textContent = 'Submit Application & Waiver';
+                return;
+            }
 
             sendData(data, function(ok) {
                 btn.disabled = false;
@@ -1144,12 +1344,28 @@
                 requester_phone:  document.getElementById('r_requester_phone').value,
                 service_address:  document.getElementById('r_service_address').value,
                 zip_code:         document.getElementById('r_service_zip_code').value,
-                service_type:     document.getElementById('r_service_type').value,
+                service_type:     getChecklist('r_type_check', 'r_service_type_other'),
                 task_description: document.getElementById('r_task_description').value,
-                preferred_dates:  document.getElementById('r_preferred_dates').value,
+                preferred_dates:  (document.getElementById('r_preferred_dates').value + (document.getElementById('r_preferred_dates_other').value ? ' | Notes: ' + document.getElementById('r_preferred_dates_other').value : '')),
                 time_needed:      document.getElementById('r_time_needed').value,
                 special_notes:    document.getElementById('r_special_notes').value
             };
+
+            data.service_type    = getChecklist('r_type_check', 'r_service_type_other');
+            data.preferred_dates = document.getElementById('r_preferred_dates').value + (document.getElementById('r_preferred_dates_other').value ? ' | Notes: ' + document.getElementById('r_preferred_dates_other').value : '');
+
+            if (!data.service_type) {
+                alert('Please select at least one type of help needed.');
+                btn.disabled = false;
+                btn.textContent = 'Submit Request';
+                return;
+            }
+            if (!data.preferred_dates.trim()) {
+                alert('Please select at least one preferred time slot.');
+                btn.disabled = false;
+                btn.textContent = 'Submit Request';
+                return;
+            }
 
             sendData(data, function(ok) {
                 btn.disabled = false;
@@ -1162,6 +1378,186 @@
                     alert('Submission failed. Please email us at jeffreyding1217@gmail.com with your request.');
                 }
             });
+        }
+
+        // ── AVAILABILITY GRID ──
+        (function() {
+            var DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+            var SLOTS = ['7:00','7:30','8:00','8:30','9:00','9:30','10:00','10:30',
+                         '11:00','11:30','12:00','12:30','1:00','1:30','2:00','2:30',
+                         '3:00','3:30','4:00','4:30','5:00','5:30','6:00','6:30',
+                         '7:00p','7:30p','8:00p','8:30p'];
+            // Only show 8am-8pm (18 slots of 30min each) = 8:00am to 8:00pm
+            var SHOW  = ['8:00a','8:30a','9:00a','9:30a','10:00a','10:30a','11:00a','11:30a',
+                         '12:00p','12:30p','1:00p','1:30p','2:00p','2:30p',
+                         '3:00p','3:30p','4:00p','4:30p','5:00p','5:30p',
+                         '6:00p','6:30p','7:00p','7:30p'];
+            // 24 slots, 7 days
+            var NCOLS = 24;
+            var dragging = false;
+            var dragVal  = true;
+            var allSelected = {}; // keyed by gridId
+
+            function buildGrid() { buildNamedGrid('avail-grid', 'v_availability'); }
+
+            function buildNamedGrid(gridId, hiddenId) {
+                if (!allSelected[gridId]) allSelected[gridId] = {};
+                var grid = document.getElementById(gridId);
+                if (!grid) return;
+
+                // Clear if rebuilt
+                grid.innerHTML = '';
+
+                // Set correct column count
+                grid.style.gridTemplateColumns = '72px repeat(' + NCOLS + ', 36px)';
+
+                // Corner
+                var corner = document.createElement('div');
+                corner.className = 'ag-corner ag-header';
+                corner.textContent = 'Day / Time';
+                grid.appendChild(corner);
+
+                // Time headers - all visible, rotated
+                for (var c = 0; c < NCOLS; c++) {
+                    var hdr = document.createElement('div');
+                    hdr.className = 'ag-header';
+                    // Full readable label e.g. "8:00 AM"
+                    var label = SHOW[c];
+                    var isAM  = label.indexOf('a') > -1;
+                    var num   = label.replace('a','').replace('p','');
+                    hdr.innerHTML = '<span class="ag-time-label">' + num + '<br>' + (isAM ? 'AM' : 'PM') + '</span>';
+                    grid.appendChild(hdr);
+                }
+
+                // Also add PM class to headers
+                for (var c = 0; c < NCOLS; c++) {
+                    var headers = grid.querySelectorAll('.ag-header');
+                    // headers[0] is corner, headers[c+1] is the time header
+                    var h = headers[c + 1];
+                    if (h) {
+                        var lbl = SHOW[c];
+                        if (lbl.indexOf('p') > -1) h.classList.add('is-pm');
+                        // Add hour-start class every 2 cols (each hour = 2 slots)
+                        if (c % 2 === 0 && c > 0) h.classList.add('hour-start');
+                    }
+                }
+
+                // Rows
+                DAYS.forEach(function(day, d) {
+                    var dayCell = document.createElement('div');
+                    dayCell.className = 'ag-day';
+                    dayCell.textContent = day;
+                    grid.appendChild(dayCell);
+
+                    for (var c = 0; c < NCOLS; c++) {
+                        var cell = document.createElement('div');
+                        var lbl2 = SHOW[c];
+                        var cls  = 'ag-cell';
+                        if (lbl2.indexOf('p') > -1) cls += ' is-pm';
+                        if (c % 2 === 0 && c > 0)   cls += ' hour-start';
+                        cell.className = cls;
+                        cell.dataset.d = d;
+                        cell.dataset.c = c;
+
+                                (function(gid, hid) {
+                        cell.addEventListener('mousedown', function(e) {
+                            e.preventDefault();
+                            dragging = true;
+                            var key = this.dataset.d + '-' + this.dataset.c;
+                            dragVal = !allSelected[gid][key];
+                            toggleCell(this, dragVal, gid, hid);
+                        });
+                        cell.addEventListener('mouseover', function() {
+                            if (dragging) toggleCell(this, dragVal, gid, hid);
+                        });
+                        cell.addEventListener('touchstart', function(e) {
+                            e.preventDefault();
+                            var key = this.dataset.d + '-' + this.dataset.c;
+                            dragVal = !allSelected[gid][key];
+                            dragging = true;
+                            toggleCell(this, dragVal, gid, hid);
+                        }, {passive: false});
+                        cell.addEventListener('touchmove', function(e) {
+                            e.preventDefault();
+                            var touch = e.touches[0];
+                            var el = document.elementFromPoint(touch.clientX, touch.clientY);
+                            if (el && el.classList.contains('ag-cell')) toggleCell(el, dragVal, gid, hid);
+                        }, {passive: false});
+                        })(gridId, hiddenId);
+
+                        grid.appendChild(cell);
+                    }
+                });
+
+                document.addEventListener('mouseup',  function() { dragging = false; });
+                document.addEventListener('touchend', function() { dragging = false; });
+            }
+
+            function toggleCell(cell, val, gridId, hiddenId) {
+                var key = cell.dataset.d + '-' + cell.dataset.c;
+                allSelected[gridId][key] = val;
+                cell.classList.toggle('selected', val);
+                updateHidden(hiddenId, allSelected[gridId]);
+            }
+
+            function updateHidden(hiddenId, selObj) {
+                var parts = [];
+                DAYS.forEach(function(day, d) {
+                    var times = [];
+                    for (var c = 0; c < NCOLS; c++) {
+                        if (selObj[d + '-' + c]) times.push(SHOW[c]);
+                    }
+                    if (times.length > 0) {
+                        parts.push(day + ': ' + compressSlots(times));
+                    }
+                });
+                var hidden = document.getElementById(hiddenId);
+                if (hidden) hidden.value = parts.join(' | ');
+            }
+
+            function compressSlots(times) {
+                if (times.length === 0) return '';
+                var ranges = [];
+                var start = times[0], prev = times[0];
+                for (var i = 1; i < times.length; i++) {
+                    var prevIdx = SHOW.indexOf(prev);
+                    var currIdx = SHOW.indexOf(times[i]);
+                    if (currIdx === prevIdx + 1) {
+                        prev = times[i];
+                    } else {
+                        ranges.push(start === prev ? start : start + '–' + prev);
+                        start = times[i];
+                        prev  = times[i];
+                    }
+                }
+                ranges.push(start === prev ? start : start + '–' + prev);
+                return ranges.join(', ');
+            }
+
+            // Build when modal opens
+            var origOpen = window.openVolunteerModal;
+            window.openVolunteerModal = function() {
+                origOpen();
+                setTimeout(buildGrid, 50);
+            };
+
+            // Also build for request modal
+            var origOpenReq = window.openRequestModal;
+            window.openRequestModal = function() {
+                origOpenReq();
+                setTimeout(function() { buildNamedGrid('req-avail-grid', 'r_preferred_dates'); }, 50);
+            };
+        })();
+
+        // Collect checked checkboxes + optional "other" text field
+        function getChecklist(checkClass, otherId) {
+            var checked = [];
+            document.querySelectorAll('.' + checkClass + ':checked').forEach(function(cb) {
+                checked.push(cb.value);
+            });
+            var other = document.getElementById(otherId) ? document.getElementById(otherId).value.trim() : '';
+            if (other) checked.push('Other: ' + other);
+            return checked.join(', ');
         }
 
         // Send data using an iframe trick — works around CORS completely
@@ -1227,7 +1623,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            var today = new Date().toISOString().split('T')[0];
+            // Use local date, not UTC (toISOString gives wrong date in US timezones)
+            var now = new Date();
+            var yyyy = now.getFullYear();
+            var mm   = String(now.getMonth() + 1).padStart(2, '0');
+            var dd   = String(now.getDate()).padStart(2, '0');
+            var today = yyyy + '-' + mm + '-' + dd;
             var sigDate = document.getElementById('v_signature_date');
             if (sigDate) sigDate.value = today;
         });
@@ -1270,9 +1671,9 @@
                 teen_phone: document.getElementById('v_teen_phone').value,
                 address: document.getElementById('v_address').value,
                 zip_code: document.getElementById('v_zip_code').value,
-                interests: document.getElementById('v_interests').value,
+                interests: getChecklist('v_interest_check', 'v_interests_other'),
                 skills: document.getElementById('v_skills').value,
-                availability: document.getElementById('v_availability').value,
+                availability: getChecklist('v_avail_check', 'v_availability_other'),
                 motivation: document.getElementById('v_motivation').value,
                 parent_name: document.getElementById('v_parent_name').value,
                 parent_relationship: document.getElementById('v_parent_relationship').value,
@@ -1313,9 +1714,9 @@
                 requester_phone: document.getElementById('r_requester_phone').value,
                 service_address: document.getElementById('r_service_address').value,
                 zip_code: document.getElementById('r_service_zip_code').value,
-                service_type: document.getElementById('r_service_type').value,
+                service_type: getChecklist('r_type_check', 'r_service_type_other'),
                 task_description: document.getElementById('r_task_description').value,
-                preferred_dates: document.getElementById('r_preferred_dates').value,
+                preferred_dates: (document.getElementById('r_preferred_dates').value + (document.getElementById('r_preferred_dates_other').value ? ' | Notes: ' + document.getElementById('r_preferred_dates_other').value : '')),
                 time_needed: document.getElementById('r_time_needed').value,
                 special_notes: document.getElementById('r_special_notes').value
             };
