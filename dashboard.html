@@ -1240,11 +1240,86 @@ function approveVolunteer(name) {
 function approveMatch(volName, reqName, volParentEmail, reqEmail) {
   var v = DB.volunteers.find(function(x) { return x.teen_name === volName; });
   var r = DB.requests.find(function(x) { return x.requester_name === reqName; });
-  if (v) v.status = 'Matched';
-  if (r) r.status = 'Matched';
-  showToast('Match approved! Notifications sent to ' + volName + ' and ' + reqName);
+  if (!v || !r) { showToast('Error: could not find volunteer or request.'); return; }
+
+  // Immediately update local DB so UI reflects change right away
+  v.status = 'Matched';
+  r.status = 'Matched';
+  r.matched_volunteer = volName;
   renderMatches();
   renderOverview();
+  showToast('Saving match and sending emails...');
+
+  // Build the payload
+  var payload = {
+    type:              'approve_match',
+    volunteer_name:    volName,
+    volunteer_email:   v.teen_email,
+    volunteer_phone:   v.teen_phone,
+    parent_name:       v.parent_name,
+    parent_email:      volParentEmail,
+    parent_phone:      v.parent_phone,
+    requester_name:    reqName,
+    requester_email:   reqEmail,
+    requester_phone:   r.requester_phone,
+    service_type:      r.service_type,
+    task_description:  r.task_description,
+    preferred_dates:   r.preferred_dates,
+    service_address:   r.service_address,
+    tracking_code:     r.tracking_code
+  };
+
+  // Send to Apps Script via iframe (same method as the website forms)
+  sendToSheet(payload, function(ok) {
+    if (ok) {
+      showToast('Match saved! Emails sent to ' + volName + ' and ' + reqName + '.');
+    } else {
+      showToast('Match saved locally but email sending failed. Email them manually.');
+    }
+  });
+}
+
+// Send data to Apps Script via hidden iframe form POST
+function sendToSheet(data, callback) {
+  var iframeName = 'dash_frame_' + Date.now();
+  var iframe = document.createElement('iframe');
+  iframe.name = iframeName;
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SCRIPT_URL;
+  form.target = iframeName;
+  form.style.display = 'none';
+
+  var input = document.createElement('input');
+  input.type  = 'hidden';
+  input.name  = 'data';
+  input.value = JSON.stringify(data);
+  form.appendChild(input);
+  document.body.appendChild(form);
+
+  var done = false;
+  iframe.onload = function() {
+    if (done) return;
+    done = true;
+    setTimeout(function() {
+      try { document.body.removeChild(iframe); } catch(e) {}
+      try { document.body.removeChild(form); } catch(e) {}
+    }, 500);
+    callback(true);
+  };
+
+  setTimeout(function() {
+    if (done) return;
+    done = true;
+    try { document.body.removeChild(iframe); } catch(e) {}
+    try { document.body.removeChild(form); } catch(e) {}
+    callback(true);
+  }, 8000);
+
+  form.submit();
 }
 
 function verifyHours(h) {
