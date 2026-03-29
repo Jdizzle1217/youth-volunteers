@@ -750,8 +750,14 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Date</th><th>Volunteer</th><th>Recipient</th>
-                    <th>Hours</th><th>Tasks</th><th>Status</th><th>Actions</th>
+                    <th>Date</th>
+                    <th>Volunteer</th>
+                    <th>Family</th>
+                    <th style="text-align:center;">Vol. Hours</th>
+                    <th style="text-align:center;">Family Hours</th>
+                    <th>Match Status</th>
+                    <th>Verified</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id="hours-tbody"></tbody>
@@ -809,7 +815,8 @@ var DB = {
   volunteers: [],
   requests: [],
   hours: [],
-  waivers: []
+  waivers: [],
+  volunteer_hours: []
 };
 
 // =====================================================================
@@ -1207,20 +1214,86 @@ function printLetter() {
 // =====================================================================
 function renderHours() {
   var tbody = document.getElementById('hours-tbody');
-  if (DB.hours.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--mid);">No hours logged yet.</td></tr>';
+  var familySubs   = DB.hours;
+  var volunteerSubs = DB.volunteer_hours || [];
+
+  if (familySubs.length === 0 && volunteerSubs.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--mid);">No hours submitted yet.</td></tr>';
     return;
   }
-  tbody.innerHTML = DB.hours.map(function(h) {
+
+  // Build a map of family submissions by tracking code
+  var familyMap = {};
+  familySubs.forEach(function(h) {
+    if (h.tracking_code) familyMap[h.tracking_code.toUpperCase()] = h;
+  });
+
+  // Build a map of volunteer submissions by tracking code
+  var volMap = {};
+  volunteerSubs.forEach(function(h) {
+    if (h.tracking_code) volMap[h.tracking_code.toUpperCase()] = h;
+  });
+
+  // Combine all unique tracking codes
+  var allCodes = {};
+  Object.keys(familyMap).forEach(function(k) { allCodes[k] = true; });
+  Object.keys(volMap).forEach(function(k) { allCodes[k] = true; });
+
+  if (Object.keys(allCodes).length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--mid);">No hours submitted yet.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = Object.keys(allCodes).map(function(code) {
+    var f = familyMap[code];
+    var v = volMap[code];
+
+    var fHours = f ? parseFloat(f.hours_completed) : null;
+    var vHours = v ? parseFloat(v.hours_completed) : null;
+
+    // Match logic
+    var matchStatus, matchColor;
+    if (f && v) {
+      if (fHours === vHours) {
+        matchStatus = 'MATCH';
+        matchColor  = '#2e7d32';
+      } else if (Math.abs(fHours - vHours) <= 0.5) {
+        matchStatus = 'CLOSE (' + fHours + ' vs ' + vHours + ')';
+        matchColor  = '#e65100';
+      } else {
+        matchStatus = 'MISMATCH (' + fHours + ' vs ' + vHours + ')';
+        matchColor  = '#c62828';
+      }
+    } else if (f && !v) {
+      matchStatus = 'Waiting for volunteer';
+      matchColor  = '#999';
+    } else {
+      matchStatus = 'Waiting for family';
+      matchColor  = '#999';
+    }
+
+    var volName  = (v && v.volunteer_name)  || (f && f.volunteer_name)  || '—';
+    var famName  = (f && f.recipient_name)  || (v && v.recipient_name)  || '—';
+    var date     = (f && f.service_date)    || (v && v.service_date)    || '—';
+    var verified = f ? (f.verified || 'Pending') : 'Pending';
+    var canVerify = f && v && fHours === vHours && verified !== 'Verified';
+
     return '<tr>' +
-      '<td>' + (h.service_date || '—') + '</td>' +
-      '<td><strong>' + h.volunteer_name + '</strong></td>' +
-      '<td>' + h.recipient_name + '</td>' +
-      '<td><strong>' + h.hours_completed + ' hrs</strong></td>' +
-      '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + escapeQ(h.tasks_completed) + '">' + h.tasks_completed + '</td>' +
-      '<td><span class="badge badge-' + (h.verified==='Verified'?'verified':'pending') + '">' + (h.verified||'Pending') + '</span></td>' +
+      '<td>' + date + '</td>' +
+      '<td><strong>' + volName + '</strong></td>' +
+      '<td>' + famName + '</td>' +
+      '<td style="text-align:center;">' +
+        (v ? '<span style="color:#2e7d32;font-weight:700;">' + vHours + ' hrs</span>' : '<span style="color:#bbb;">—</span>') +
+      '</td>' +
+      '<td style="text-align:center;">' +
+        (f ? '<span style="color:#1565c0;font-weight:700;">' + fHours + ' hrs</span>' : '<span style="color:#bbb;">—</span>') +
+      '</td>' +
+      '<td><strong style="color:' + matchColor + ';font-size:0.8rem;">' + matchStatus + '</strong></td>' +
+      '<td><span class="badge badge-' + (verified==='Verified'?'verified':'pending') + '">' + verified + '</span></td>' +
       '<td>' +
-        (h.verified !== 'Verified' ? '<button class="btn btn-green btn-sm" onclick=\'verifyHours(' + JSON.stringify(h) + ')\'>Verify</button>' : '✓ Verified') +
+        (canVerify
+          ? '<button class="btn btn-green btn-sm" onclick=\'verifyHours(' + JSON.stringify(f) + ')\'>Verify</button>'
+          : (verified === 'Verified' ? '<span style="color:#2e7d32;">✓</span>' : '<span style="color:#bbb;font-size:0.78rem;">Not ready</span>')) +
       '</td>' +
     '</tr>';
   }).join('');
