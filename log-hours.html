@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Service Hours - Community Youth Volunteers</title>
+    <title>Log Your Service Hours - Community Youth Volunteers</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,7 +28,6 @@
 
         h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
-        /* ── HEADER ── */
         header {
             background: var(--white);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -58,7 +57,6 @@
             text-decoration: none;
         }
 
-        /* ── MAIN ── */
         main {
             flex: 1;
             display: flex;
@@ -82,20 +80,11 @@
             color: white;
         }
 
-        .card-header h1 {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 6px;
-        }
-
-        .card-header p {
-            font-size: 0.9rem;
-            opacity: 0.85;
-        }
+        .card-header h1 { font-size: 1.5rem; color: white; margin-bottom: 6px; }
+        .card-header p  { font-size: 0.9rem; opacity: 0.85; }
 
         .card-body { padding: 36px; }
 
-        /* ── STEPS ── */
         .step { display: none; }
         .step.active { display: block; }
 
@@ -108,7 +97,6 @@
             margin-bottom: 16px;
         }
 
-        /* ── FORM FIELDS ── */
         .form-group { margin-bottom: 20px; }
 
         .form-group label {
@@ -143,7 +131,6 @@
 
         .required { color: #d32f2f; }
 
-        /* ── BUTTONS ── */
         .btn {
             display: inline-block;
             padding: 12px 28px;
@@ -158,12 +145,7 @@
             transition: all 0.2s;
         }
 
-        .btn-primary {
-            background: var(--secondary);
-            color: white;
-            width: 100%;
-        }
-
+        .btn-primary { background: var(--secondary); color: white; width: 100%; }
         .btn-primary:hover { background: #e58610; transform: translateY(-1px); }
         .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
@@ -177,37 +159,28 @@
 
         .btn-outline:hover { background: var(--light); }
 
-        /* ── RATING ── */
-        .rating-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .rating-btn {
-            flex: 1;
-            padding: 10px 4px;
-            border: 2px solid #ddd;
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary);
             border-radius: 4px;
-            background: white;
-            cursor: pointer;
-            text-align: center;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--mid);
-            transition: all 0.15s;
-            font-family: 'Open Sans', sans-serif;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 0.87rem;
+            color: #1565c0;
+            line-height: 1.6;
         }
 
-        .rating-btn:hover { border-color: var(--secondary); color: var(--secondary); }
-
-        .rating-btn.selected {
-            border-color: var(--secondary);
-            background: var(--secondary);
-            color: white;
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 0.87rem;
+            color: #e65100;
+            line-height: 1.6;
         }
 
-        /* ── SUCCESS ── */
         .success-icon {
             width: 72px; height: 72px;
             background: #e8f5e9;
@@ -221,7 +194,7 @@
         .success-box h2 { color: var(--primary); margin-bottom: 10px; }
         .success-box p { color: var(--mid); line-height: 1.7; margin-bottom: 12px; }
 
-        .tracking-display {
+        .hours-display {
             background: var(--light);
             border-radius: 4px;
             padding: 14px 20px;
@@ -231,35 +204,14 @@
             color: var(--mid);
         }
 
-        .tracking-display strong {
+        .hours-display strong {
             display: block;
-            font-size: 1.4rem;
+            font-size: 2rem;
             color: var(--primary);
-            letter-spacing: 3px;
-            margin-top: 4px;
             font-family: 'Montserrat', sans-serif;
+            margin-top: 4px;
         }
 
-        /* ── INFO BOX ── */
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid var(--primary);
-            border-radius: 4px;
-            padding: 14px 16px;
-            margin-bottom: 24px;
-            font-size: 0.87rem;
-            color: #1565c0;
-            line-height: 1.6;
-        }
-
-        .error-msg {
-            color: #c62828;
-            font-size: 0.85rem;
-            margin-top: 6px;
-            display: none;
-        }
-
-        /* ── FOOTER ── */
         footer {
             text-align: center;
             padding: 20px;
@@ -280,38 +232,37 @@
 <main>
     <div class="card">
         <div class="card-header">
-            <h1>Confirm Service Hours</h1>
-            <p>Use this form to verify that a volunteer completed service at your home.</p>
+            <h1>Log Your Service Hours</h1>
+            <p>Volunteers: submit your hours after completing a service session.</p>
         </div>
         <div class="card-body">
 
-            <!-- STEP 1: Tracking code + basic info -->
+            <!-- STEP 1 -->
             <div class="step active" id="step1">
                 <div class="step-label">Step 1 of 2 - Your Information</div>
 
                 <div class="info-box">
-                    You received a tracking code in your confirmation email when you submitted your service request. Enter it below along with details about the completed service.
+                    Enter your tracking code from your match confirmation email, then fill in the details about the service you completed. The family will submit their version separately — hours are only verified once both match.
                 </div>
 
                 <div class="form-group">
                     <label>Tracking Code <span class="required">*</span></label>
                     <input type="text" id="tracking_code" placeholder="e.g. AB12CD34" maxlength="10" style="text-transform:uppercase;letter-spacing:2px;font-size:1.1rem;">
-                    <div class="error-msg" id="code-error">Please enter your tracking code.</div>
                 </div>
 
                 <div class="form-group">
-                    <label>Your Name <span class="required">*</span></label>
-                    <input type="text" id="recipient_name" placeholder="Your full name">
+                    <label>Your Name (Volunteer) <span class="required">*</span></label>
+                    <input type="text" id="volunteer_name" placeholder="Your full name">
                 </div>
 
                 <div class="form-group">
                     <label>Your Email <span class="required">*</span></label>
-                    <input type="email" id="recipient_email" placeholder="Your email address">
+                    <input type="email" id="volunteer_email" placeholder="Your email address">
                 </div>
 
                 <div class="form-group">
-                    <label>Volunteer's Name <span class="required">*</span></label>
-                    <input type="text" id="volunteer_name" placeholder="Name of the teen volunteer">
+                    <label>Family / Recipient Name <span class="required">*</span></label>
+                    <input type="text" id="recipient_name" placeholder="Name of the family you helped">
                 </div>
 
                 <div class="form-group">
@@ -322,12 +273,16 @@
                 <button class="btn btn-primary" onclick="goToStep2()">Next &rarr;</button>
             </div>
 
-            <!-- STEP 2: Hours + feedback -->
+            <!-- STEP 2 -->
             <div class="step" id="step2">
-                <div class="step-label">Step 2 of 2 - Service Details</div>
+                <div class="step-label">Step 2 of 2 - Hours & Details</div>
+
+                <div class="warning-box">
+                    Be honest and accurate. The family will submit their own version of the hours independently. If your submissions do not match, we will follow up before verifying any hours.
+                </div>
 
                 <div class="form-group">
-                    <label>Total Hours Completed <span class="required">*</span></label>
+                    <label>Total Hours You Worked <span class="required">*</span></label>
                     <select id="hours_completed">
                         <option value="">Select hours...</option>
                         <option value="0.5">30 minutes</option>
@@ -346,30 +301,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label>What tasks were completed? <span class="required">*</span></label>
-                    <textarea id="tasks_completed" placeholder="Briefly describe what the volunteer helped with (e.g. raked leaves in the backyard, helped with math homework for 2 hours)"></textarea>
+                    <label>What tasks did you complete? <span class="required">*</span></label>
+                    <textarea id="tasks_completed" placeholder="Describe what you worked on (e.g. raked leaves in the backyard, helped with math and reading homework)"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>How would you rate the volunteer? <span class="required">*</span></label>
-                    <div class="rating-group">
-                        <button class="rating-btn" onclick="setRating(1)">1<br><span style="font-weight:400;font-size:0.72rem;">Poor</span></button>
-                        <button class="rating-btn" onclick="setRating(2)">2<br><span style="font-weight:400;font-size:0.72rem;">Fair</span></button>
-                        <button class="rating-btn" onclick="setRating(3)">3<br><span style="font-weight:400;font-size:0.72rem;">Good</span></button>
-                        <button class="rating-btn" onclick="setRating(4)">4<br><span style="font-weight:400;font-size:0.72rem;">Great</span></button>
-                        <button class="rating-btn" onclick="setRating(5)">5<br><span style="font-weight:400;font-size:0.72rem;">Excellent</span></button>
-                    </div>
-                    <input type="hidden" id="quality_rating" value="">
-                </div>
-
-                <div class="form-group">
-                    <label>Any additional comments? <span style="color:var(--mid);font-weight:400;">(optional)</span></label>
-                    <textarea id="comments" placeholder="Any feedback for the volunteer or our program"></textarea>
+                    <label>Any notes or comments? <span style="color:var(--mid);font-weight:400;">(optional)</span></label>
+                    <textarea id="comments" placeholder="Anything else you want us to know about the session"></textarea>
                 </div>
 
                 <div style="display:flex;gap:12px;margin-top:8px;">
                     <button class="btn btn-outline" onclick="goToStep1()">&larr; Back</button>
-                    <button class="btn btn-primary" id="submitBtn" onclick="submitHours()" style="flex:1;">Submit Confirmation</button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitHours()" style="flex:1;">Submit Hours</button>
                 </div>
             </div>
 
@@ -377,13 +320,13 @@
             <div class="step" id="stepSuccess">
                 <div class="success-box">
                     <div class="success-icon">&#10003;</div>
-                    <h2>Hours Confirmed!</h2>
-                    <p>Thank you for confirming the service hours. The volunteer will receive official credit for their work.</p>
-                    <div class="tracking-display">
-                        Your tracking code
-                        <strong id="display-code"></strong>
+                    <h2>Hours Submitted!</h2>
+                    <div class="hours-display">
+                        Hours submitted
+                        <strong id="display-hours"></strong>
                     </div>
-                    <p style="font-size:0.85rem;">The hours are now pending review by our team and will be verified within 2-3 business days. If you have any questions, email us at <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>.</p>
+                    <p>Your hours have been logged. The family will also submit their confirmation separately. Once both match and our team reviews them, your hours will be officially verified.</p>
+                    <p style="font-size:0.85rem;">Questions? Email <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a></p>
                     <div style="margin-top:24px;">
                         <a href="index.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;">Back to Home</a>
                     </div>
@@ -400,11 +343,9 @@
 
 <script>
     var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypUvs71EmeIA4eW_MggSlP7j_cGPrNpXKTVZPxK2kNnAtwM4nR5A7vtdbF1KRxJYoL2w/exec';
-    var selectedRating = 0;
 
-    // Set today's date
     (function() {
-        var now = new Date();
+        var now  = new Date();
         var yyyy = now.getFullYear();
         var mm   = String(now.getMonth() + 1).padStart(2, '0');
         var dd   = String(now.getDate()).padStart(2, '0');
@@ -413,82 +354,68 @@
 
     function goToStep2() {
         var code  = document.getElementById('tracking_code').value.trim();
-        var name  = document.getElementById('recipient_name').value.trim();
-        var email = document.getElementById('recipient_email').value.trim();
-        var vol   = document.getElementById('volunteer_name').value.trim();
+        var name  = document.getElementById('volunteer_name').value.trim();
+        var email = document.getElementById('volunteer_email').value.trim();
+        var recip = document.getElementById('recipient_name').value.trim();
         var date  = document.getElementById('service_date').value;
 
-        if (!code || !name || !email || !vol || !date) {
+        if (!code || !name || !email || !recip || !date) {
             alert('Please fill in all required fields.');
             return;
         }
-
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             alert('Please enter a valid email address.');
             return;
         }
-
         showStep('step2');
     }
 
     function goToStep1() { showStep('step1'); }
 
-    function setRating(val) {
-        selectedRating = val;
-        document.getElementById('quality_rating').value = val;
-        document.querySelectorAll('.rating-btn').forEach(function(btn, i) {
-            btn.classList.toggle('selected', i + 1 === val);
-        });
-    }
-
     function submitHours() {
-        var hours  = document.getElementById('hours_completed').value;
-        var tasks  = document.getElementById('tasks_completed').value.trim();
-        var rating = document.getElementById('quality_rating').value;
+        var hours = document.getElementById('hours_completed').value;
+        var tasks = document.getElementById('tasks_completed').value.trim();
 
         if (!hours) { alert('Please select the number of hours completed.'); return; }
-        if (!tasks)  { alert('Please describe what tasks were completed.'); return; }
-        if (!rating) { alert('Please rate the volunteer.'); return; }
+        if (!tasks)  { alert('Please describe what tasks you completed.'); return; }
 
         var btn = document.getElementById('submitBtn');
         btn.disabled = true;
         btn.textContent = 'Submitting...';
 
         var data = {
-            type:            'log_hours',
+            type:            'log_hours_volunteer',
             tracking_code:   document.getElementById('tracking_code').value.trim().toUpperCase(),
             volunteer_name:  document.getElementById('volunteer_name').value.trim(),
+            volunteer_email: document.getElementById('volunteer_email').value.trim(),
             recipient_name:  document.getElementById('recipient_name').value.trim(),
-            recipient_email: document.getElementById('recipient_email').value.trim(),
             service_date:    document.getElementById('service_date').value,
             hours_completed: hours,
             tasks_completed: tasks,
-            quality_rating:  rating,
             comments:        document.getElementById('comments').value.trim()
         };
 
         sendData(data, function(ok) {
             btn.disabled = false;
-            btn.textContent = 'Submit Confirmation';
+            btn.textContent = 'Submit Hours';
             if (ok) {
-                document.getElementById('display-code').textContent = data.tracking_code;
+                document.getElementById('display-hours').textContent =
+                    hours < 1 ? '30 min' : hours + (hours == 1 ? ' hour' : ' hours');
                 showStep('stepSuccess');
             } else {
-                alert('There was a problem submitting. Please email us directly at jeffreyding1217@gmail.com with your tracking code (' + data.tracking_code + ') and hours completed.');
+                alert('There was a problem submitting. Please email jeffreyding1217@gmail.com with your tracking code and hours.');
             }
         });
     }
 
     function showStep(id) {
-        document.querySelectorAll('.step').forEach(function(s) {
-            s.classList.remove('active');
-        });
+        document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
         document.getElementById(id).classList.add('active');
         window.scrollTo(0, 0);
     }
 
     function sendData(data, callback) {
-        var iframeName = 'hours_frame_' + Date.now();
+        var iframeName = 'vol_frame_' + Date.now();
         var iframe = document.createElement('iframe');
         iframe.name = iframeName;
         iframe.style.display = 'none';
@@ -517,7 +444,6 @@
             }, 500);
             callback(true);
         };
-
         setTimeout(function() {
             if (done) return;
             done = true;
@@ -529,6 +455,5 @@
         form.submit();
     }
 </script>
-
 </body>
 </html>
