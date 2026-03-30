@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Your Service Hours - Community Youth Volunteers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #2c5f8d;
+            --secondary: #f7941d;
+            --dark: #333333;
+            --light: #f5f5f5;
+            --mid: #666666;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-circle {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 560px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: var(--primary);
+            padding: 28px 36px;
+            color: white;
+        }
+
+        .card-header h1 { font-size: 1.5rem; color: white; margin-bottom: 6px; }
+        .card-header p  { font-size: 0.9rem; opacity: 0.85; }
+
+        .card-body { padding: 36px; }
+
+        .step { display: none; }
+        .step.active { display: block; }
+
+        .step-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark);
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-group textarea { min-height: 80px; resize: vertical; }
+
+        .required { color: #d32f2f; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary { background: var(--secondary); color: white; width: 100%; }
+        .btn-primary:hover { background: #e58610; transform: translateY(-1px); }
+        .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: var(--mid);
+            font-size: 0.85rem;
+            padding: 8px 18px;
+        }
+
+        .btn-outline:hover { background: var(--light); }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary);
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 0.87rem;
+            color: #1565c0;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid var(--secondary);
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            font-size: 0.87rem;
+            color: #e65100;
+            line-height: 1.6;
+        }
+
+        .success-icon {
+            width: 72px; height: 72px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        .success-box { text-align: center; }
+        .success-box h2 { color: var(--primary); margin-bottom: 10px; }
+        .success-box p { color: var(--mid); line-height: 1.7; margin-bottom: 12px; }
+
+        .hours-display {
+            background: var(--light);
+            border-radius: 4px;
+            padding: 14px 20px;
+            text-align: center;
+            margin: 16px 0;
+            font-size: 0.85rem;
+            color: var(--mid);
+        }
+
+        .hours-display strong {
+            display: block;
+            font-size: 2rem;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        footer a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-circle">CV</div>
+    <a href="index.html" class="logo-text">Community Youth Volunteers</a>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-header">
+            <h1>Log Your Service Hours</h1>
+            <p>Volunteers: submit your hours after completing a service session.</p>
+        </div>
+        <div class="card-body">
+
+            <!-- STEP 1 -->
+            <div class="step active" id="step1">
+                <div class="step-label">Step 1 of 2 - Your Information</div>
+
+                <div class="info-box">
+                    Enter your tracking code from your match confirmation email, then fill in the details about the service you completed. The family will submit their version separately — hours are only verified once both match.
+                </div>
+
+                <div class="form-group">
+                    <label>Tracking Code <span class="required">*</span></label>
+                    <input type="text" id="tracking_code" placeholder="e.g. AB12CD34" maxlength="10" style="text-transform:uppercase;letter-spacing:2px;font-size:1.1rem;">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Name (Volunteer) <span class="required">*</span></label>
+                    <input type="text" id="volunteer_name" placeholder="Your full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Email <span class="required">*</span></label>
+                    <input type="email" id="volunteer_email" placeholder="Your email address">
+                </div>
+
+                <div class="form-group">
+                    <label>Family / Recipient Name <span class="required">*</span></label>
+                    <input type="text" id="recipient_name" placeholder="Name of the family you helped">
+                </div>
+
+                <div class="form-group">
+                    <label>Date Service Was Completed <span class="required">*</span></label>
+                    <input type="date" id="service_date">
+                </div>
+
+                <button class="btn btn-primary" onclick="goToStep2()">Next &rarr;</button>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step" id="step2">
+                <div class="step-label">Step 2 of 2 - Hours & Details</div>
+
+                <div class="warning-box">
+                    Be honest and accurate. The family will submit their own version of the hours independently. If your submissions do not match, we will follow up before verifying any hours.
+                </div>
+
+                <div class="form-group">
+                    <label>Total Hours You Worked <span class="required">*</span></label>
+                    <select id="hours_completed">
+                        <option value="">Select hours...</option>
+                        <option value="0.5">30 minutes</option>
+                        <option value="1">1 hour</option>
+                        <option value="1.5">1.5 hours</option>
+                        <option value="2">2 hours</option>
+                        <option value="2.5">2.5 hours</option>
+                        <option value="3">3 hours</option>
+                        <option value="3.5">3.5 hours</option>
+                        <option value="4">4 hours</option>
+                        <option value="5">5 hours</option>
+                        <option value="6">6 hours</option>
+                        <option value="7">7 hours</option>
+                        <option value="8">8+ hours</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What tasks did you complete? <span class="required">*</span></label>
+                    <textarea id="tasks_completed" placeholder="Describe what you worked on (e.g. raked leaves in the backyard, helped with math and reading homework)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Any notes or comments? <span style="color:var(--mid);font-weight:400;">(optional)</span></label>
+                    <textarea id="comments" placeholder="Anything else you want us to know about the session"></textarea>
+                </div>
+
+                <div style="display:flex;gap:12px;margin-top:8px;">
+                    <button class="btn btn-outline" onclick="goToStep1()">&larr; Back</button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitHours()" style="flex:1;">Submit Hours</button>
+                </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div class="step" id="stepSuccess">
+                <div class="success-box">
+                    <div class="success-icon">&#10003;</div>
+                    <h2>Hours Submitted!</h2>
+                    <div class="hours-display">
+                        Hours submitted
+                        <strong id="display-hours"></strong>
+                    </div>
+                    <p>Your hours have been logged. The family will also submit their confirmation separately. Once both match and our team reviews them, your hours will be officially verified.</p>
+                    <p style="font-size:0.85rem;">Questions? Email <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a></p>
+                    <div style="margin-top:24px;">
+                        <a href="index.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>Questions? Email <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a> &mdash; Community Youth Volunteers</p>
+</footer>
+
+<script>
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypUvs71EmeIA4eW_MggSlP7j_cGPrNpXKTVZPxK2kNnAtwM4nR5A7vtdbF1KRxJYoL2w/exec';
+
+    (function() {
+        var now  = new Date();
+        var yyyy = now.getFullYear();
+        var mm   = String(now.getMonth() + 1).padStart(2, '0');
+        var dd   = String(now.getDate()).padStart(2, '0');
+        document.getElementById('service_date').value = yyyy + '-' + mm + '-' + dd;
+    })();
+
+    function goToStep2() {
+        var code  = document.getElementById('tracking_code').value.trim();
+        var name  = document.getElementById('volunteer_name').value.trim();
+        var email = document.getElementById('volunteer_email').value.trim();
+        var recip = document.getElementById('recipient_name').value.trim();
+        var date  = document.getElementById('service_date').value;
+
+        if (!code || !name || !email || !recip || !date) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        showStep('step2');
+    }
+
+    function goToStep1() { showStep('step1'); }
+
+    function submitHours() {
+        var hours = document.getElementById('hours_completed').value;
+        var tasks = document.getElementById('tasks_completed').value.trim();
+
+        if (!hours) { alert('Please select the number of hours completed.'); return; }
+        if (!tasks)  { alert('Please describe what tasks you completed.'); return; }
+
+        var btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+
+        var data = {
+            type:            'log_hours_volunteer',
+            tracking_code:   document.getElementById('tracking_code').value.trim().toUpperCase(),
+            volunteer_name:  document.getElementById('volunteer_name').value.trim(),
+            volunteer_email: document.getElementById('volunteer_email').value.trim(),
+            recipient_name:  document.getElementById('recipient_name').value.trim(),
+            service_date:    document.getElementById('service_date').value,
+            hours_completed: hours,
+            tasks_completed: tasks,
+            comments:        document.getElementById('comments').value.trim()
+        };
+
+        sendData(data, function(ok) {
+            btn.disabled = false;
+            btn.textContent = 'Submit Hours';
+            if (ok) {
+                document.getElementById('display-hours').textContent =
+                    hours < 1 ? '30 min' : hours + (hours == 1 ? ' hour' : ' hours');
+                showStep('stepSuccess');
+            } else {
+                alert('There was a problem submitting. Please email jeffreyding1217@gmail.com with your tracking code and hours.');
+            }
+        });
+    }
+
+    function showStep(id) {
+        document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function sendData(data, callback) {
+        var iframeName = 'vol_frame_' + Date.now();
+        var iframe = document.createElement('iframe');
+        iframe.name = iframeName;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = SCRIPT_URL;
+        form.target = iframeName;
+        form.style.display = 'none';
+
+        var input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = 'data';
+        input.value = JSON.stringify(data);
+        form.appendChild(input);
+        document.body.appendChild(form);
+
+        var done = false;
+        iframe.onload = function() {
+            if (done) return;
+            done = true;
+            setTimeout(function() {
+                try { document.body.removeChild(iframe); } catch(e) {}
+                try { document.body.removeChild(form);   } catch(e) {}
+            }, 500);
+            callback(true);
+        };
+        setTimeout(function() {
+            if (done) return;
+            done = true;
+            try { document.body.removeChild(iframe); } catch(e) {}
+            try { document.body.removeChild(form);   } catch(e) {}
+            callback(true);
+        }, 8000);
+
+        form.submit();
+    }
+</script>
+</body>
+</html>
