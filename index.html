@@ -1201,7 +1201,7 @@
 </head>
 <body>
 <div class="topbar">
-  <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>
+  <a href="/cdn-cgi/l/email-protection#86ece3e0e0f4e3ffe2efe8e1b7b4b7b1c6e1ebe7efeaa8e5e9eb"><span class="__cf_email__" data-cfemail="3f555a59594d5a465b5651580e0d0e087f58525e5653115c5052">[email&#160;protected]</span></a>
   <a href="get-involved.html">Volunteer</a>
   <a href="donate.html">Donate</a>
 </div>
@@ -1327,7 +1327,7 @@
       <h4>For Families</h4>
       <a href="find-help.html">Request Service</a>
       <a href="log-hours.html">Confirm Hours</a>
-      <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
+      <a href="/cdn-cgi/l/email-protection#bcd6d9dadaced9c5d8d5d2db8d8e8d8bfcdbd1ddd5d092dfd3d1">Contact Us</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1595,7 +1595,7 @@
             </div>
         </div>
     </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypUvs71EmeIA4eW_MggSlP7j_cGPrNpXKTVZPxK2kNnAtwM4nR5A7vtdbF1KRxJYoL2w/exec';
 
         function openVolunteerModal() {
@@ -1887,19 +1887,23 @@
                 return ranges.join(', ');
             }
 
-            // Build when modal opens
-            var origOpen = window.openVolunteerModal;
-            window.openVolunteerModal = function() {
-                origOpen();
-                setTimeout(buildGrid, 50);
-            };
-
-            // Also build for request modal
-            var origOpenReq = window.openRequestModal;
-            window.openRequestModal = function() {
-                origOpenReq();
-                setTimeout(function() { buildNamedGrid('req-avail-grid', 'r_preferred_dates'); }, 50);
-            };
+            // Build grids when modals open - defer so functions are defined first
+            document.addEventListener('DOMContentLoaded', function() {
+                var origOpen = window.openVolunteerModal;
+                if (origOpen) {
+                    window.openVolunteerModal = function() {
+                        origOpen();
+                        setTimeout(buildGrid, 50);
+                    };
+                }
+                var origOpenReq = window.openRequestModal;
+                if (origOpenReq) {
+                    window.openRequestModal = function() {
+                        origOpenReq();
+                        setTimeout(function() { buildNamedGrid('req-avail-grid', 'r_preferred_dates'); }, 50);
+                    };
+                }
+            });
         })();
 
         // Collect checked checkboxes + optional "other" text field
@@ -1975,9 +1979,4 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Use local date, not UTC (toISOString gives wrong date in US timezones)
-            var now = new Date();
-            var yyyy = now.getFullYear();
-            var mm   = String(now.getMon
-            var mm   = String(now.getMon
+       

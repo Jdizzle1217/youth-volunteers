@@ -1201,7 +1201,7 @@
 </head>
 <body>
 <div class="topbar">
-  <a href="mailto:jeffreyding1217@gmail.com">jeffreyding1217@gmail.com</a>
+  <a href="/cdn-cgi/l/email-protection#264c43404054435f424f48411714171166414b474f4a0845494b"><span class="__cf_email__" data-cfemail="b9d3dcdfdfcbdcc0ddd0d7de888b888ef9ded4d8d0d597dad6d4">[email&#160;protected]</span></a>
   <a href="get-involved.html">Volunteer</a>
   <a href="donate.html">Donate</a>
 </div>
@@ -1238,7 +1238,7 @@
         <div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg,var(--forest),var(--sage));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:4rem;margin-bottom:20px;">&#128104;</div>
         <h3 style="font-family:DM Sans,sans-serif;font-size:1.2rem;font-weight:700;color:var(--forest);margin-bottom:4px;">[Your Name]</h3>
         <div style="font-size:0.85rem;font-weight:600;color:var(--warm);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Founder &amp; Director</div>
-        <a href="mailto:jeffreyding1217@gmail.com" style="font-size:0.85rem;color:var(--sage);text-decoration:none;">jeffreyding1217@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#2b414e4d4d594e524f42454c1a191a1c6b4c464a424705484446" style="font-size:0.85rem;color:var(--sage);text-decoration:none;"><span class="__cf_email__" data-cfemail="ff959a99998d9a869b969198cecdcec8bf98929e9693d19c9092">[email&#160;protected]</span></a>
       </div>
       <div>
         <p style="font-size:1.05rem;line-height:1.85;color:var(--mid);margin-bottom:16px;">[Add your bio here — who you are, what grade you're in, what inspired you to start this organization, and what you hope to achieve.]</p>
@@ -1287,7 +1287,7 @@
         <h3 style="color:var(--white);font-size:1.6rem;margin-bottom:10px;">Want to join the team?</h3>
         <p style="color:rgba(255,255,255,0.72);line-height:1.7;">We are always looking for motivated teens who want to help run the organization — not just volunteer. If you are interested in a leadership role, reach out.</p>
       </div>
-      <a href="mailto:jeffreyding1217@gmail.com" class="btn btn-warm" style="white-space:nowrap;flex-shrink:0;">Get in Touch</a>
+      <a href="/cdn-cgi/l/email-protection#264c43404054435f424f48411714171166414b474f4a0845494b" class="btn btn-warm" style="white-space:nowrap;flex-shrink:0;">Get in Touch</a>
     </div>
 
   </div>
@@ -1319,7 +1319,7 @@
       <h4>For Families</h4>
       <a href="find-help.html">Request Service</a>
       <a href="log-hours.html">Confirm Hours</a>
-      <a href="mailto:jeffreyding1217@gmail.com">Contact Us</a>
+      <a href="/cdn-cgi/l/email-protection#325857545440574b565b5c550300030572555f535b5e1c515d5f">Contact Us</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1587,7 +1587,7 @@
             </div>
         </div>
     </div>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypUvs71EmeIA4eW_MggSlP7j_cGPrNpXKTVZPxK2kNnAtwM4nR5A7vtdbF1KRxJYoL2w/exec';
 
         function openVolunteerModal() {
@@ -1879,19 +1879,23 @@
                 return ranges.join(', ');
             }
 
-            // Build when modal opens
-            var origOpen = window.openVolunteerModal;
-            window.openVolunteerModal = function() {
-                origOpen();
-                setTimeout(buildGrid, 50);
-            };
-
-            // Also build for request modal
-            var origOpenReq = window.openRequestModal;
-            window.openRequestModal = function() {
-                origOpenReq();
-                setTimeout(function() { buildNamedGrid('req-avail-grid', 'r_preferred_dates'); }, 50);
-            };
+            // Build grids when modals open - defer so functions are defined first
+            document.addEventListener('DOMContentLoaded', function() {
+                var origOpen = window.openVolunteerModal;
+                if (origOpen) {
+                    window.openVolunteerModal = function() {
+                        origOpen();
+                        setTimeout(buildGrid, 50);
+                    };
+                }
+                var origOpenReq = window.openRequestModal;
+                if (origOpenReq) {
+                    window.openRequestModal = function() {
+                        origOpenReq();
+                        setTimeout(function() { buildNamedGrid('req-avail-grid', 'r_preferred_dates'); }, 50);
+                    };
+                }
+            });
         })();
 
         // Collect checked checkboxes + optional "other" text field
@@ -1968,16 +1972,4 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Use local date, not UTC (toISOString gives wrong date in US timezones)
-            var now = new Date();
-            var yyyy = now.getFullYear();
-            var mm   = String(now.getMon
-            var mm   = String(now.getMonth() + 1).padStart(2, '0');
-            var dd   = String(now.getDate()).padStart(2, '0');
-            var today = yyyy + '-' + mm + '-' + dd;
-            var sigDate = document.getElementById('v_signature_date');
-            if (sigDate) sigDate.value = today;
-        });
-    </script>
-</body>
-</html>
+            // Use local date, not UTC (toISOStr
