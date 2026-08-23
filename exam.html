@@ -792,47 +792,47 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 
   const ENGLISH_TIERS = [
     {
-      grammar: { q: "I ___ a student.", options: ["am","is","are","be"], answer: 0 },
-      reading: { passage: "Tom has a red ball. He plays with it every day.", q: "What color is Tom's ball?", options: ["Blue","Green","Red","Yellow"], answer: 2 },
-      writing: "Write three sentences about yourself."
+      grammar: { q: "There ___ a lot of information on the internet.", options: ["is","are","be","being"], answer: 0 },
+      reading: { passage: "Tom has a red ball, but his sister Mia prefers the blue one. Every afternoon, they take turns playing in the backyard until it gets dark.", q: "Whose ball is blue?", options: ["Tom's","Mia's","Their neighbor's","Nobody's"], answer: 1 },
+      writing: "Write three sentences describing your daily routine. Use at least one time expression (for example, 'in the morning')."
     },
     {
-      grammar: { q: "Yesterday, Sarah ___ to the store.", options: ["go","goes","went","going"], answer: 2 },
-      reading: { passage: "Emma wakes up at 7:00 every morning. Before school, she eats breakfast and watches television. Her favorite subject in school is science, and her least favorite subject is history.", q: "What does Emma do before school?", options: ["Watch her phone and eat lunch","Watch television and eat breakfast","Watch television and eat dinner","Watch her phone and eat breakfast"], answer: 1 },
-      writing: "Write 2-3 sentences about your favorite food."
+      grammar: { q: "By the time we arrived, the movie ___ already started.", options: ["has","have","had","having"], answer: 2 },
+      reading: { passage: "Emma wakes up at 7:00 every morning. Even though she loves watching television, she always finishes her homework first because her parents don't allow screens before schoolwork is done.", q: "Why does Emma finish her homework before watching television?", options: ["Because she loves homework","Because her parents have a rule about it","Because the television is broken","Because she has no homework"], answer: 1 },
+      writing: "Write 3-4 sentences comparing a food you love to a food you dislike. Use a linking word such as 'but' or 'however'."
     },
     {
-      grammar: { q: "Choose the correct sentence.", options: ["He don't like playing soccer.","He doesn't likes playing soccer.","He doesn't like playing soccer.","He not like playing soccer."], answer: 2 },
-      reading: { passage: "Mia wanted to buy a new book, but she didn't have enough money. She decided to save some of her allowance each week. After a month, she had saved enough money to buy the book.", q: "Why did Mia save her allowance?", options: ["She wanted to buy a book.","She wanted to buy food.","She lost her money.","She wanted to give it to a friend."], answer: 0 },
-      writing: "Write 3-4 sentences about what you like to do after school."
+      grammar: { q: "Neither the teacher nor the students ___ ready for the test.", options: ["was","were","is","are"], answer: 1 },
+      reading: { passage: "Mia wanted to buy a new book, but she didn't have enough money. Instead of asking her parents for help, she decided to save part of her allowance every week. Although it took longer than she expected, she finally had enough after five weeks.", q: "What can we infer about Mia?", options: ["She is impatient and gives up easily","She is responsible and willing to wait for what she wants","She dislikes reading","She often asks other people for help"], answer: 1 },
+      writing: "Write 4-5 sentences describing a time you had to be patient in order to get something you wanted."
     },
     {
-      grammar: { q: "If I finish my homework early, I ___ play video games.", options: ["will","would","was","have"], answer: 0 },
-      reading: { passage: "Many students use technology to help them study. Online videos, educational websites, and digital books can make learning easier. However, technology can also become a distraction if students spend too much time playing games or using social media.", q: "What is the main idea?", options: ["Students should never use technology.","Technology can help students learn, but it can also distract them.","Games are the best way to study.","Students should only read printed books."], answer: 1 },
-      writing: "Do you think students should have homework every day? Why or why not? (5-6 sentences)"
+      grammar: { q: "If I ___ known about the traffic, I would have left earlier.", options: ["have","had","has","would have"], answer: 1 },
+      reading: { passage: "Many students use technology to help them study. Online videos, educational websites, and digital books can make learning easier and more flexible. However, students who lack self-discipline can easily become distracted by games or social media, which may lower the quality of their studying rather than improve it.", q: "According to the passage, when does technology become a problem for students?", options: ["When students use videos to study","When students lack self-discipline and get distracted","When students read digital books","Technology is never a problem for students"], answer: 1 },
+      writing: "In 6-8 sentences, argue whether schools should reduce homework. Address at least one counterargument in your response."
     }
   ];
 
   const CHINESE_TIERS = [
     {
-      grammar: { q: "What does 你好 mean?", options: ["Goodbye","Hello","Thank you","Sorry"], answer: 1 },
-      reading: { passage: "我叫小明。", q: "What does this mean?", options: ["I like Xiaoming.","I am Xiaoming. / My name is Xiaoming.","Xiaoming is my friend.","I live with Xiaoming."], answer: 1 },
-      writing: "Write one simple sentence in Chinese about yourself. (Example: 我叫 David。)"
+      grammar: { q: "Choose the correct sentence for \u201cI don't like coffee.\u201d", options: ["我不喜欢咖啡。","我喜欢咖啡不。","不喜欢我咖啡。","咖啡不我喜欢。"], answer: 0 },
+      reading: { passage: "我家有三个人：爸爸、妈妈和我。我们住在北京。", q: "根据这段话，说话人的家里有几个人？", options: ["两个","三个","四个","五个"], answer: 1 },
+      writing: "用中文写两句话介绍你的家人（至少提到一位家人）。"
     },
     {
-      grammar: { q: "Choose the correct sentence for \u201cI like Chinese food.\u201d", options: ["我中国菜喜欢。","我喜欢中国菜。","喜欢我中国菜。","中国菜喜欢我。"], answer: 1 },
-      reading: { passage: "小丽每天早上七点起床。她吃完早饭以后，八点去学校。", q: "What time does 小丽 go to school?", options: ["6:00","7:00","8:00","9:00"], answer: 2 },
-      writing: "Write 2-3 sentences in Chinese about your favorite food."
+      grammar: { q: "Choose the correct sentence for \u201cI have already eaten dinner.\u201d", options: ["我已经吃晚饭了。","我已经了吃晚饭。","我吃了已经晚饭。","已经我吃晚饭了。"], answer: 0 },
+      reading: { passage: "小丽每天早上七点起床，可是星期六和星期天她喜欢睡到九点才起床，因为不用上学。", q: "小丽周末为什么可以晚起床？", options: ["她生病了","她不用上学","她要去公园","她每天都晚起"], answer: 1 },
+      writing: "用中文写两到三句话，说说你周末通常做什么。"
     },
     {
-      grammar: { q: "Choose the grammatically correct sentence.", options: ["我昨天去学校了。","我昨天了去学校。","我了昨天去学校。","昨天了我去学校。"], answer: 0 },
-      reading: { passage: "小王很喜欢运动。他每天放学以后都会去公园跑步。星期六和星期天，他有时候会和朋友一起踢足球。", q: "What does 小王 usually do after school?", options: ["He reads books.","He plays video games.","He goes running.","He watches movies."], answer: 2 },
-      writing: "Write 3-4 sentences in Chinese about what you like to do after school."
+      grammar: { q: "Choose the correct sentence for \u201cThis book is more interesting than that one.\u201d", options: ["这本书比那本有意思。","这本书有意思比那本。","比那本这本书有意思。","那本书这本比有意思。"], answer: 0 },
+      reading: { passage: "小王很喜欢运动，他每天放学以后都会去公园跑步，可是上个星期他生病了，所以没有去跑步。这个星期他已经好了，又开始每天锻炼身体。", q: "小王上个星期为什么没有去跑步？", options: ["他太忙了","他生病了","他不喜欢跑步了","公园关门了"], answer: 1 },
+      writing: "用中文写三到四句话，说一说你有一次不能做自己平时喜欢做的事情，并说明原因。"
     },
     {
-      grammar: { q: "如果明天下雨，我___在家看书。", options: ["就","也","都","还"], answer: 0 },
-      reading: { passage: "现在很多学生使用手机学习。他们可以用手机查字典、看学习视频和阅读文章。但是，如果学生在学习的时候经常玩游戏，手机也可能影响他们的学习。", q: "What is the main idea?", options: ["Students should never use phones.","Phones can help students study, but they can also become a distraction.","Students should only use phones to play games.","Phones are better than teachers."], answer: 1 },
-      writing: "你觉得学生每天应该做作业吗？为什么？ Do you think students should have homework every day? Why or why not? (5-6 sentences)"
+      grammar: { q: "要不是他帮忙，我们___做不完这个项目。", options: ["就","也","都","才"], answer: 0 },
+      reading: { passage: "现在很多学生喜欢用手机学习，因为手机不但可以查字典，还可以看视频、听录音，甚至可以跟外国朋友聊天练习口语。但是，如果学生自制力不够，很容易被手机上的游戏和社交软件吸引，反而影响学习效果。", q: "根据这段话，手机对学生的影响是什么？", options: ["只有好处，没有坏处","只有坏处，没有好处","既有好处也有坏处，要看学生能不能自我控制","手机对学生完全没有影响"], answer: 2 },
+      writing: "用五到六句话，说说你觉得手机对学生学习是好还是坏，并说明理由。"
     }
   ];
 
