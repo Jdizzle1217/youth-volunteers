@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard preview — Bridge to China</title>
+<title>How it works — Bridge to China</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -472,7 +472,7 @@ footer a:hover{ color:#fff;}
       Bridge to China
     </a>
     <div class="nav-links">
-            <a href="how-it-works.html">How it works</a>
+            <a href="how-it-works.html" class="current">How it works</a>
       <a href="why-join.html">Why join</a>
       <a href="stories.html">Stories</a>
       <a href="safety.html">Trust & safety</a>
@@ -489,51 +489,41 @@ footer a:hover{ color:#fff;}
 <main id="top">
 
 
-  <section style="background:var(--paper-alt);">
+  <section>
     <div class="wrap">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Dashboard preview</div>
+      <div class="breadcrumb"><a href="index.html">Home</a> / How it works</div>
       <div class="head-row center">
-        <p class="eyebrow">Your dashboard</p>
-        <h1>Everything for your next session, in one view.</h1>
-        <p class="lede">This is a design preview of the dashboard, not a live account. The names and numbers shown are examples.</p>
+        <p class="eyebrow">How it works</p>
+        <h1>Two simple paths, one shared conversation.</h1>
       </div>
-      <div class="dash-shell">
-        <div class="dash-top">
-          <div class="dash-tabs">
-            <button class="dash-tab active" data-dash="student">Student view</button>
-            <button class="dash-tab" data-dash="volunteer">Volunteer view</button>
-          </div>
-          <span class="mock-tag">Preview</span>
-        </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="students">For Students</button>
+        <button class="tab-btn" data-tab="volunteers">For Volunteers</button>
+      </div>
 
-        <div class="dash-body active" id="dash-student">
-          <div>
-            <div class="dash-subhead">Upcoming lessons</div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · 08:00</span></div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · next week</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Lesson history</div>
-            <div class="lesson-row"><span class="who">Travel &amp; small talk</span><span class="when">example entry</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Current level</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Lessons completed</div></div>
-          </div>
-        </div>
+      <div class="steps active" id="steps-students">
+        <div class="step"><span class="step-num">01</span><h4>Create an account</h4><p>Sign up with a parent or guardian if you're under 18.</p></div>
+        <div class="step"><span class="step-num">02</span><h4>Take the placement exam</h4><p>A short English quiz sets your starting level.</p></div>
+        <div class="step"><span class="step-num">03</span><h4>Submit your application</h4><p>Pick from fixed topics you need help with and your preferred times.</p></div>
+        <div class="step"><span class="step-num">04</span><h4>Get matched</h4><p>We pair you with a background-checked volunteer.</p></div>
+        <div class="step"><span class="step-num">05</span><h4>Schedule weekly sessions</h4><p>Pick times that fit your week from your volunteer's calendar.</p></div>
+        <div class="step"><span class="step-num">06</span><h4>Track your progress</h4><p>Watch your level and confidence grow, session by session.</p></div>
+      </div>
 
-        <div class="dash-body" id="dash-volunteer">
-          <div>
-            <div class="dash-subhead">Lesson requests</div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 12</span><span class="when">Accept · SAT 08:00</span></div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 15</span><span class="when">Accept · SUN 09:00</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Recent lesson reports</div>
-            <div class="lesson-row"><span class="who">Submitted for Jeffrey Ding</span><span class="when">Approved</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Total volunteer hours</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Students taught</div></div>
-            <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Download certificate</a>
-          </div>
-        </div>
+      <div class="steps" id="steps-volunteers">
+        <div class="step"><span class="step-num">01</span><h4>Create an account</h4><p>Tell us about your background, with a parent or guardian if you're under 18.</p></div>
+        <div class="step"><span class="step-num">02</span><h4>Take the language exam</h4><p>A short English and Chinese assessment helps us understand your ability.</p></div>
+        <div class="step"><span class="step-num">03</span><h4>Submit your application</h4><p>Pick from fixed topics you can teach and set your weekly availability.</p></div>
+        <div class="step"><span class="step-num">04</span><h4>Complete orientation</h4><p>A short training on teaching basics and our safety guidelines.</p></div>
+        <div class="step"><span class="step-num">05</span><h4>Receive matches</h4><p>We introduce you to students who fit your availability.</p></div>
+        <div class="step"><span class="step-num">06</span><h4>Teach online</h4><p>Meet in a secure video room built right into the platform.</p></div>
+        <div class="step"><span class="step-num">07</span><h4>Earn verified hours</h4><p>Every completed lesson adds to your service-hour record.</p></div>
+      </div>
+
+      <div class="callout">
+        <h4>A note on time zones</h4>
+        <p>Because a volunteer and a student can be on opposite sides of the world, finding a weekly time that works for both people is often the hardest part of getting started, not the placement quiz or the orientation. A volunteer's evening in, say, North America or Europe can land in the middle of a student's school day in China, so the hours that actually overlap in a comfortable way, like early weekend mornings for one side and evenings for the other, are naturally in higher demand.</p>
+        <p>That's why both students and volunteers are asked to list a range of available times rather than a single slot. The wider that range, the easier it is to find a match. Even so, it may take a session or two of adjusting, or a change in the day of the week, before a rhythm settles that works for both sides. If a match's schedules truly don't overlap, students and volunteers can look for a different match rather than force a time that's inconvenient for one person.</p>
       </div>
     </div>
   </section>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard preview — Bridge to China</title>
+<title>Contact — Bridge to China</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -477,7 +477,7 @@ footer a:hover{ color:#fff;}
       <a href="stories.html">Stories</a>
       <a href="safety.html">Trust & safety</a>
       <a href="faq.html">FAQ</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="current">Contact</a>
     </div>
     <div class="nav-cta">
       <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
@@ -489,51 +489,43 @@ footer a:hover{ color:#fff;}
 <main id="top">
 
 
-  <section style="background:var(--paper-alt);">
+  <section>
     <div class="wrap">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Dashboard preview</div>
-      <div class="head-row center">
-        <p class="eyebrow">Your dashboard</p>
-        <h1>Everything for your next session, in one view.</h1>
-        <p class="lede">This is a design preview of the dashboard, not a live account. The names and numbers shown are examples.</p>
+      <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+
+      <div class="cta-band" style="margin-bottom:96px;">
+        <h1 style="color:#fff;">Ready to build a bridge of your own?</h1>
+        <p>Registration takes about ten minutes. It only takes one conversation to see why it matters.</p>
+        <div class="hero-cta">
+          <a href="register.html" class="btn" style="background:#fff; color:var(--blue);">Create an Account</a>
+        </div>
       </div>
-      <div class="dash-shell">
-        <div class="dash-top">
-          <div class="dash-tabs">
-            <button class="dash-tab active" data-dash="student">Student view</button>
-            <button class="dash-tab" data-dash="volunteer">Volunteer view</button>
-          </div>
-          <span class="mock-tag">Preview</span>
-        </div>
 
-        <div class="dash-body active" id="dash-student">
-          <div>
-            <div class="dash-subhead">Upcoming lessons</div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · 08:00</span></div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · next week</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Lesson history</div>
-            <div class="lesson-row"><span class="who">Travel &amp; small talk</span><span class="when">example entry</span></div>
+      <div class="head-row">
+        <p class="eyebrow">Contact</p>
+        <h2>Questions? We're here.</h2>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm">
+          <input type="hidden" name="_subject" value="Message from Bridge to China site">
+          <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" placeholder="Your name"></div>
+          <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="cf-msg">Message</label><textarea id="cf-msg" name="message" rows="4" placeholder="How can we help?"></textarea></div>
+          <button type="submit" class="btn btn-primary">Send message</button>
+          <p class="form-note">Sent directly to our team, no email app required.</p>
+          <div class="form-msg" id="contactMsg">Thanks! Your message has been sent.</div>
+          <div class="form-msg error" id="contactMsgError">Something went wrong sending your message. Please try again, or email us directly at jeffreyding1217@gmail.com.</div>
+        </form>
+        <dl class="contact-info">
+          <dt>General email</dt><dd>jeffreyding1217@gmail.com</dd>
+          <dt>Organization</dt><dd>Bridge to China, a volunteer-powered nonprofit</dd>
+          <dt>Follow along</dt>
+          <div class="social-row">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="Facebook">FB</a>
+            <a href="#" aria-label="LinkedIn">IN</a>
           </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Current level</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Lessons completed</div></div>
-          </div>
-        </div>
-
-        <div class="dash-body" id="dash-volunteer">
-          <div>
-            <div class="dash-subhead">Lesson requests</div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 12</span><span class="when">Accept · SAT 08:00</span></div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 15</span><span class="when">Accept · SUN 09:00</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Recent lesson reports</div>
-            <div class="lesson-row"><span class="who">Submitted for Jeffrey Ding</span><span class="when">Approved</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Total volunteer hours</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Students taught</div></div>
-            <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Download certificate</a>
-          </div>
-        </div>
+        </dl>
       </div>
     </div>
   </section>

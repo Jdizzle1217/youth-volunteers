@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard preview — Bridge to China</title>
+<title>Stories — Bridge to China</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -474,7 +474,7 @@ footer a:hover{ color:#fff;}
     <div class="nav-links">
             <a href="how-it-works.html">How it works</a>
       <a href="why-join.html">Why join</a>
-      <a href="stories.html">Stories</a>
+      <a href="stories.html" class="current">Stories</a>
       <a href="safety.html">Trust & safety</a>
       <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
@@ -489,50 +489,26 @@ footer a:hover{ color:#fff;}
 <main id="top">
 
 
-  <section style="background:var(--paper-alt);">
+  <section>
     <div class="wrap">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Dashboard preview</div>
-      <div class="head-row center">
-        <p class="eyebrow">Your dashboard</p>
-        <h1>Everything for your next session, in one view.</h1>
-        <p class="lede">This is a design preview of the dashboard, not a live account. The names and numbers shown are examples.</p>
+      <div class="breadcrumb"><a href="index.html">Home</a> / Stories</div>
+      <div class="head-row">
+        <p class="eyebrow">What people are looking forward to</p>
+        <h1>Sample conversations from the bridge.</h1>
+        <p>Bridge to China hasn't launched yet, so these aren't quotes from real sessions. They're examples of the kind of conversation we're hoping to make possible, written to illustrate what the experience is meant to feel like.</p>
       </div>
-      <div class="dash-shell">
-        <div class="dash-top">
-          <div class="dash-tabs">
-            <button class="dash-tab active" data-dash="student">Student view</button>
-            <button class="dash-tab" data-dash="volunteer">Volunteer view</button>
-          </div>
-          <span class="mock-tag">Preview</span>
+      <div class="story-grid">
+        <div class="story">
+          <p class="quote">"I'm hoping my volunteer won't just correct my grammar. I want someone who asks about my hometown and actually remembers it."</p>
+          <div class="who"><div class="dot"></div><div><div class="name">Jeffrey Ding</div><div class="role">Student</div></div></div>
         </div>
-
-        <div class="dash-body active" id="dash-student">
-          <div>
-            <div class="dash-subhead">Upcoming lessons</div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · 08:00</span></div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · next week</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Lesson history</div>
-            <div class="lesson-row"><span class="who">Travel &amp; small talk</span><span class="when">example entry</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Current level</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Lessons completed</div></div>
-          </div>
+        <div class="story">
+          <p class="quote">"I want to log real hours and learn as much about patience and teaching as any classroom could teach me."</p>
+          <div class="who"><div class="dot"></div><div><div class="name">Jeffrey Ding</div><div class="role">Volunteer</div></div></div>
         </div>
-
-        <div class="dash-body" id="dash-volunteer">
-          <div>
-            <div class="dash-subhead">Lesson requests</div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 12</span><span class="when">Accept · SAT 08:00</span></div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 15</span><span class="when">Accept · SUN 09:00</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Recent lesson reports</div>
-            <div class="lesson-row"><span class="who">Submitted for Jeffrey Ding</span><span class="when">Approved</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Total volunteer hours</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Students taught</div></div>
-            <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Download certificate</a>
-          </div>
+        <div class="story">
+          <p class="quote">"I'd love to watch my child go from quiet to chatty in English. That's the whole reason we want to sign up."</p>
+          <div class="who"><div class="dot"></div><div><div class="name">Jeffrey Ding</div><div class="role">Parent</div></div></div>
         </div>
       </div>
     </div>

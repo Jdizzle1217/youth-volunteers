@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard preview — Bridge to China</title>
+<title>FAQ — Bridge to China</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -476,7 +476,7 @@ footer a:hover{ color:#fff;}
       <a href="why-join.html">Why join</a>
       <a href="stories.html">Stories</a>
       <a href="safety.html">Trust & safety</a>
-      <a href="faq.html">FAQ</a>
+      <a href="faq.html" class="current">FAQ</a>
       <a href="contact.html">Contact</a>
     </div>
     <div class="nav-cta">
@@ -489,50 +489,45 @@ footer a:hover{ color:#fff;}
 <main id="top">
 
 
-  <section style="background:var(--paper-alt);">
+  <section>
     <div class="wrap">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Dashboard preview</div>
+      <div class="breadcrumb"><a href="index.html">Home</a> / FAQ</div>
       <div class="head-row center">
-        <p class="eyebrow">Your dashboard</p>
-        <h1>Everything for your next session, in one view.</h1>
-        <p class="lede">This is a design preview of the dashboard, not a live account. The names and numbers shown are examples.</p>
+        <p class="eyebrow">FAQ</p>
+        <h1>Good to know before you sign up.</h1>
       </div>
-      <div class="dash-shell">
-        <div class="dash-top">
-          <div class="dash-tabs">
-            <button class="dash-tab active" data-dash="student">Student view</button>
-            <button class="dash-tab" data-dash="volunteer">Volunteer view</button>
-          </div>
-          <span class="mock-tag">Preview</span>
+      <div class="faq">
+        <div class="faq-item open">
+          <button class="faq-q"><span>Is this free?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes. Bridge to China is a nonprofit platform, and it never charges students or volunteers for lessons.</p></div>
         </div>
-
-        <div class="dash-body active" id="dash-student">
-          <div>
-            <div class="dash-subhead">Upcoming lessons</div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · 08:00</span></div>
-            <div class="lesson-row"><span class="who">Session with Jeffrey Ding</span><span class="when">SAT · next week</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Lesson history</div>
-            <div class="lesson-row"><span class="who">Travel &amp; small talk</span><span class="when">example entry</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Current level</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Lessons completed</div></div>
-          </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Who can volunteer?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Any fluent English speaker who passes our background check and completes orientation, including students volunteering with a parent or guardian's consent. No teaching degree required.</p></div>
         </div>
-
-        <div class="dash-body" id="dash-volunteer">
-          <div>
-            <div class="dash-subhead">Lesson requests</div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 12</span><span class="when">Accept · SAT 08:00</span></div>
-            <div class="lesson-row"><span class="who">Jeffrey Ding, age 15</span><span class="when">Accept · SUN 09:00</span></div>
-            <div class="dash-subhead" style="margin-top:22px;">Recent lesson reports</div>
-            <div class="lesson-row"><span class="who">Submitted for Jeffrey Ding</span><span class="when">Approved</span></div>
-          </div>
-          <div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Total volunteer hours</div></div>
-            <div class="side-card"><div class="big">N/A</div><div class="lab">Students taught</div></div>
-            <a href="#" class="btn btn-ghost" style="width:100%; justify-content:center;">Download certificate</a>
-          </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Do I need teaching experience?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>No. Orientation covers everything you need to run a friendly, effective conversation session.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Do volunteers need to take a test?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes. After applying, volunteers complete a short English and Chinese assessment. It isn't pass/fail, and no Chinese ability is required to volunteer, it just helps us understand your language ability so we can match and support you well.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Won't time zones make scheduling difficult?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Sometimes, yes. A volunteer's evening can land in the middle of a student's school day, so the most convenient overlapping hours tend to be requested by more people. Listing a wide range of available times, rather than just one, is the biggest thing either side can do to make a match easier. See <a href="how-it-works.html" style="color:var(--blue); font-weight:600;">how it works</a> for more detail.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>How are volunteer hours verified?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Hours are calculated automatically from completed lessons and reviewed by our admin team before they're added to your certificate.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>What ages are students?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Students range from age 8 to adult. Anyone under 18 registers and is supervised through a parent or guardian account.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>What technology is required?</span><span class="plus">+</span></button>
+          <div class="faq-a"><p>Just a computer or tablet, a webcam, and an internet connection. Our video room runs directly in your browser.</p></div>
         </div>
       </div>
     </div>
